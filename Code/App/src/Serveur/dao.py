@@ -261,8 +261,9 @@ PROJET_LOCALISATION = '''
 CREATE TABLE IF NOT EXISTS projet_localisation
 (
     id_projet_localisation INTEGER PRIMARY KEY AUTOINCREMENT,
-    localisation INTEGER,
-    projet INTEGER
+    projet INTEGER,
+    emplacement INTEGER,
+    local INTEGER
 )
 '''
 DROP_PROJET_LOCALISATION = 'DROP TABLE IF EXISTS projet_localisation'
@@ -295,34 +296,82 @@ CREATE TABLE IF NOT EXISTS projet_equipement
     equipement INTEGER
 )
 '''
-# 2 FOREIGN KEY À METTRE 
+
 DROP_PROJET_EQUIPEMENT = 'DROP TABLE IF EXISTS projet_equipement'
 # INSERT_PROJET_EQUIPEMENT = FOREIGN KEY À FUSIONNER AFIN DE CRÉER UN ITEM
 SELECT_PROJET_EQUIPEMENT = 'SELECT * FROM projet_equipement'
 
 # TOUS LES FOREIGNS KEYS SERONTS MISE ICI 
-"""
-SET_FOREIGN_KEYS = '''
 
+ALTER_PROJET_EQUIPEMENT = '''
+    ALTER TABLE projet_equipement ADD FOREIGN KEY (projet) REFERENCES projet(id)
+    ALTER TABLE projet_equipement ADD FOREIGN KEY (equipement) REFERENCES equipement(id)
+    '''
+
+ALTER_STATISTIQUE = '''
+    ALTER TABLE statistique ADD FOREIGN KEY (module) REFERENCES module(id)
+    '''
+
+ALTER_LOCATEUR_EQUIPEMENT = '''
+    ALTER TABLE locateur_equipement ADD FOREIGN KEY (locateur) REFERENCES locateur(id)
+    ALTER TABLE locateur_equipement ADD FOREIGN KEY (equipement) REFERENCES equipement(id)
+    ALTER TABLE locateur_equipement ADD FOREIGN KEY (rangement) REFERENCES rangement(id)
+    '''
+
+ALTER_PROJET = '''
+    ALTER TABLE projet ADD FOREIGN KEY (locateur) REFERENCES locateur(id)
+    '''
+
+ALTER_PERSONNE_MODULE = '''
+    ALTER TABLE personne_module ADD FOREIGN KEY (personne) REFERENCES personne(id)
+    ALTER TABLE personne_module ADD FOREIGN KEY (module) REFERENCES module(id)
+    '''
+
+ALTER_PROJET_LOCALISATION = '''
+    ALTER TABLE projet_localisation ADD FOREIGN KEY (projet) REFERENCES projet(id)
+    ALTER TABLE projet_localisation ADD FOREIGN KEY (emplacement) REFERENCES adresse(id)
+    ALTER TABLE projet_localisation ADD FOREIGN KEY (local) REFERENCES local(id)
 '''
-"""
+
+ALTER_PROJET_EMPLOYE = '''
+    ALTER TABLE projet_employe ADD FOREIGN KEY (projet) REFERENCES projet(id)
+    ALTER TABLE projet_employe ADD FOREIGN KEY (employe) REFERENCES personne(id)
+    ALTER TABLE projet_employe ADD FOREIGN KEY (locateur) REFERENCES locateur(id)
+'''
+
+ALTER_LOCATEUR = '''
+    ALTER TABLE locateur ADD FOREIGN KEY (admin) REFERENCES personne(id)
+    ALTER TABLE locateur ADD FOREIGN KEY (adresse) REFERENCES adresse(id)
+'''
+
+ALTER_LOCATEUR_CLIENT = '''
+    ALTER TABLE locateur_client ADD FOREIGN KEY (locateur) REFERENCES locateur(id)
+    ALTER TABLE locateur_client ADD FOREIGN KEY (client) REFERENCES personne(id)
+'''
+
+ALTER_FACTURE = '''
+    ALTER TABLE facture ADD FOREIGN KEY (client) REFERENCES personne(id)
+    ALTER TABLE facture ADD FOREIGN KEY (projet) REFERENCES projet(id)
+'''
+
+ALTER_MESSAGE = '''
+    ALTER TABLE message ADD FOREIGN KEY (expediteur) REFERENCES personne(id)
+    ALTER TABLE message ADD FOREIGN KEY (destinataire) REFERENCES destinataire(id)
+'''
+
+ALTER_EMPLOYE_ROLE = '''
+    ALTER TABLE employe_role ADD FOREIGN KEY (employe) REFERENCES personne(id) 
+    ALTER TABLE employe_role ADD FOREIGN KEY (role) REFERENCES role(id) 
+'''
+
+
 # mettre à jour cette partie après le ménage des tables
 class Dao():
     __creer = [
-        CREER_CLIENT,
-        CREER_PROJET,
-        CREER_MODULES,
-        CREER_COMPAGNIE,
-        CREER_MEMBRE,
-        CREER_LOCAL,
-        CREER_EQUIPEMENT
+        
     ]
     __detruire = [
-        DROP_CLIENT,
-        DROP_PROJET,
-        DROP_MODULES,
-        DROP_MEMBRE,
-        DROP_COMPAGNIE
+        
     ]
     
     #singleton pas possible car:
