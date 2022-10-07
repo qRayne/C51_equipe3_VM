@@ -4,39 +4,133 @@ FK_ON = 'PRAGMA foreign_keys = 1'
 
 BD_GEST_MEDIA = 'gestion_media.db'
 
-# ***************** CLIENT *********************
 
-CREER_CLIENT = '''
-CREATE TABLE IF NOT EXISTS client
+# ***************** MODULE *********************
+CREER_MODULE = '''
+CREATE TABLE IF NOT EXISTS module
 (
-    idclient INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    id_module INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     nom TEXT,
-    courriel TEXT,
-    tel TEXT,
-    compagnie TEXT,
-    adresse TEXT,
-    rue TEXT,
-    ville TEXT
+    version NUMERIC NOT NULL,
+    prixjour DECIMAL
 )'''
-DROP_CLIENT = 'DROP TABLE IF EXISTS client'
-INSERT_CLIENT = 'INSERT INTO client(nom, courriel, tel, compagnie, adresse, rue, ville) VALUES(?, ?, ?, ?, ?, ?, ?)'
-SELECT_CLIENT = 'SELECT * FROM client'
+DROP_MODULE = 'DROP TABLE IF EXISTS module'
+INSERT_MODULE = 'INSERT INTO module(nom, version, prixjour) VALUES(?, ?, ?)'
+SELECT_MODULE = 'SELECT * FROM module'
+
+
+# ***************** ADRESSE *********************
+CREER_ADRESSE = '''
+CREATE TABLE IF NOT EXISTS adresse
+(
+    id_adresse INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    rue TEXT,
+    numero NUMERIC,
+    appartement TEXT,
+    ville TEXT,
+    province_etat TEXT,
+    pays TEXT,
+    codepostal TEXT
+)
+'''
+DROP_ADRESSE = 'DROP TABLE IF EXISTS adresse'
+INSERT_ADRESSE = 'INSERT INTO adresse(rue, numero, appartement, ville, province_etat, pays, codepostal) VALUES(?, ?, ?, ?, ?, ?, ?)'
+SELECT_ADRESSE = 'SELECT * FROM ADRESSE'
+
+
+# ***************** PERSONNE *********************
+CREER_PERSONNE = '''
+CREATE TABLE IF NOT EXISTS personne
+(
+    id_personne INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    nom TEXT NOT NULL,
+    prenom TEXT NOT NULL,
+    courriel TEXT NOT NULL,
+    adresse NUMERIC,
+    telephone TEXT
+)
+'''
+DROP_PERSONNE = 'DROP TABLE IF EXISTS personne'
+INSERT_PERSONNE = 'INSERT INTO personne(nom, prenom, courriel, rue, numero, appartement, ville, province, pays, codepostal, telephone) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' 
+SELECT_PERSONNE = 'SELECT * FROM personne'
+
+
+# ***************** LOCATEUR *********************
+CREER_LOCATEUR = '''
+CREATE TABLE IF NOT EXISTS locateur
+(
+    id_locateur INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    nomcompagnie TEXT,
+    adresse NUMERIC,
+    telephone TEXT,
+    admin NUMERIC
+)
+'''
+DROP_LOCATEUR = 'DROP TABLE IF EXISTS locateur'
+INSERT_LOCATEUR = 'INSERT INTO locateur(nomcompagnie, adresse, telephone, admin) VALUES(?, ?, ?, ?)'
+SELECT_LOCATEUR = 'SELECT * FROM locateur'
+
+
+# ***************** PERSONNE_MODULE *********************
+CREER_PERSONNE_MODULE = '''
+CREATE TABLE IF NOT EXISTS personne_module
+(
+    id_personne_module INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    personne NUMERIC NOT NULL, 
+    module NUMERIC NOT NULL
+)
+'''
+DROP_PERSONNE_MODULE = 'DROP TABLE IF EXISTS personne_module'
+INSERT_PERSONNE_MODULE = 'INSERT INTO personne_module(personne, module) VALUES(?, ?, ?)'
+SELECT_PERSONNE_MODULE = 'SELECT * FROM personne_module'
+                
+
+# ***************** ROLE *********************
+CREER_ROLE = '''
+CREATE TABLE IF NOT EXISTS role
+(
+    idrole  INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    role TEXT
+)
+'''
+DROP_ROLE = 'DROP TABLE IF EXISTS role'
+INSERT_ROLE = 'INSERT INTO role(role) VALUES(?)'
+SELECT_ROLE = 'SELECT * FROM role'
+
+
+# ***************** FACTURE *********************
+CREER_FACTURE = '''
+CREATE TABLE IF NOT EXISTS facture
+(
+    id_facture INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    client NUMERIC,
+    projet NUMERIC,
+    montant DECIMAL,
+    etat TEXT  
+)
+'''
+DROP_FACTURE = 'DROP TABLE IF EXISTS facture'
+INSERT_FACTURE = 'INSERT INTO facture(client, projet, montant, etat) VALUES(?, ?)'
+SELECT_FACTURE = 'SELECT * FROM facture'
+
+
+# ***************** MESSAGE *********************
+CREER_MESSAGE = '''
+CREATE TABLE IF NOT EXISTS message
+(
+    id_message INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    contenu TEXT,
+    expediteur NUMERIC,
+    destinataire NUMERIC
+)
+'''
+DROP_MESSAGE = 'DROP TABLE IF EXISTS message'
+INSERT_MESSAGE = 'INSERT INTO messsage(contenu, expediteur, destinataire) VALUES(?, ?, ?)'
+SELECT_MESSAGE = 'SELECT * FROM message'
+
+
 
 # ***************** PROJET *********************
-
-# CREER_PROJET = '''
-# CREATE TABLE IF NOT EXISTS projet
-# (
-#     idprojet INTEGER PRIMARY KEY AUTOINCREMENT,
-#     nomdeprojet TEXT UNIQUE,
-#     client NUMERIC,
-#     chargedeprojet NUMERIC,
-#     datedelancement DATE,
-#     datedefinprevue DATE
-# )'''
-# DROP_PROJET = 'DROP TABLE IF EXISTS projet'
-# INSERT_PROJET = 'INSERT INTO projet(nomdeprojet, client, chargedeprojet, datedelancement, datedefinprevue) VALUES(?, ?, ?, ?, ?)'
-# SELECT_PROJET = 'SELECT * FROM projet'
 
 CREER_PROJET = '''
 CREATE TABLE IF NOT EXISTS projet
@@ -51,48 +145,6 @@ DROP_PROJET = 'DROP TABLE IF EXISTS projet'
 INSERT_PROJET = 'INSERT INTO projet(locateur,debut_lancement_projet,fin_lancement_projet) VALUES(?, ?, ?)'
 SELECT_PROJET = 'SELECT * FROM projet'
 
-# ***************** MODULES *********************
-
-CREER_MODULES = '''
-CREATE TABLE IF NOT EXISTS modules
-(
-    idmodule INTEGER PRIMARY KEY AUTOINCREMENT,
-    monmodule TEXT NOT NULL,
-    version NUMERIC NOT NULL
-)'''
-DROP_MODULES = 'DROP TABLE IF EXISTS modules'
-INSERT_MODULES = 'INSERT INTO modules(monmodule, version) VALUES(?, ?)'
-SELECT_MODULES = 'SELECT * FROM modules'
-
-# ***************** COMPAGNIE *********************
-
-CREER_COMPAGNIE = '''
-CREATE TABLE IF NOT EXISTS compagnie
-(
-    idcompagnie INTEGER PRIMARY KEY AUTOINCREMENT,
-    nomcompagnie TEXT UNIQUE
-)
-'''
-DROP_COMPAGNIE = 'DROP TABLE IF EXISTS compagnie'
-INSERT_COMPAGNIE = 'INSERT INTO compagnie(nomcompagnie) VALUES(?)'
-SELECT_COMPAGNIE = 'SELECT * FROM compagnie'
-
-# ***************** MEMBRE *********************
-
-CREER_MEMBRE = '''
-CREATE TABLE IF NOT EXISTS membre
-(
-    idmembre INTEGER PRIMARY KEY AUTOINCREMENT,
-    compagnie NUMERIC NOT NULL REFERENCES compagnie(idcompagnie),
-    identifiant TEXT NOT NULL,
-    mdp TEXT,
-    permission TEXT NOT NULL,
-    titre TEXT
-)
-'''
-DROP_MEMBRE = 'DROP TABLE IF EXISTS membre'
-INSERT_MEMBRE = 'INSERT INTO membre(compagnie, identifiant, mdp, permission, titre) VALUES(?, ?, ?, ?, ?)'
-SELECT_MEMBRE = 'SELECT * FROM membre'
 
 # ***************** LOCAL *********************
 CREER_LOCAL = '''
@@ -107,6 +159,7 @@ DROP_LOCAL = 'DROP TABLE IF NOT EXISTS local'
 INSERT_LOCAL = 'INSERT INTO local(adresse) VALUES (?)'
 SELECT_LOCAL = 'SELECT * FROM LOCAL'
 
+
 # ***************** EQUIPEMENT *********************
 CREER_EQUIPEMENT = '''
 CREATE TABLE IF NOT EXISTS equipement
@@ -118,6 +171,7 @@ CREATE TABLE IF NOT EXISTS equipement
 DROP_EQUIPEMENT = 'DROP TABLE IF NOT EXISTS equipement'
 INSERT_EQUIPEMENT = 'INSERT INTO equipement(type_equipement,modele_equipement) VALUES (?,?)'
 SELECT_EQUIPEMENT = 'SELECT * FROM equipement'
+
 
 # ***************** STATISTIQUE *********************
 CREER_STATISTIQUE = '''
@@ -133,8 +187,70 @@ INSERT_STATISTIQUE = 'INSERT INTO statistique(module,nb_utilisateur) VALUES (?,?
 SELECT_STATISTIQUE = 'SELECT * FROM statistique'
 
 
+# ***************** TABLES DE LIAISONS *******************
 
-# TOUTES LES TABLES DE LIAISONS SERONTS MISE ICI 
+
+# ***************** LOCATEUR_EMPLOYE *********************
+CREER_LOCATEUR_EMPLOYE = '''
+CREATE TABLE IF NOT EXISTS locateur_employe
+(
+    id_locateur_employe INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    locateur NUMERIC,
+    employe NUMERIC,
+    salaire DECIMAL
+)
+'''
+DROP_LOCATEUR_EMPLOYE = 'DROP TABLE IF EXISTS locateur_employe'
+INSERT_LOCATEUR_EMPLOYE = 'INSERT INTO locateur_employe(locateur, employe, salaire) VALUES(?, ?, ?)'
+SELECT_LOCATEUR_EMPLOYE = 'SELECT * FROM locateur_employe'
+
+
+# ***************** EMPLOYE_ROLE *********************
+CREER_EMPLOYE_ROLE = '''
+CREATE TABLE IF NOT EXISTS employe_role
+(
+    id_employe_role INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    employe NUMERIC,
+    role NUMERIC
+)
+'''
+DROP_EMPLOYE_ROLE = 'DROP TABLE IF EXISTS employe_role'
+INSERT_EMPLOYE_ROLE = 'INSERT INTO employe_role(employe, role) VALUES(?, ?)'
+SELECT_EMPLOYE_ROLE = 'SELECT * FROM employe_role'
+
+
+# ***************** LOCATEUR_CLIENT *********************
+CREER_LOCATEUR_CLIENT = '''
+CREATE TABLE IF NOT EXISTS locateur_client
+(
+    id_locateur_client INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    locateur NUMERIC,
+    client NUMERIC
+)
+'''
+DROP_LOCATEUR_CLIENT = 'DROP TABLE IF EXISTS locateur_client'
+INSERT_LOCATEUR_CLIENT = 'INSERT INTO locateur_client(locateur, personne) VALUES(?, ?)'
+SELECT_LOCATEUR_CLIENT = 'SELECT * FROM locateur_client'
+
+
+# ***************** LOCATEUR_EQUIPEMENT *********************
+CREER_LOCATEUR_EQUIPEMENT = '''
+CREATE TABLE IF NOT EXISTS locateur_equipement
+(
+    id_locateur_equipement INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    locateur NUMERIC,
+    equipement NUMERIC,
+    rangement NUMERIC,
+    no_serie TEXT,
+    date_achat DATE,
+    valeur_achat DECIMAL,
+    valeur_location DECIMAL
+)
+'''
+DROP_LOCATEUR_EQUIPEMENT = 'DROP TABLE IF EXISTS LOCATEUR_EQUIPEMENT'
+INSERT_LOCATEUR_EQUIPEMENT = 'INSERT INTO locateur_equipement(locateur, equipement, rangement, no_serie, date_achat, valeur_achat, valeur_location) VALUES(?, ?, ?, ?, ?, ?, ?)'
+SELECT_LOCATEUR_EQUIPEMENT = 'SELECT * FROM locateur_equipement'
+
 
 # ***************** PROJET_LOCALISATION *********************
 # TABLE DE LIAISON
@@ -150,6 +266,7 @@ DROP_PROJET_LOCALISATION = 'DROP TABLE IF EXISTS projet_localisation'
 # INSERT_PROJET_LOCALISATION = FOREIGN KEY À FUSIONNER AFIN DE CRÉER UN ITEM
 SELECT_PROJET_LOCALISATION = 'SELECT * FROM projet_localisation'
 
+
 # ***************** PROJET_EMPLOYE *********************
 # TABLE DE LIAISON
 PROJET_EMPLOYE = '''
@@ -164,6 +281,7 @@ CREATE TABLE IF NOT EXISTS projet_employe
 DROP_PROJET_EMPLOYE = 'DROP TABLE IF EXISTS projet_employe'
 # INSERT_PROJET_EMPLOYE = FOREIGN KEY À FUSIONNER AFIN DE CRÉER UN ITEM
 SELECT_PROJET_EMPLOYE = 'SELECT * FROM projet_employe'
+
 
 # ***************** PROJET_EQUIPEMENT *********************
 PROJET_EQUIPEMENT = '''
@@ -184,7 +302,7 @@ SELECT_PROJET_EQUIPEMENT = 'SELECT * FROM projet_equipement'
 """
 
 """
-
+# mettre à jour cette partie après le ménage des tables
 class Dao():
     __creer = [
         CREER_CLIENT,
