@@ -311,18 +311,14 @@ class Dao():
         CREER_COMPAGNIE,
         CREER_MEMBRE,
         CREER_LOCAL,
-        CREER_EQUIPEMENT,
-        CREER_STATISTIQUE
+        CREER_EQUIPEMENT
     ]
     __detruire = [
         DROP_CLIENT,
         DROP_PROJET,
         DROP_MODULES,
         DROP_MEMBRE,
-        DROP_COMPAGNIE,
-        DROP_LOCAL,
-        DROP_EQUIPEMENT,
-        DROP_STATISTIQUE
+        DROP_COMPAGNIE
     ]
     
     #singleton pas possible car:
