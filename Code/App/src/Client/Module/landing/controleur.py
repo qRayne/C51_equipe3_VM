@@ -7,7 +7,7 @@ path.append('../Utils')
 import utils
 
 #class Controleur_Client(Controleur):
-class Controleur_Client:
+class Controleur_landing():
     def set_vue(self, vue):
         self.vue = vue
 
@@ -32,19 +32,11 @@ class Controleur_Client:
     # Le nom de la fonction voulue est envoyée
     # par le controleur_client et reçu par le
     # controleur_serveur dans le request.form
-    def identifier_usager(self, nom, mdp):
-        infos = {
-            utils.FONCTION:utils.IDENTIFIER_USAGER,
-            utils.NOM:nom,
-            utils.MDP:mdp
-        }
-        return self.appel_serveur(infos)
-
+   
 # test
 def main():
-    c = Controleur_Client()
-    d = c.identifier_usager('toto', 'totototo')
-    print(d)
+    c = Controleur_landing()
+    d = c.set_vue(Vue_landing);
     return 0
 
 if __name__ == '__main__':

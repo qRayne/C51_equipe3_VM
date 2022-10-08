@@ -32,19 +32,12 @@ class Controleur_Client:
     # Le nom de la fonction voulue est envoyée
     # par le controleur_client et reçu par le
     # controleur_serveur dans le request.form
-    def identifier_usager(self, nom, mdp):
-        infos = {
-            utils.FONCTION:utils.IDENTIFIER_USAGER,
-            utils.NOM:nom,
-            utils.MDP:mdp
-        }
-        return self.appel_serveur(infos)
-
+   
 # test
 def main():
     c = Controleur_Client()
-    d = c.identifier_usager('toto', 'totototo')
-    print(d)
+  
+
     return 0
 
 if __name__ == '__main__':
