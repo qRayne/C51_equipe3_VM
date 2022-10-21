@@ -13,11 +13,12 @@ class Module(Tk):
     def __init__(self):
         super().__init__()
         controleur = Controleur_Client()   
-        login = Vue(self)
-        login.grid(row=0, column=0, padx=10, pady=10)
-        login.set_controleur(controleur)
-        controleur.set_vue(login)
+        self.login = Vue(self)
+        self.login.grid(row=0, column=0, padx=10, pady=10)
+        self.login.set_controleur(controleur)
+        controleur.set_vue(self.login)
         
+    def landingpage(self):
         Cl = Controleur_landing()
         l = Vue_landing()
         # l.grid(row=0, column=0, padx=10, pady=10)
@@ -32,6 +33,10 @@ class Module(Tk):
 def main():
     try:
         module = Module()
+        # if module.login.clic_bouton_connexion():
+        module.landingpage()
+            
+        
         module.mainloop()
     except:
         print_exc()

@@ -1,12 +1,14 @@
 import tkinter as tk
 from tkinter import ttk
+# from module import Module
+
 
 class Vue(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
         self.controleur = None
         self.remplir_vue()
-
+        # self.module = Module()
     def set_controleur(self, controleur):
         self.controleur = controleur
 
@@ -42,9 +44,11 @@ class Vue(ttk.Frame):
             reponse = self.controleur.identifier_usager(self.var_nom.get(), self.var_mdp.get())
             if len(reponse):
                 self.afficher_succes(reponse)
-                
+                # self.module.landingpage()
+                return True  
             else:
                 self.afficher_erreur(f'Nom ou mot de passe incorrects')
+                return False
 
     def clic_bouton_annuler(self):
         self.var_nom.set('')

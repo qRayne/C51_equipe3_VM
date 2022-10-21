@@ -7,7 +7,7 @@ path.append('../Utils')
 import utils
 
 #class Controleur_Client(Controleur):
-class Controleur_Client:
+class Controleur_landing():
     def set_vue(self, vue):
         self.vue = vue
 
@@ -35,9 +35,8 @@ class Controleur_Client:
    
 # test
 def main():
-    c = Controleur_Client()
-  
-
+    c = Controleur_landing()
+    d = c.set_vue(Vue_projet);
     return 0
 
 if __name__ == '__main__':
