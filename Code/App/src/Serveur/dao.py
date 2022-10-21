@@ -527,21 +527,17 @@ class Dao():
     #     self.cur.execute(SELECT_COMPAGNIE)
     #     return self.cur.fetchall()
 
-    # def identifier_usager(self, nom, mdp):
-    #     sql = '''
-    #         SELECT
-    #             membre.identifiant,
-    #             membre.permission,
-    #             membre.titre,
-    #             compagnie.idcompagnie,
-    #             compagnie.nomcompagnie
-    #         FROM membre
-    #         INNER JOIN compagnie
-    #         ON membre.compagnie = compagnie.idcompagnie
-    #         WHERE membre.identifiant = ? AND membre.mdp = ?  
-    #     '''
-    #     self.cur.execute(sql, (nom, mdp))
-    #     return self.cur.fetchall()
+    def identifier_usager(self, identifiant, mdp):
+        sql = '''
+            SELECT
+                usager.identifiant,
+                usager.locateur,
+                usager.permission
+            FROM usager
+            WHERE usager.identifiant = ? AND usager.mdp = ?  
+        '''
+        self.cur.execute(sql, (identifiant, mdp))
+        return self.cur.fetchall()
 
 def main():
     Dao().creer_bd()
