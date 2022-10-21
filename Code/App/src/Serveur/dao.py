@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS locateur
     id_locateur INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     nom_compagnie TEXT UNIQUE NOT NULL,
     telephone TEXT,
-    adresse INTEGER REFERENCES adresse(id_adresse),
+    adresse INTEGER REFERENCES adresse(id_adresse)
 )
 '''
 DROP_LOCATEUR = 'DROP TABLE IF EXISTS locateur'
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS usager
     locateur INTEGER NOT NULL REFERENCES locateur(id_locateur),
     identifiant TEXT UNIQUE NOT NULL, 
     mdp TEXT NOT NULL,
-    permission TEXT NOT NULL,
+    permission TEXT NOT NULL
 )
 '''
 DROP_USAGER = 'DROP TABLE IF EXISTS usager'
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS equipement
     marque TEXT
 )
 '''
-DROP_EQUIPEMENT = 'DROP TABLE IF NOT EXISTS equipement'
+DROP_EQUIPEMENT = 'DROP TABLE IF EXISTS equipement'
 INSERT_EQUIPEMENT = 'INSERT INTO equipement(type_equipement ,modele_equipement,marque) VALUES (?,?,?)'
 SELECT_EQUIPEMENT = 'SELECT * FROM equipement'
 
@@ -118,11 +118,11 @@ CREATE TABLE IF NOT EXISTS local
 (
     id_local INTEGER PRIMARY KEY AUTOINCREMENT,
     adresse INTEGER REFERENCES adresse(id_adresse),
-    no_local INTEGER,
+    no_local INTEGER
 )
 '''
 # FOREIGN KEY A ajouter (adresse)
-DROP_LOCAL = 'DROP TABLE IF NOT EXISTS local'
+DROP_LOCAL = 'DROP TABLE IF EXISTS local'
 INSERT_LOCAL = '''INSERT INTO local(adresse,no_local) VALUES
     ('adresse', (SELECT id_adresse from adresse WHERE rue=? AND numero=? AND appartment=? AND code_postal=?),?)'''
 SELECT_LOCAL = 'SELECT * FROM LOCAL'
@@ -168,13 +168,13 @@ SELECT_FACTURE_LOCATEUR = 'SELECT * FROM facture_locateur'
 CREER_STATISTIQUE = '''
 CREATE TABLE IF NOT EXISTS statistique
 (
-    id_statistique INTERGER PRIMARY KEY AUTOINCREMENT,
+    id_statistique INTEGER PRIMARY KEY AUTOINCREMENT,
     module INTEGER REFERENCES module(id_module),
     nb_utilistateur INTEGER
 )
 '''
-# FOREIGN KEY A ajouter (module)
-DROP_STATISTIQUE = 'DROP TABLE IF NOT EXISTS statistique'
+
+DROP_STATISTIQUE = 'DROP TABLE IF EXISTS statistique'
 INSERT_STATISTIQUE = '''INSERT INTO statistique(module,nb_utilisateur) VALUES 
     ('module', (SELECT id_module from module WHERE nom = ?)),?)'''
 SELECT_STATISTIQUE = 'SELECT * FROM statistique'
@@ -325,14 +325,14 @@ CREATE TABLE IF NOT EXISTS projet_localisation
 (
     id_projet_localisation INTEGER PRIMARY KEY AUTOINCREMENT,
     projet INTEGER REFERENCES projet(id_projet),
-    emplacement INTEGER REFERENES adresse(id_adresse),
+    emplacement INTEGER REFERENCES adresse(id_adresse),
     local INTEGER REFERENCES local(id_local)
 )
 '''
 DROP_PROJET_LOCALISATION = 'DROP TABLE IF EXISTS projet_localisation'
 INSERT_PROJET_LOCALISATION = '''INSERT INTO projet_localisation(projet,emplacement,local) VALUES
     ('projet', (SELECT id_projet FROM projet WHERE nom_projet = ?),
-    ('emplacement', (SELECT id_adresse FROM adresse WHERE rue=? AND numero=? AND appartment=? AND code_postal=?),
+    ('emplacement', (SELECT id_adresse FROM adresse WHERE rue=? AND numero=? AND appartement=? AND code_postal=?),
     ('local', (SELECT id_local FROM local WHERE no_local = ?))'''
 SELECT_PROJET_LOCALISATION = 'SELECT * FROM projet_localisation'
 
@@ -463,28 +463,27 @@ class Dao():
         CREER_FACTURE_CLIENT
     ]
     __detruire = [
-        CREER_FACTURE_CLIENT,
-        CREER_PROJET_EQUIPEMENT,
-        CREER_PROJET_LOCALISATION,
-        CREER_PROJET_EMPLOYE,
-        CREER_LOCATEUR_CLIENT,
-        CREER_LOCATEUR_EQUIPEMENT,
-        CREER_EMPLOYE_ROLE,
-        CREER_LOCATEUR_EMPLOYE,
-        CREER_PERSONNE_MODULE,
-        CREER_MESSAGE,
-        CREER_ROLE,
-        CREER_STATISTIQUE,
-        CREER_FACTURE_LOCATEUR,
-        CREER_PROJET,
-        CREER_LOCAL,
-        CREER_EQUIPEMENT,
-        CREER_USAGER,
-        CREER_LOCATEUR,
-        CREER_MODULE,
-        CREER_PERSONNE,
-        CREER_ADRESSE,
-        
+        DROP_FACTURE_CLIENT,
+        DROP_PROJET_EQUIPEMENT,
+        DROP_PROJET_LOCALISATION,
+        DROP_PROJET_EMPLOYE,
+        DROP_LOCATEUR_CLIENT,
+        DROP_LOCATEUR_EQUIPEMENT,
+        DROP_EMPLOYE_ROLE,
+        DROP_LOCATEUR_EMPLOYE,
+        DROP_PERSONNE_MODULE,
+        DROP_MESSAGE,
+        DROP_ROLE,
+        DROP_STATISTIQUE,
+        DROP_FACTURE_LOCATEUR,
+        DROP_PROJET,
+        DROP_LOCAL,
+        DROP_EQUIPEMENT,
+        DROP_USAGER,
+        DROP_LOCATEUR,
+        DROP_MODULE,
+        DROP_PERSONNE,
+        DROP_ADRESSE,
     ]
     
     #singleton pas possible car:
