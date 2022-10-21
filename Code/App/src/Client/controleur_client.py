@@ -3,6 +3,7 @@ import urllib.parse
 import json
 
 from sys import path
+from Code.App.src.Client.Module.accueil.vue_acceuil import Vue_accueil
 path.append('../Utils')
 import utils
 
@@ -44,6 +45,8 @@ class Controleur_Client:
 def main():
     c = Controleur_Client()
     d = c.identifier_usager('toto', 'totototo')
+    e = c.set_vue(Vue_accueil);
+    
     print(d)
     return 0
 

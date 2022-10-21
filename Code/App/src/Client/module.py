@@ -3,10 +3,9 @@ from tkinter import Tk
 from vue import Vue
 from controleur_client import Controleur_Client
 from sys import path
-path.append('./Module/landing')
-from controleur import Controleur_landing 
-path.append('./Module/landing')
-from vue_landing import Vue_landing
+
+path.append('./Module/accueil')
+from vue_accueil import Vue_accueil
 
 
 class Module(Tk):
@@ -18,23 +17,18 @@ class Module(Tk):
         self.login.set_controleur(controleur)
         controleur.set_vue(self.login)
         
-    def landingpage(self):
-        Cl = Controleur_landing()
-        l = Vue_landing()
+    def pageaccueil(self):
+        Cl = Controleur_Client()
+        l = Vue_accueil()
         # l.grid(row=0, column=0, padx=10, pady=10)
         l.set_controleur(Cl)
         Cl.set_vue(l)
     
-    
-        
-        
-        
-
 def main():
     try:
         module = Module()
         # if module.login.clic_bouton_connexion():
-        module.landingpage()
+        module.pageaccueil()
             
         
         module.mainloop()

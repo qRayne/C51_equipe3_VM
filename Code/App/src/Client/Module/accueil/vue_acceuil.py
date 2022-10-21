@@ -1,13 +1,11 @@
-from distutils.cmd import Command
-from logging import root
 from tkinter import *
 from tkinter.ttk import *
 import os
 
-class Vue_landing():
+class Vue_accueil():
     def __init__(self):
         super().__init__()
-        self.title = "Landing page"
+        self.title = "page accueil"
         self.width = 1280
         self.height = 720
         self.master = None

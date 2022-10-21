@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import ttk
-# from module import Module
 
 
 class Vue(ttk.Frame):
@@ -44,7 +43,6 @@ class Vue(ttk.Frame):
             reponse = self.controleur.identifier_usager(self.var_nom.get(), self.var_mdp.get())
             if len(reponse):
                 self.afficher_succes(reponse)
-                # self.module.landingpage()
                 return True  
             else:
                 self.afficher_erreur(f'Nom ou mot de passe incorrects')
