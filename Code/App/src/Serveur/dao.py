@@ -32,12 +32,14 @@ CREATE TABLE IF NOT EXISTS personne
     nom TEXT NOT NULL,
     prenom TEXT NOT NULL,
     courriel TEXT UNIQUE NOT NULL,
-    adresse INTEGER REFERENCES adresse(id_adresse),
-    telephone TEXT
+    telephone TEXT,
+    adresse INTEGER REFERENCES adresse(id_adresse)
+
 )
 '''
 DROP_PERSONNE = 'DROP TABLE IF EXISTS personne'
-INSERT_PERSONNE = 'INSERT INTO personne(nom, prenom, courriel, rue, numero, appartement, ville, province, pays, codepostal, telephone) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' 
+INSERT_PERSONNE = '''INSERT INTO personne(nom, prenom, courriel, telephone, adresse) VALUES(?, ?, ?, ?, 
+    ('adresse', (SELECT id_adresse from adresse WHERE rue=? AND numero=? AND appartment=? AND code_postal=?)))''' 
 SELECT_PERSONNE = 'SELECT * FROM personne'
 
 
@@ -67,7 +69,8 @@ CREATE TABLE IF NOT EXISTS locateur
 )
 '''
 DROP_LOCATEUR = 'DROP TABLE IF EXISTS locateur'
-INSERT_LOCATEUR = 'INSERT INTO locateur(nom_compagnie, telephone, adresse) VALUES(?, ?, ?)'
+INSERT_LOCATEUR = '''INSERT INTO locateur(nom_compagnie, telephone, adresse) VALUES(?, ?,    
+    ('adresse', (SELECT id_adresse from adresse WHERE rue=? AND numero=? AND appartment=? AND code_postal=?)))'''
 SELECT_LOCATEUR = 'SELECT * FROM locateur'
 
 # ***************** USAGER *********************
@@ -509,38 +512,37 @@ class Dao():
         for table in Dao.__creer:
             self.cur.execute(table)
 
-    def insert_membre(self, compagnie, identifiant, mdp, permission, titre):
-        self.cur.execute(INSERT_MEMBRE, (compagnie, identifiant, mdp, permission, titre))
-        self.conn.commit()
+    # def insert_membre(self, compagnie, identifiant, mdp, permission, titre):
+    #     self.cur.execute(INSERT_MEMBRE, (compagnie, identifiant, mdp, permission, titre))
+    #     self.conn.commit()
 
-    def insert_compagnie(self, nomcompagnie):
-        self.cur.execute(INSERT_COMPAGNIE, (nomcompagnie,))
-        self.conn.commit()
+    # def insert_compagnie(self, nomcompagnie):
+    #     self.cur.execute(INSERT_COMPAGNIE, (nomcompagnie,))
+    #     self.conn.commit()
 
-    def select_membre(self):
-        self.cur.execute(SELECT_MEMBRE)
-        return self.cur.fetchall()
+    # def select_membre(self):
+    #     self.cur.execute(SELECT_MEMBRE)
+    #     return self.cur.fetchall()
 
-    def select_compagnie(self):
-        self.cur.execute(SELECT_COMPAGNIE)
-        return self.cur.fetchall()
+    # def select_compagnie(self):
+    #     self.cur.execute(SELECT_COMPAGNIE)
+    #     return self.cur.fetchall()
 
-    def identifier_usager(self, nom, mdp):
-        sql = '''
-            SELECT
-                membre.identifiant,
-                membre.permission,
-                membre.titre,
-                compagnie.idcompagnie,
-                compagnie.nomcompagnie
-            FROM membre
-            INNER JOIN compagnie
-            ON membre.compagnie = compagnie.idcompagnie
-            WHERE membre.identifiant = ? AND membre.mdp = ?  
-        '''
-        self.cur.execute(sql, (nom, mdp))
-        return self.cur.fetchall()
-
+    # def identifier_usager(self, nom, mdp):
+    #     sql = '''
+    #         SELECT
+    #             membre.identifiant,
+    #             membre.permission,
+    #             membre.titre,
+    #             compagnie.idcompagnie,
+    #             compagnie.nomcompagnie
+    #         FROM membre
+    #         INNER JOIN compagnie
+    #         ON membre.compagnie = compagnie.idcompagnie
+    #         WHERE membre.identifiant = ? AND membre.mdp = ?  
+    #     '''
+    #     self.cur.execute(sql, (nom, mdp))
+    #     return self.cur.fetchall()
 
 def main():
     Dao().creer_bd()
