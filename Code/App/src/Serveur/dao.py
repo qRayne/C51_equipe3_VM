@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS personne
     id_personne INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     nom TEXT NOT NULL,
     prenom TEXT NOT NULL,
-    courriel TEXT NOT NULL,
+    courriel TEXT UNIQUE NOT NULL,
     adresse INTEGER REFERENCES adresse(id_adresse),
     telephone TEXT
 )
@@ -61,9 +61,9 @@ CREER_LOCATEUR = '''
 CREATE TABLE IF NOT EXISTS locateur
 (
     id_locateur INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    nom_compagnie TEXT,
+    nom_compagnie TEXT UNIQUE NOT NULL,
     telephone TEXT,
-    adresse INTEGER REFERENCES adresse(id_adresse),
+    adresse INTEGER REFERENCES adresse(id_adresse)
 )
 '''
 DROP_LOCATEUR = 'DROP TABLE IF EXISTS locateur'
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS usager
     locateur INTEGER NOT NULL REFERENCES locateur(id_locateur),
     identifiant TEXT NOT NULL,
     mdp TEXT,
-    permission TEXT NOT NULL,
+    permission TEXT NOT NULL
 )
 '''
 DROP_USAGER = 'DROP TABLE IF EXISTS usager'
@@ -202,7 +202,8 @@ CREATE TABLE IF NOT EXISTS personne_module
 )
 '''
 DROP_PERSONNE_MODULE = 'DROP TABLE IF EXISTS personne_module'
-INSERT_PERSONNE_MODULE = 'INSERT INTO personne_module(personne, module) VALUES(?, ?, ?)'
+# FK
+#INSERT_PERSONNE_MODULE = 'INSERT INTO personne_module(personne, module) VALUES(?, ?, ?)'
 SELECT_PERSONNE_MODULE = 'SELECT * FROM personne_module'
 
 
@@ -217,7 +218,8 @@ CREATE TABLE IF NOT EXISTS locateur_employe
 )
 '''
 DROP_LOCATEUR_EMPLOYE = 'DROP TABLE IF EXISTS locateur_employe'
-INSERT_LOCATEUR_EMPLOYE = 'INSERT INTO locateur_employe(locateur, employe, salaire) VALUES(?, ?, ?)'
+# FK
+#INSERT_LOCATEUR_EMPLOYE = 'INSERT INTO locateur_employe(locateur, employe, salaire) VALUES(?, ?, ?)'
 SELECT_LOCATEUR_EMPLOYE = 'SELECT * FROM locateur_employe'
 
 
@@ -231,7 +233,8 @@ CREATE TABLE IF NOT EXISTS employe_role
 )
 '''
 DROP_EMPLOYE_ROLE = 'DROP TABLE IF EXISTS employe_role'
-INSERT_EMPLOYE_ROLE = 'INSERT INTO employe_role(employe, role) VALUES(?, ?)'
+# FK
+#INSERT_EMPLOYE_ROLE = 'INSERT INTO employe_role(employe, role) VALUES(?, ?)'
 SELECT_EMPLOYE_ROLE = 'SELECT * FROM employe_role'
 
 
@@ -250,7 +253,8 @@ CREATE TABLE IF NOT EXISTS locateur_equipement
 )
 '''
 DROP_LOCATEUR_EQUIPEMENT = 'DROP TABLE IF EXISTS LOCATEUR_EQUIPEMENT'
-INSERT_LOCATEUR_EQUIPEMENT = 'INSERT INTO locateur_equipement(locateur, equipement, rangement, no_serie, date_achat, valeur_achat, valeur_location) VALUES(?, ?, ?, ?, ?, ?, ?)'
+# FK
+#INSERT_LOCATEUR_EQUIPEMENT = 'INSERT INTO locateur_equipement(locateur, equipement, rangement, no_serie, date_achat, valeur_achat, valeur_location) VALUES(?, ?, ?, ?, ?, ?, ?)'
 SELECT_LOCATEUR_EQUIPEMENT = 'SELECT * FROM locateur_equipement'
 
 
@@ -264,7 +268,8 @@ CREATE TABLE IF NOT EXISTS locateur_client
 )
 '''
 DROP_LOCATEUR_CLIENT = 'DROP TABLE IF EXISTS locateur_client'
-INSERT_LOCATEUR_CLIENT = 'INSERT INTO locateur_client(locateur, personne) VALUES(?, ?)'
+# FK
+#INSERT_LOCATEUR_CLIENT = 'INSERT INTO locateur_client(locateur, personne) VALUES(?, ?)'
 SELECT_LOCATEUR_CLIENT = 'SELECT * FROM locateur_client'
 
 
@@ -280,6 +285,7 @@ CREATE TABLE IF NOT EXISTS projet_employe
 )
 '''
 DROP_PROJET_EMPLOYE = 'DROP TABLE IF EXISTS projet_employe'
+# FK
 # INSERT_PROJET_EMPLOYE = FOREIGN KEY À FUSIONNER AFIN DE CRÉER UN ITEM
 SELECT_PROJET_EMPLOYE = 'SELECT * FROM projet_employe'
 
@@ -296,6 +302,7 @@ CREATE TABLE IF NOT EXISTS projet_localisation
 )
 '''
 DROP_PROJET_LOCALISATION = 'DROP TABLE IF EXISTS projet_localisation'
+# FK
 # INSERT_PROJET_LOCALISATION = FOREIGN KEY À FUSIONNER AFIN DE CRÉER UN ITEM
 SELECT_PROJET_LOCALISATION = 'SELECT * FROM projet_localisation'
 
@@ -311,6 +318,7 @@ CREATE TABLE IF NOT EXISTS projet_equipement
 '''
 
 DROP_PROJET_EQUIPEMENT = 'DROP TABLE IF EXISTS projet_equipement'
+# FK
 # INSERT_PROJET_EQUIPEMENT = FOREIGN KEY À FUSIONNER AFIN DE CRÉER UN ITEM
 SELECT_PROJET_EQUIPEMENT = 'SELECT * FROM projet_equipement'
 
@@ -328,7 +336,8 @@ CREATE TABLE IF NOT EXISTS facture_client
 )
 '''
 DROP_FACTURE_CLIENT = 'DROP TABLE IF EXISTS facture_client'
-INSERT_FACTURE_CLIENT = 'INSERT INTO facture_client(client, projet, detail, montant, statut) VALUES(?, ?, ?, ?, ?)'
+# FK
+#INSERT_FACTURE_CLIENT = 'INSERT INTO facture_client(client, projet, detail, montant, statut) VALUES(?, ?, ?, ?, ?)'
 SELECT_FACTURE_CLIENT = 'SELECT * FROM facture_client'
 
 
@@ -422,7 +431,7 @@ class Dao():
         CREER_FACTURE_CLIENT
     ]
     __detruire = [
-        CREER_FACTURE_CLIENT
+        CREER_FACTURE_CLIENT,
         CREER_PROJET_EQUIPEMENT,
         CREER_PROJET_LOCALISATION,
         CREER_PROJET_EMPLOYE,
@@ -442,8 +451,7 @@ class Dao():
         CREER_LOCATEUR,
         CREER_MODULE,
         CREER_PERSONNE,
-        CREER_ADRESSE,
-        
+        CREER_ADRESSE,        
     ]
     
     #singleton pas possible car:
