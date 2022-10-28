@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS personne
 '''
 DROP_PERSONNE = 'DROP TABLE IF EXISTS personne'
 INSERT_PERSONNE = '''INSERT INTO personne(nom, prenom, courriel, telephone, adresse) VALUES(?, ?, ?, ?, 
-    ('adresse', (SELECT id_adresse from adresse WHERE rue=? AND numero=? AND appartment=? AND code_postal=?)))''' 
+    ('adresse', (SELECT id_adresse from adresse WHERE rue=? AND numero=? AND appartement=? AND code_postal=?)))''' 
 SELECT_PERSONNE = 'SELECT * FROM personne'
 
 
@@ -474,11 +474,32 @@ class Dao():
         self.cur.execute(sql, (identifiant, mdp))
         return self.cur.fetchall()
     
+    def trouver_personne(self,courriel):
+        sql = '''
+            SELECT
+                personne.courriel
+            FROM personne
+            WHERE personne.courriel = ?
+        ''' 
+        self.cur.execute(sql,(courriel))
+        return self.cur.fetchall()
+        
     def creer_personne(self,nom,prenom,courriel,telephone,adresse):
         sql = INSERT_PERSONNE
         # adresse à voir
         self.cur.execute(sql,(nom,prenom,courriel,telephone,adresse))
         return self.cur.fetchall()
+     
+    def trouver_locateur(self, nom_compagnie):
+        sql = '''
+            SELECT
+                locateur.nom_compagnie
+            FROM locateur
+            WHERE locateur.nom_compagnie = ?
+        ''' 
+        self.cur.execute(sql,(nom_compagnie))
+        return self.cur.fetchall()
+
     
     def creer_locateur(self,nom_compagnie,telephone_compagnie,adresse):
         sql = INSERT_LOCATEUR
