@@ -3,7 +3,11 @@ import urllib.parse
 import json
 
 from sys import path
-from Code.App.src.Client.Module.accueil.vue_acceuil import Vue_accueil
+path.append('./Module/accueil')
+from vue_accueil import Vue_accueil
+
+
+from sys import path
 path.append('../Utils')
 import utils
 
