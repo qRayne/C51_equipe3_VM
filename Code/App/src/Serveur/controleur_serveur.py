@@ -26,7 +26,40 @@ class Controleur_Serveur:
     # instance de sqlite3 doit être utilisée dans le même
     # thread que celui de sa création
     def identifier_usager(self, form):
-        nom = form[utils.NOM]
+        identifiant = form[utils.IDENTIFIANT]
         mdp = form[utils.MDP]
-        return Dao().identifier_usager(nom, mdp)
-        
+        return Dao().identifier_usager(identifiant, mdp)
+    
+    def creer_personne(self,form):
+        nom = form[utils.NOM],
+        prenom = form[utils.PRENOM],
+        courriel = form[utils.COURRIEL],
+        telephone = form[utils.TELEPHONE_PERSONNE],
+        adresse = form[utils.ADRESSE]
+        return Dao.creer_personne(nom,prenom,courriel,telephone,adresse) 
+    
+    def creer_locateur(self,form):
+        nomCompagnie = form[utils.NOM_COMPAGNIE],
+        telephoneCompagnie = form[utils.TELEPHONE_COMPAGNIE],
+        adresse = form[utils.ADRESSE]
+        return Dao.creer_locateur(nomCompagnie,telephoneCompagnie,adresse)  
+    
+    def enregister_usager(self,form):
+        personneEmail = form[utils.PERSONNE_EMAIL],
+        locateurNomCompagnie = form[utils.LOCATEUR_NOM_COMPAGNIE],
+        identifiant = form[utils.IDENTIFIANT]
+        mdp = form[utils.MDP],
+        permission = form[utils.PERMISSION]
+        return Dao.enregistrer_usager(personneEmail,locateurNomCompagnie,identifiant,mdp,permission) 
+
+    
+    def creer_adresse(self,form):
+        rue = form[utils.RUE],
+        numero = form[utils.NUMERO],
+        appartement = form[utils.APPARTEMENT],
+        ville = form[utils.VILLE],
+        province = form[utils.PROVINCE_ETAT],
+        pays = form[utils.PAYS],
+        codePostal = form[utils.CODE_POSTAL]
+        return Dao.creer_adresse(rue,numero,appartement,ville,province,pays,codePostal)
+    

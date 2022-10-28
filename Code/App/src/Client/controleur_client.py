@@ -36,14 +36,60 @@ class Controleur_Client:
     # Le nom de la fonction voulue est envoyée
     # par le controleur_client et reçu par le
     # controleur_serveur dans le request.form
-    def identifier_usager(self, nom, mdp):
+    def identifier_usager(self, identifiant, mdp):
         infos = {
             utils.FONCTION:utils.IDENTIFIER_USAGER,
-            utils.NOM:nom,
+            utils.IDENTIFIANT:identifiant,
             utils.MDP:mdp
         }
         return self.appel_serveur(infos)
+    
+    def creer_personne(self, nom, prenom, courriel, telephonePersonne, adresse=""):
+        infos = {
+            utils.FONCTION:utils.CREER_PERSONNE,
+            utils.NOM:nom,
+            utils.PRENOM:prenom,
+            utils.COURRIEL:courriel,
+            utils.TELEPHONE:telephonePersonne,
+            utils.ADRESSE:adresse
+        }
+        return self.appel_serveur(infos)
+    
+    def creer_locateur(self,nomCompagnie,telephoneCompagnie,adresse=""):
+        infos = {
+            utils.FONCTION:utils.CREER_LOCATEUR,
+            utils.NOM_COMPAGNIE:nomCompagnie,
+            utils.TELEPHONE_COMPAGNIE:telephoneCompagnie,
+            utils.ADRESSE:adresse
+        }
+        return self.appel_serveur(infos)
 
+    
+    def enregistrer_usager(self,personneEmail,locateurNomCompagnie,identifiant,mdp,permission):
+        infos = {
+            utils.FONCTION:utils.ENREGISTER_USAGER,
+            utils.PERSONNE_EMAIL:personneEmail,
+            utils.LOCATEUR_NOM_COMPAGNIE:locateurNomCompagnie,
+            utils.IDENTIFIANT:identifiant,
+            utils.MDP:mdp,
+            utils.PERMISSION:permission
+        }
+        return self.appel_serveur(infos)
+    
+    def creer_adresse(self, rue, numero, appartement, ville, province_etat, pays, code_postal):
+        infos = {
+            utils.FONCTION:utils.CREER_ADRESSE,
+            utils.RUE:rue,
+            utils.NUMERO:numero,
+            utils.APPARTEMENT:appartement,
+            utils.VILLE:ville,
+            utils.PROVINCE_ETAT:province_etat,
+            utils.PAYS:pays,
+            utils.CODE_POSTAL:code_postal
+        }
+        return self.appel_serveur(infos)
+        
+    
 # test
 def main():
     c = Controleur_Client()

@@ -372,72 +372,6 @@ INSERT_FACTURE_CLIENT = '''INSERT INTO facture_client(client, projet, detail, mo
     ('projet', (SELECT id_projet FROM projet WHERE nom_projet = ?), ?, ?, ?))'''
 SELECT_FACTURE_CLIENT = 'SELECT * FROM facture_client'
 
-
-# TOUS LES FOREIGNS KEYS SERONTS MISE ICI 
-
-# ALTER_PROJET_EQUIPEMENT = '''
-#     ALTER TABLE projet_equipement ADD FOREIGN KEY (projet) REFERENCES projet(id)
-#     ALTER TABLE projet_equipement ADD FOREIGN KEY (equipement) REFERENCES equipement(id)
-#     '''
-
-# ALTER_STATISTIQUE = '''
-#     ALTER TABLE statistique ADD FOREIGN KEY (module) REFERENCES module(id)
-#     '''
-
-# ALTER_LOCATEUR_EQUIPEMENT = '''
-#     ALTER TABLE locateur_equipement ADD FOREIGN KEY (locateur) REFERENCES locateur(id)
-#     ALTER TABLE locateur_equipement ADD FOREIGN KEY (equipement) REFERENCES equipement(id)
-#     ALTER TABLE locateur_equipement ADD FOREIGN KEY (rangement) REFERENCES rangement(id)
-#     '''
-
-# ALTER_PROJET = '''
-#     ALTER TABLE projet ADD FOREIGN KEY (locateur) REFERENCES locateur(id)
-#     '''
-
-# ALTER_PERSONNE_MODULE = '''
-#     ALTER TABLE personne_module ADD FOREIGN KEY (personne) REFERENCES personne(id)
-#     ALTER TABLE personne_module ADD FOREIGN KEY (module) REFERENCES module(id)
-#     '''
-
-# ALTER_PROJET_LOCALISATION = '''
-#     ALTER TABLE projet_localisation ADD FOREIGN KEY (projet) REFERENCES projet(id)
-#     ALTER TABLE projet_localisation ADD FOREIGN KEY (emplacement) REFERENCES adresse(id)
-#     ALTER TABLE projet_localisation ADD FOREIGN KEY (local) REFERENCES local(id)
-# '''
-
-# ALTER_PROJET_EMPLOYE = '''
-#     ALTER TABLE projet_employe ADD FOREIGN KEY (projet) REFERENCES projet(id)
-#     ALTER TABLE projet_employe ADD FOREIGN KEY (employe) REFERENCES personne(id)
-#     ALTER TABLE projet_employe ADD FOREIGN KEY (locateur) REFERENCES locateur(id)
-# '''
-
-# ALTER_LOCATEUR = '''
-#     ALTER TABLE locateur ADD FOREIGN KEY (admin) REFERENCES personne(id)
-#     ALTER TABLE locateur ADD FOREIGN KEY (adresse) REFERENCES adresse(id)
-# '''
-
-# ALTER_LOCATEUR_CLIENT = '''
-#     ALTER TABLE locateur_client ADD FOREIGN KEY (locateur) REFERENCES locateur(id)
-#     ALTER TABLE locateur_client ADD FOREIGN KEY (client) REFERENCES personne(id)
-# '''
-
-# ALTER_FACTURE = '''
-#     ALTER TABLE facture ADD FOREIGN KEY (client) REFERENCES personne(id)
-#     ALTER TABLE facture ADD FOREIGN KEY (projet) REFERENCES projet(id)
-# '''
-
-# ALTER_MESSAGE = '''
-#     ALTER TABLE message ADD FOREIGN KEY (expediteur) REFERENCES personne(id)
-#     ALTER TABLE message ADD FOREIGN KEY (destinataire) REFERENCES destinataire(id)
-# '''
-
-# ALTER_EMPLOYE_ROLE = '''
-#     ALTER TABLE employe_role ADD FOREIGN KEY (employe) REFERENCES personne(id) 
-#     ALTER TABLE employe_role ADD FOREIGN KEY (role) REFERENCES role(id) 
-# '''
-
-
-# mettre à jour cette partie après le ménage des tables
 class Dao():
     __creer = [
         CREER_ADRESSE,
@@ -532,12 +466,35 @@ class Dao():
             SELECT
                 usager.identifiant,
                 usager.locateur,
+                usager.personne,
                 usager.permission
             FROM usager
             WHERE usager.identifiant = ? AND usager.mdp = ?  
         '''
         self.cur.execute(sql, (identifiant, mdp))
         return self.cur.fetchall()
+    
+    def creer_personne(self,nom,prenom,courriel,telephone,adresse):
+        sql = INSERT_PERSONNE
+        # adresse à voir
+        self.cur.execute(sql,(nom,prenom,courriel,telephone,adresse))
+        return self.cur.fetchall()
+    
+    def creer_locateur(self,nom_compagnie,telephone_compagnie,adresse):
+        sql = INSERT_LOCATEUR
+        self.cur.execute(sql,(nom_compagnie,telephone_compagnie,adresse))
+        return self.cur.fetchall()
+    
+    def enregistrer_usager(self,personne_email,locateur_nom_compagnie,identifiant,mdp,permission):
+        sql = INSERT_USAGER
+        self.cur.execute(sql,(personne_email,locateur_nom_compagnie,identifiant,mdp,permission))
+        return self.cur.fetchall()
+
+    def creer_adresse(self,rue,numero,appartement,ville,province,pays,code_postal):
+        sql = INSERT_ADRESSE
+        self.cur.execute(sql,(rue,numero,appartement,ville,province,pays,code_postal))
+        return self.cur.fetchall()
+        
 
 def main():
     Dao().creer_bd()
@@ -547,3 +504,71 @@ def main():
 #print('Dans le module Dao: ', __name__)
 if __name__ == '__main__':
     quit(main())
+
+
+
+# TOUS LES FOREIGNS KEYS SERONTS MISE ICI 
+
+# ALTER_PROJET_EQUIPEMENT = '''
+#     ALTER TABLE projet_equipement ADD FOREIGN KEY (projet) REFERENCES projet(id)
+#     ALTER TABLE projet_equipement ADD FOREIGN KEY (equipement) REFERENCES equipement(id)
+#     '''
+
+# ALTER_STATISTIQUE = '''
+#     ALTER TABLE statistique ADD FOREIGN KEY (module) REFERENCES module(id)
+#     '''
+
+# ALTER_LOCATEUR_EQUIPEMENT = '''
+#     ALTER TABLE locateur_equipement ADD FOREIGN KEY (locateur) REFERENCES locateur(id)
+#     ALTER TABLE locateur_equipement ADD FOREIGN KEY (equipement) REFERENCES equipement(id)
+#     ALTER TABLE locateur_equipement ADD FOREIGN KEY (rangement) REFERENCES rangement(id)
+#     '''
+
+# ALTER_PROJET = '''
+#     ALTER TABLE projet ADD FOREIGN KEY (locateur) REFERENCES locateur(id)
+#     '''
+
+# ALTER_PERSONNE_MODULE = '''
+#     ALTER TABLE personne_module ADD FOREIGN KEY (personne) REFERENCES personne(id)
+#     ALTER TABLE personne_module ADD FOREIGN KEY (module) REFERENCES module(id)
+#     '''
+
+# ALTER_PROJET_LOCALISATION = '''
+#     ALTER TABLE projet_localisation ADD FOREIGN KEY (projet) REFERENCES projet(id)
+#     ALTER TABLE projet_localisation ADD FOREIGN KEY (emplacement) REFERENCES adresse(id)
+#     ALTER TABLE projet_localisation ADD FOREIGN KEY (local) REFERENCES local(id)
+# '''
+
+# ALTER_PROJET_EMPLOYE = '''
+#     ALTER TABLE projet_employe ADD FOREIGN KEY (projet) REFERENCES projet(id)
+#     ALTER TABLE projet_employe ADD FOREIGN KEY (employe) REFERENCES personne(id)
+#     ALTER TABLE projet_employe ADD FOREIGN KEY (locateur) REFERENCES locateur(id)
+# '''
+
+# ALTER_LOCATEUR = '''
+#     ALTER TABLE locateur ADD FOREIGN KEY (admin) REFERENCES personne(id)
+#     ALTER TABLE locateur ADD FOREIGN KEY (adresse) REFERENCES adresse(id)
+# '''
+
+# ALTER_LOCATEUR_CLIENT = '''
+#     ALTER TABLE locateur_client ADD FOREIGN KEY (locateur) REFERENCES locateur(id)
+#     ALTER TABLE locateur_client ADD FOREIGN KEY (client) REFERENCES personne(id)
+# '''
+
+# ALTER_FACTURE = '''
+#     ALTER TABLE facture ADD FOREIGN KEY (client) REFERENCES personne(id)
+#     ALTER TABLE facture ADD FOREIGN KEY (projet) REFERENCES projet(id)
+# '''
+
+# ALTER_MESSAGE = '''
+#     ALTER TABLE message ADD FOREIGN KEY (expediteur) REFERENCES personne(id)
+#     ALTER TABLE message ADD FOREIGN KEY (destinataire) REFERENCES destinataire(id)
+# '''
+
+# ALTER_EMPLOYE_ROLE = '''
+#     ALTER TABLE employe_role ADD FOREIGN KEY (employe) REFERENCES personne(id) 
+#     ALTER TABLE employe_role ADD FOREIGN KEY (role) REFERENCES role(id) 
+# '''
+
+
+# mettre à jour cette partie après le ménage des tables
