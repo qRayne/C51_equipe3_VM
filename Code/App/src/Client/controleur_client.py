@@ -44,32 +44,32 @@ class Controleur_Client:
         }
         return self.appel_serveur(infos)
     
-    def creer_personne(self, nom, prenom, courriel, telephonePersonne, adresse=""):
+    def creer_personne(self, nom, prenom, courriel, telephone_personne, adresse=""):
         infos = {
             utils.FONCTION:utils.CREER_PERSONNE,
             utils.NOM:nom,
             utils.PRENOM:prenom,
             utils.COURRIEL:courriel,
-            utils.TELEPHONE:telephonePersonne,
+            utils.TELEPHONE:telephone_personne,
             utils.ADRESSE:adresse
         }
         return self.appel_serveur(infos)
     
-    def creer_locateur(self,nomCompagnie,telephoneCompagnie,adresse=""):
+    def creer_locateur(self,nom_compagnie,telephone_compagnie,adresse=""):
         infos = {
             utils.FONCTION:utils.CREER_LOCATEUR,
-            utils.NOM_COMPAGNIE:nomCompagnie,
-            utils.TELEPHONE_COMPAGNIE:telephoneCompagnie,
+            utils.NOM_COMPAGNIE:nom_compagnie,
+            utils.TELEPHONE_COMPAGNIE:telephone_compagnie,
             utils.ADRESSE:adresse
         }
         return self.appel_serveur(infos)
 
     
-    def enregistrer_usager(self,personneEmail,locateurNomCompagnie,identifiant,mdp,permission):
+    def enregistrer_usager(self,personne_email,locateur_nom_compagnie,identifiant,mdp,permission):
         infos = {
             utils.FONCTION:utils.ENREGISTER_USAGER,
-            utils.PERSONNE_EMAIL:personneEmail,
-            utils.LOCATEUR_NOM_COMPAGNIE:locateurNomCompagnie,
+            utils.PERSONNE_EMAIL:personne_email,
+            utils.LOCATEUR_NOM_COMPAGNIE:locateur_nom_compagnie,
             utils.IDENTIFIANT:identifiant,
             utils.MDP:mdp,
             utils.PERMISSION:permission
