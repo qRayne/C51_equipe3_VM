@@ -49,9 +49,3 @@ class Vue_accueil():
     def open_projet(self):
         topProjet = Toplevel()
         topProjet.title("projet")
-        
-        
-
-        
-    
-    

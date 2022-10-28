@@ -21,16 +21,22 @@ class Module(Tk):
         self.controleur.set_vue(self.login)
         
     def page_accueil(self):
-        layout_accueil = Vue_accueil()
+        layout_accueil = Vue_accueil(self)
         # l.grid(row=0, column=0, padx=10, pady=10)
         layout_accueil.set_controleur(self.controleur)
         self.controleur.set_vue(layout_accueil)
         
     def page_enregistrer(self):
-        layout_enregistrer = Vue_enregistrer()
+        layout_enregistrer = Vue_enregistrer(self)
         # l.grid(row=0, column=0, padx=10, pady=10)
         layout_enregistrer.set_controleur(self.controleur)
         self.controleur.set_vue(layout_enregistrer)
+    
+    def add_user(self):
+    
+        #self.var_identifiant.get(), self.var_password.get(), 
+        #self.var_email.get(), self.var_permission, self.var_name_compagny.get()
+        pass
     
 def main():
     try:
@@ -38,7 +44,12 @@ def main():
         
         if (module.login.if_enregistrer):
             module.page_enregistrer()
-            module.login.clicked_enregistrer;
+            module.login.clicked_enregistrer
+            
+            
+
+            
+            
             
         
         #print(module.login.clic_bouton_connexion())

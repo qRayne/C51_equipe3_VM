@@ -1,5 +1,2 @@
-/.idea/
-/Code/App/src/Serveur/__pycache__/
-/Code/App/src/Client/accueil/__pycache__/
-/Code/App/src/Client/__pycache__/
-/Code/App/src/Utils/__pycache__/
+.idea/
+__pycache__/

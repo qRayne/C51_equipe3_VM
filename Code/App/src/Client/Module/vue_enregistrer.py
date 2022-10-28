@@ -24,10 +24,8 @@ class Vue_enregistrer():
         os.system('python' + file)
 
     def label_vide(self, r, c):
-        label = Label(self.master, text="       ")
-        label.grid(row=r, column=c)
-    
-      
+        label = Label(self.master)
+        label.grid(row=r, column=c,  pady=(5, 0))
         
     def remplir_vue(self):
         self.master = Tk()
@@ -37,36 +35,53 @@ class Vue_enregistrer():
         self.label_vide(2, 0)
         self.label_vide(3, 0)
 
-        last_name_text = Label(self.master, text="last name")
-        last_name_text.grid(row=0, column=1)
+        identifiant_text = Label(self.master, text="ID: ") # prenom
+        identifiant_text.grid(row=0, column=1,  pady=(5, 0), sticky=tk.E)
         
-          
-        self.var_lastname = StringVar()
-        self.input_lastname = Entry(self.master, textvariable=self.var_lastname, width=30)
-        self.input_lastname.grid(row=0, column=2, sticky=tk.E)
+        self.var_identifiant = StringVar()
+        self.input_identifiant = Entry(self.master, textvariable=self.var_identifiant, width=30)
+        self.input_identifiant.grid(row=0, column=2,  pady=(5, 0), sticky=tk.E)
         
-        first_name = Label(self.master, text="first name")
-        first_name.grid(row=1, column=1)
+        nom_company_text = Label(self.master, text="Compagnie: ") # nom Compagnie
+        nom_company_text.grid(row=1, column=1, pady=(5, 0), sticky=tk.E)
         
-        self.var_firstname = StringVar()
-        self.input_firstname = Entry(self.master, textvariable=self.var_firstname, width=30)
-        self.input_firstname.grid(row=1, column=2, sticky=tk.E)
+        self.var_name_compagny = StringVar()
+        self.input_name_company = Entry(self.master, textvariable=self.var_name_compagny, width=30)
+        self.input_name_company.grid(row=1, column=2, pady=(5, 0), sticky=tk.E)
         
-        title_name = Label(self.master, text="title name")
-        title_name.grid(row=2, column=1)
+        email_text = Label(self.master, text="E-mail: ") # mail
+        email_text.grid(row=2, column=1, pady=(5, 0), sticky=tk.E)
         
         
-        self.var_title = StringVar()
-        self.input_title = Entry(self.master, textvariable=self.var_title, width=30)
-        self.input_title.grid(row=2, column=2, sticky=E)
+        self.var_email= StringVar()
+        self.input_email = Entry(self.master, textvariable=self.var_email, width=30)
+        self.input_email.grid(row=2, column=2, pady=(5, 0), sticky=tk.E)
         
-        btn_1 = Button(self.master, text="Enregistrer",  command=self.add_user)        
-        btn_1.grid(row=4, column=4)
+    
+        password_text = Label(self.master, text="Mot de passe: ") # mot de passe
+        password_text.grid(row=3, column=1, pady=(5, 0), sticky=tk.E)
+    
+        self.var_password = StringVar()
+        self.input_title = Entry(self.master, textvariable=self.var_password, width=30)
+        self.input_title.grid(row=3, column=2, pady=(5, 0), sticky=tk.E)
+        
+        permission_text = Label(self.master, text="Permission: ") # permission
+        permission_text.grid(row=4, column=1, pady=(5, 0), sticky=tk.E)
+        
+        self.var_permission = StringVar()
+        self.input_permission = Entry(self.master, textvariable=self.var_permission, width=30)
+        self.input_permission.grid(row=4, pady=(5, 0),column=2, sticky=tk.E)
+        
+        
+        btn_1 = Button(self.master, text="Enregistrer", command=self.btn_enregistrer)        
+        btn_1.grid(row=6, column=2)
                 
       
         self.master.mainloop()
         
-    def add_user(self):
-        # self.var_nom.get(), self.var_mdp.get()
-        pass
+    def btn_enregistrer(self):
+        #if self.controleur:
+            #message d'erreur par controleur ou par vue?
+            #reponse = self.controleur.enregistrer_usager()
+            pass
         

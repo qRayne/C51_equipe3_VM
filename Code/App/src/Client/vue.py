@@ -69,7 +69,6 @@ class Vue(ttk.Frame):
     
     def clicked_enregistrer(self):
         self.if_enregistrer = False;
-        
          
     def clic_bouton_annuler(self):
         self.var_nom.set('')
