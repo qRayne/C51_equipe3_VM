@@ -72,9 +72,9 @@ class Vue(ttk.Frame):
         self.label_message['foreground'] = 'green'
         self.label_message.after(3000, self.cacher_message)
         self.input_nom['foreground'] = 'black'
-        # self.var_nom.set('')
+        #self.var_nom.set(self.input_nom)
         self.input_mdp['foreground'] = 'black'
-        # self.var_mdp.set('')
+        #self.var_mdp.set(self.input_mdp)
 
     def cacher_message(self):
         self.label_message['text'] = ''

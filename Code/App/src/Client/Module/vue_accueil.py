@@ -44,7 +44,6 @@ class Vue_accueil():
         btn_4 = Button(self.master, text="button 4", command="")
         btn_4.grid(row=5, column=2)
                 
-        
         self.master.mainloop()
         
     def open_projet(self):

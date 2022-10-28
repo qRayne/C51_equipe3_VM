@@ -7,12 +7,10 @@ path.append('../Utils')
 import utils
 
 
-path.append('./Module/accueil')
+path.append('./Module')
 from vue_accueil import Vue_accueil
 
 
-
-#class Controleur_Client(Controleur):
 class Controleur_Client:
     def set_vue(self, vue):
         self.vue = vue
