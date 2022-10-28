@@ -1,6 +1,9 @@
 import tkinter as tk
 from tkinter import Toplevel, ttk
+from sys import path
 
+path.append('./Module')
+from vue_enregistrer import Vue_enregistrer
 
 class Vue(ttk.Frame):
     def __init__(self, parent):
@@ -8,6 +11,8 @@ class Vue(ttk.Frame):
         self.controleur = None
         self.remplir_vue()
         # self.module = Module()
+        self.if_enregistrer = False;
+        
     def set_controleur(self, controleur):
         self.controleur = controleur
 
@@ -26,9 +31,9 @@ class Vue(ttk.Frame):
         self.input_mdp = ttk.Entry(self, textvariable=self.var_mdp, show='*', width=30)
         self.input_mdp.grid(row=2, column=1, sticky=tk.E)
         
-        self.bouton_enregistre = ttk.Button(self, text='enregistre', command=self.clic_bouton_enregistre)
-        self.bouton_enregistre.bind('<Return>', lambda e: self.bouton_connexion.invoke())
-        self.bouton_enregistre.grid(row=6, column=0, pady=(20, 0), sticky=tk.E)
+        self.bouton_enregistrer = ttk.Button(self, text='enregistre', command=self.clic_bouton_enregistrer)
+        self.bouton_enregistrer.bind('<Return>', lambda e: self.bouton_connexion.invoke())
+        self.bouton_enregistrer.grid(row=6, column=0, pady=(20, 0), sticky=tk.E)
         
         self.bouton_connexion = ttk.Button(self, text='Connexion', command=self.clic_bouton_connexion)
         self.bouton_connexion.bind('<Return>', lambda e: self.bouton_connexion.invoke())
@@ -52,10 +57,20 @@ class Vue(ttk.Frame):
                 self.afficher_erreur(f'Nom ou mot de passe incorrects')
                 return False
             
-    def clic_bouton_enregistre(self):
-        topProjet = Toplevel()
-        topProjet.title("Enregistre")
-
+    def clic_bouton_enregistrer(self):
+        layout_enregistrer = Vue_enregistrer()
+        # l.grid(row=0, column=0, padx=10, pady=10)
+        layout_enregistrer.set_controleur(self.controleur)
+        self.controleur.set_vue(layout_enregistrer)
+        self.if_enregistrer = True;
+        
+    def if_clic_enregistrer(self):
+        return self.if_enregistrer;
+    
+    def clicked_enregistrer(self):
+        self.if_enregistrer = False;
+        
+         
     def clic_bouton_annuler(self):
         self.var_nom.set('')
         self.var_mdp.set('')

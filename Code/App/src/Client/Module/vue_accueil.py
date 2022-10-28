@@ -5,7 +5,7 @@ import os
 class Vue_accueil():
     def __init__(self):
         super().__init__()
-        self.title = "page accueil"
+        self.title = "Page d'acceuil"
         self.width = 1280
         self.height = 720
         self.master = None
@@ -32,7 +32,7 @@ class Vue_accueil():
         title_name = Label(self.master, text="title name")
         title_name.grid(row=0, column=5)
         
-        btn_1 = Button(self.master, text="button 1", command=self.open_projet)        
+        btn_1 = Button(self.master, text="Projet", command=self.open_projet)        
         btn_1.grid(row=2, column=2)
         
         btn_2 = Button(self.master, text="button 2", command="")
