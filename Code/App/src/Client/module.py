@@ -27,7 +27,8 @@ class Module(Tk):
 def main():
     try:
         module = Module()
-        # if module.login.clic_bouton_connexion():
+        #print(module.login.clic_bouton_connexion())
+        #module.login.afficher_succes()
         module.pageaccueil()
             
         

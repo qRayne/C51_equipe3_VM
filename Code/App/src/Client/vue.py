@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import Toplevel, ttk
 
 
 class Vue(ttk.Frame):
@@ -26,10 +26,14 @@ class Vue(ttk.Frame):
         self.input_mdp = ttk.Entry(self, textvariable=self.var_mdp, show='*', width=30)
         self.input_mdp.grid(row=2, column=1, sticky=tk.E)
         
+        self.bouton_enregistre = ttk.Button(self, text='enregistre', command=self.clic_bouton_enregistre)
+        self.bouton_enregistre.bind('<Return>', lambda e: self.bouton_connexion.invoke())
+        self.bouton_enregistre.grid(row=6, column=0, pady=(20, 0), sticky=tk.E)
+        
         self.bouton_connexion = ttk.Button(self, text='Connexion', command=self.clic_bouton_connexion)
         self.bouton_connexion.bind('<Return>', lambda e: self.bouton_connexion.invoke())
         self.bouton_connexion.grid(row=3, column=1, pady=(20, 0), sticky=tk.E)
-
+        
         self.bouton_annuler = ttk.Button(self, text='Annuler', command=self.clic_bouton_annuler)
         self.bouton_annuler.bind('<Return>', lambda e: self.bouton_annuler.invoke())
         self.bouton_annuler.grid(row=4, column=1, pady=(10, 0), sticky=tk.E)
@@ -47,6 +51,10 @@ class Vue(ttk.Frame):
             else:
                 self.afficher_erreur(f'Nom ou mot de passe incorrects')
                 return False
+            
+    def clic_bouton_enregistre(self):
+        topProjet = Toplevel()
+        topProjet.title("Enregistre")
 
     def clic_bouton_annuler(self):
         self.var_nom.set('')

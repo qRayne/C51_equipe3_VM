@@ -3,13 +3,14 @@ import urllib.parse
 import json
 
 from sys import path
+path.append('../Utils')
+import utils
+
+
 path.append('./Module/accueil')
 from vue_accueil import Vue_accueil
 
 
-from sys import path
-path.append('../Utils')
-import utils
 
 #class Controleur_Client(Controleur):
 class Controleur_Client:

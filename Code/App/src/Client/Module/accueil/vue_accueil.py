@@ -21,7 +21,6 @@ class Vue_accueil():
     def remplir_vue(self):
         self.master = Tk()
         
-    
         label = Label(self.master, text="test")
         
         last_name = Label(self.master, text="last name")
