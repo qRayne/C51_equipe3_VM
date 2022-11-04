@@ -96,8 +96,9 @@ CREATE TABLE IF NOT EXISTS usager
 
 DROP_USAGER = 'DROP TABLE IF EXISTS usager'
 INSERT_USAGER = '''INSERT INTO usager (personne, locateur, identifiant, mdp, permission) VALUES
-	('personne', (SELECT id_personne from personne WHERE courriel = ?),
-	('locateur', (SELECT id_locateur from locateur WHERE nom_compagnie = ?)),? , ?, ?)'''
+	    ( ((SELECT id_personne from personne WHERE courriel = ?)),
+	      ((SELECT id_locateur from locateur WHERE nom_compagnie = ?)),? , ?, ?)'''
+
 SELECT_USAGER = 'SELECT * FROM usager'
 
 
@@ -509,19 +510,14 @@ class Dao():
         print("locateur ajouté")
     
     def enregistrer_usager(self, personne_email, locateur_nom_compagnie, identifiant, mdp, permission):
-        #sql = INSERT_USAGER
-        #self.cur.execute(sql, (personne_email, locateur_nom_compagnie, identifiant, mdp, permission))
-        #     '''INSERT INTO usager (personne, locateur, identifiant, mdp, permission) VALUES
-	    # ('personne', (SELECT id_personne from personne WHERE courriel = ?),
-	    # ('locateur', (SELECT id_locateur from locateur WHERE nom_compagnie = ?)),? , ?, ?)'''
+        sql = INSERT_USAGER
+        self.cur.execute(sql, (personne_email, locateur_nom_compagnie, identifiant, mdp, permission))
+        print("usager ajouté")
         
-        # self.cur.execute('''INSERT INTO usager (personne, locateur, identifiant, mdp, permission) VALUES
-	    #     (('personne', (SELECT id_personne from personne WHERE courriel = ?)),
-	    #     ('locateur', (SELECT id_locateur from locateur WHERE nom_compagnie = ?)),? ,? ,?);''',
-        #  (personne_email, locateur_nom_compagnie, identifiant, mdp, permission))
-        #self.cur.execute("")
-        #print("usager ajouté")
-
+    def select_usager(self):
+        sql = SELECT_USAGER
+        self.cur.execute(sql)
+        return self.cur.fetchall()
     
     def select_personne(self):
         sql = SELECT_PERSONNE

@@ -10,8 +10,19 @@ def insert(dao):
     
     if not dao.trouver_locateur('Bell'):
         dao.creer_locateur('Bell', '345-3456-3456', '')     
-        
+    
     dao.enregistrer_usager('boubou@gmail.com', 'Bell', 'boubou', '12345', 'admin')
+        
+        
+    if not dao.trouver_personne('boul.com'):
+            dao.creer_personne('bou', 'bou', 'boul.com', '123-1234', '220 rert-cliche')
+    
+    if not dao.trouver_locateur('Bell'):
+        dao.creer_locateur('Bell', '345-3456-3456', '')     
+    
+    dao.enregistrer_usager('boul.com', 'Bell', 'bou', '145', 'admin')
+            
+    
     # dao.insert_compagnie('Totologie')
     # dao.insert_compagnie('Tatalogie')
     # dao.insert_membre(2, 'toto', 'totototo', 'admin', 'mr')
@@ -25,11 +36,15 @@ def select(dao):
     # print('\nMembre')
     # for rangee in dao.select_membre():
     #     print(rangee)
-        
+    
+ 
     c = dao.select_personne()
     print(c)
     l = dao.select_locateur()
     print(l)
+    usage = dao.select_usager()
+    print(usage)
+    
 
 
 def main():
