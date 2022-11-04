@@ -18,6 +18,7 @@ NOM='nom'
 PRENOM='prenom'
 COURRIEL='courriel'
 TELEPHONE_PERSONNE='telephone_personne'
+ADRESSE = 'adresse'
 
 # une autre fonction vue fenêtre pour faire l'enregistrement de l'adresse
 # qui sera référé ici en id
@@ -35,19 +36,19 @@ TELEPHONE_COMPAGNIE='telephone_compagnie'
 ENREGISTRER_USAGER = 'enregistrer_usager'
 PERSONNE_EMAIL='personne_email'
 LOCATEUR_NOM_COMPAGNIE='locateur_nom_compagnie'
-# IDENTIFIANT='identifiant'
+IDENTIFIANT='identifiant'
 PERMISSION='permission'
-# MDP='mdp'
+MDP='mdp'
 
 # creer adresse
-CREER_ADRESSE = 'creer_adresse'
-RUE = 'rue'
-NUMERO = 'numero'
-APPARTEMENT = 'appartement'
-VILLE = 'ville'
-PROVINCE_ETAT = 'province_etat'
-PAYS = 'pays'
-CODE_POSTAL = 'code_postal'
+# CREER_ADRESSE = 'creer_adresse'
+# RUE = 'rue'
+# NUMERO = 'numero'
+# APPARTEMENT = 'appartement'
+# VILLE = 'ville'
+# PROVINCE_ETAT = 'province_etat'
+# PAYS = 'pays'
+# CODE_POSTAL = 'code_postal'
 
 
 

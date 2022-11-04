@@ -53,13 +53,13 @@ class Controleur_Serveur:
         return Dao.enregistrer_usager(personneEmail,locateurNomCompagnie,identifiant,mdp,permission) 
 
     
-    def creer_adresse(self,form):
-        rue = form[utils.RUE],
-        numero = form[utils.NUMERO],
-        appartement = form[utils.APPARTEMENT],
-        ville = form[utils.VILLE],
-        province = form[utils.PROVINCE_ETAT],
-        pays = form[utils.PAYS],
-        codePostal = form[utils.CODE_POSTAL]
-        return Dao.creer_adresse(rue,numero,appartement,ville,province,pays,codePostal)
+    # def creer_adresse(self,form):
+    #     rue = form[utils.RUE],
+    #     numero = form[utils.NUMERO],
+    #     appartement = form[utils.APPARTEMENT],
+    #     ville = form[utils.VILLE],
+    #     province = form[utils.PROVINCE_ETAT],
+    #     pays = form[utils.PAYS],
+    #     codePostal = form[utils.CODE_POSTAL]
+    #     return Dao.creer_adresse(rue,numero,appartement,ville,province,pays,codePostal)
     
