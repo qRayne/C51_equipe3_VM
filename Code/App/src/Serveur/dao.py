@@ -6,22 +6,23 @@ BD_GEST_MEDIA = 'gestion_media.db'
 
 
 # ***************** ADRESSE *********************
-CREER_ADRESSE = '''
-CREATE TABLE IF NOT EXISTS adresse
-(
-    id_adresse INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    rue TEXT,
-    numero INTEGER,
-    appartement TEXT,
-    ville TEXT,
-    province_etat TEXT,
-    pays TEXT,
-    code_postal TEXT
-)
-'''
-DROP_ADRESSE = 'DROP TABLE IF EXISTS adresse'
-INSERT_ADRESSE = 'INSERT INTO adresse(rue, numero, appartement, ville, province_etat, pays, code_postal) VALUES(?, ?, ?, ?, ?, ?, ?)'
-SELECT_ADRESSE = 'SELECT * FROM ADRESSE'
+# Table Adresse à enlever
+# CREER_ADRESSE = '''
+# CREATE TABLE IF NOT EXISTS adresse
+# (
+#     id_adresse INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+#     rue TEXT,
+#     numero INTEGER,
+#     appartement TEXT,
+#     ville TEXT,
+#     province_etat TEXT,
+#     pays TEXT,
+#     code_postal TEXT
+# )
+# '''
+# DROP_ADRESSE = 'DROP TABLE IF EXISTS adresse'
+# INSERT_ADRESSE = 'INSERT INTO adresse(rue, numero, appartement, ville, province_etat, pays, code_postal) VALUES(?, ?, ?, ?, ?, ?, ?)'
+# SELECT_ADRESSE = 'SELECT * FROM ADRESSE'
 
 
 # ***************** PERSONNE *********************
@@ -33,13 +34,13 @@ CREATE TABLE IF NOT EXISTS personne
     prenom TEXT NOT NULL,
     courriel TEXT UNIQUE NOT NULL,
     telephone TEXT,
-    adresse INTEGER REFERENCES adresse(id_adresse)
+    adresse TEXT
 
 )
 '''
+# ('adresse', (SELECT id_adresse from adresse WHERE rue=? AND numero=? AND appartement=? AND code_postal=?)))''' 
 DROP_PERSONNE = 'DROP TABLE IF EXISTS personne'
-INSERT_PERSONNE = '''INSERT INTO personne(nom, prenom, courriel, telephone, adresse) VALUES(?, ?, ?, ?, 
-    ('adresse', (SELECT id_adresse from adresse WHERE rue=? AND numero=? AND appartement=? AND code_postal=?)))''' 
+INSERT_PERSONNE = '''INSERT INTO personne(nom, prenom, courriel, telephone, adresse) VALUES(?, ?, ?, ?, ?)'''
 SELECT_PERSONNE = 'SELECT * FROM personne'
 
 
@@ -65,12 +66,12 @@ CREATE TABLE IF NOT EXISTS locateur
     id_locateur INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     nom_compagnie TEXT UNIQUE NOT NULL,
     telephone TEXT,
-    adresse INTEGER REFERENCES adresse(id_adresse)
+    adresse TEXT
 )
 '''
+#('adresse', (SELECT id_adresse from adresse WHERE rue=? AND numero=? AND appartment=? AND code_postal=?)))'''
 DROP_LOCATEUR = 'DROP TABLE IF EXISTS locateur'
-INSERT_LOCATEUR = '''INSERT INTO locateur(nom_compagnie, telephone, adresse) VALUES(?, ?,    
-    ('adresse', (SELECT id_adresse from adresse WHERE rue=? AND numero=? AND appartment=? AND code_postal=?)))'''
+INSERT_LOCATEUR = '''INSERT INTO locateur(nom_compagnie, telephone, adresse) VALUES(?, ?, ?)'''
 SELECT_LOCATEUR = 'SELECT * FROM locateur'
 
 # ***************** USAGER *********************
@@ -89,10 +90,14 @@ CREATE TABLE IF NOT EXISTS usager
     permission TEXT NOT NULL
 )
 '''
+
+#('personne',(SELECT id_personne from personne WHERE courriel=?),
+#    ('module',(SELECT id_module from module WHERE nom=?))'''
+
 DROP_USAGER = 'DROP TABLE IF EXISTS usager'
 INSERT_USAGER = '''INSERT INTO usager (personne, locateur, identifiant, mdp, permission) VALUES
-	('personne', (SELECT id_personne from personne WHERE courriel=?)),
-	('locateur', (SELECT id_locateur from locateur WHERE nom_compagnie=?)),?, ?, ?)'''
+	('personne', (SELECT id_personne from personne WHERE courriel = ?),
+	('locateur', (SELECT id_locateur from locateur WHERE nom_compagnie = ?)),? , ?, ?)'''
 SELECT_USAGER = 'SELECT * FROM usager'
 
 
@@ -117,14 +122,14 @@ CREER_LOCAL = '''
 CREATE TABLE IF NOT EXISTS local
 (
     id_local INTEGER PRIMARY KEY AUTOINCREMENT,
-    adresse INTEGER REFERENCES adresse(id_adresse),
+    adresse TEXT,
     no_local INTEGER
 )
 '''
 # FOREIGN KEY A ajouter (adresse)
+#('adresse', (SELECT id_adresse from adresse WHERE rue=? AND numero=? AND appartment=? AND code_postal=?),?)'''
 DROP_LOCAL = 'DROP TABLE IF EXISTS local'
-INSERT_LOCAL = '''INSERT INTO local(adresse,no_local) VALUES
-    ('adresse', (SELECT id_adresse from adresse WHERE rue=? AND numero=? AND appartment=? AND code_postal=?),?)'''
+INSERT_LOCAL = '''INSERT INTO local (adresse,no_local) VALUES (?,?)'''
 SELECT_LOCAL = 'SELECT * FROM LOCAL'
 
 
@@ -325,15 +330,14 @@ CREATE TABLE IF NOT EXISTS projet_localisation
 (
     id_projet_localisation INTEGER PRIMARY KEY AUTOINCREMENT,
     projet INTEGER REFERENCES projet(id_projet),
-    emplacement INTEGER REFERENCES adresse(id_adresse),
+    emplacement TEXT,
     local INTEGER REFERENCES local(id_local)
 )
 '''
+ # ('emplacement', (SELECT id_adresse FROM adresse WHERE rue=? AND numero=? AND appartement=? AND code_postal=?),
 DROP_PROJET_LOCALISATION = 'DROP TABLE IF EXISTS projet_localisation'
 INSERT_PROJET_LOCALISATION = '''INSERT INTO projet_localisation(projet,emplacement,local) VALUES
-    ('projet', (SELECT id_projet FROM projet WHERE nom_projet = ?),
-    ('emplacement', (SELECT id_adresse FROM adresse WHERE rue=? AND numero=? AND appartement=? AND code_postal=?),
-    ('local', (SELECT id_local FROM local WHERE no_local = ?))'''
+    ('projet', (SELECT id_projet FROM projet WHERE nom_projet = ?),?,('local', (SELECT id_local FROM local WHERE no_local = ?))'''
 SELECT_PROJET_LOCALISATION = 'SELECT * FROM projet_localisation'
 
 
@@ -374,7 +378,6 @@ SELECT_FACTURE_CLIENT = 'SELECT * FROM facture_client'
 
 class Dao():
     __creer = [
-        CREER_ADRESSE,
         CREER_PERSONNE,
         CREER_MODULE,
         CREER_LOCATEUR,
@@ -416,8 +419,7 @@ class Dao():
         DROP_USAGER,
         DROP_LOCATEUR,
         DROP_MODULE,
-        DROP_PERSONNE,
-        DROP_ADRESSE,
+        DROP_PERSONNE
     ]
     
     #singleton pas possible car:
@@ -488,7 +490,7 @@ class Dao():
         sql = INSERT_PERSONNE
         # adresse à voir
         self.cur.execute(sql,(nom,prenom,courriel,telephone,adresse,))
-        return self.cur.fetchall()
+        print("personne ajouté")
      
     def trouver_locateur(self, nom_compagnie):
         sql = '''
@@ -497,24 +499,44 @@ class Dao():
             FROM locateur
             WHERE locateur.nom_compagnie = ?
         ''' 
-        self.cur.execute(sql,(nom_compagnie))
+        self.cur.execute(sql,(nom_compagnie,))
         return self.cur.fetchall()
 
     
     def creer_locateur(self,nom_compagnie,telephone_compagnie,adresse):
         sql = INSERT_LOCATEUR
         self.cur.execute(sql,(nom_compagnie,telephone_compagnie,adresse))
+        print("locateur ajouté")
+    
+    def enregistrer_usager(self, personne_email, locateur_nom_compagnie, identifiant, mdp, permission):
+        #sql = INSERT_USAGER
+        #self.cur.execute(sql, (personne_email, locateur_nom_compagnie, identifiant, mdp, permission))
+        #     '''INSERT INTO usager (personne, locateur, identifiant, mdp, permission) VALUES
+	    # ('personne', (SELECT id_personne from personne WHERE courriel = ?),
+	    # ('locateur', (SELECT id_locateur from locateur WHERE nom_compagnie = ?)),? , ?, ?)'''
+        
+        # self.cur.execute('''INSERT INTO usager (personne, locateur, identifiant, mdp, permission) VALUES
+	    #     (('personne', (SELECT id_personne from personne WHERE courriel = ?)),
+	    #     ('locateur', (SELECT id_locateur from locateur WHERE nom_compagnie = ?)),? ,? ,?);''',
+        #  (personne_email, locateur_nom_compagnie, identifiant, mdp, permission))
+        #self.cur.execute("")
+        #print("usager ajouté")
+
+    
+    def select_personne(self):
+        sql = SELECT_PERSONNE
+        self.cur.execute(sql)
         return self.cur.fetchall()
     
-    def enregistrer_usager(self,personne_email,locateur_nom_compagnie,identifiant,mdp,permission):
-        sql = INSERT_USAGER
-        self.cur.execute(sql,(personne_email,locateur_nom_compagnie,identifiant,mdp,permission))
+    def select_locateur(self):
+        sql = SELECT_LOCATEUR
+        self.cur.execute(sql)
         return self.cur.fetchall()
 
-    def creer_adresse(self,rue,numero,appartement,ville,province,pays,code_postal):
-        sql = INSERT_ADRESSE
-        self.cur.execute(sql,(rue,numero,appartement,ville,province,pays,code_postal))
-        return self.cur.fetchall()
+    # def creer_adresse(self,rue,numero,appartement,ville,province,pays,code_postal):
+    #     sql = INSERT_ADRESSE
+    #     self.cur.execute(sql,(rue,numero,appartement,ville,province,pays,code_postal))
+    #     print("adresse ajouté")
         
 
 def main():

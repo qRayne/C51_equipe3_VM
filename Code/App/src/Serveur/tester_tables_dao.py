@@ -1,34 +1,41 @@
+from asyncio.windows_events import NULL
 from dao import Dao
 
 def insert(dao):
     # problème binding 
+    #Dao().select_locateur
     
-    if not Dao().trouver_personne('boubou@gmail.com'):
-        Dao().creer_personne('boubou', 'babou', 'boubou@gmail.com', '123-1234-1234', '')
-    if not Dao().trouver_locateur('Bell'):
-        Dao().creer_locateur('Bell', '345-3456-3456', '')
+    if not dao.trouver_personne('boubou@gmail.com'):
+        dao.creer_personne('boubou', 'babou', 'boubou@gmail.com', '123-1234-1234', '220 rue robert-cliche')
     
-    Dao().enregistrer_usager('boubou@gmail.com', 'Bell', 'boubouuuu', '12345', 'admin')
+    if not dao.trouver_locateur('Bell'):
+        dao.creer_locateur('Bell', '345-3456-3456', '')     
+        
+    dao.enregistrer_usager('boubou@gmail.com', 'Bell', 'boubou', '12345', 'admin')
     # dao.insert_compagnie('Totologie')
     # dao.insert_compagnie('Tatalogie')
-
     # dao.insert_membre(2, 'toto', 'totototo', 'admin', 'mr')
     # dao.insert_membre(1, 'tata', 'tatatata', 'user', 'mrs')
 
 def select(dao):
-    print('\nCompagnie')
-    for rangee in dao.select_compagnie():
-        print(rangee)
+    # print('\nCompagnie')
+    # for rangee in dao.select_compagnie():
+    #     print(rangee)
         
-    print('\nMembre')
-    for rangee in dao.select_membre():
-        print(rangee)
+    # print('\nMembre')
+    # for rangee in dao.select_membre():
+    #     print(rangee)
+        
+    c = dao.select_personne()
+    print(c)
+    l = dao.select_locateur()
+    print(l)
 
 
 def main():
     bd = Dao()
     insert(bd)
-    # select(bd)
+    select(bd)
 
     # print('\nIdentifier l\'usager')
     # print(bd.identifier_usager('toto', 'totototo'))
