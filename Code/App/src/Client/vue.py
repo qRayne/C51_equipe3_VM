@@ -5,6 +5,9 @@ from sys import path
 path.append('./Module')
 from vue_enregistrer import Vue_enregistrer
 
+path.append('./Module')
+from vue_accueil import Vue_accueil
+
 class Vue(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
@@ -31,11 +34,11 @@ class Vue(ttk.Frame):
         self.input_mdp = ttk.Entry(self, textvariable=self.var_mdp, show='*', width=30)
         self.input_mdp.grid(row=2, column=1, sticky=tk.E)
         
-        self.bouton_enregistrer = ttk.Button(self, text='enregistre', command=self.clic_bouton_enregistrer)
+        self.bouton_enregistrer = ttk.Button(self, text='Enregistrer', command=self.clic_bouton_enregistrer)
         self.bouton_enregistrer.bind('<Return>', lambda e: self.bouton_connexion.invoke())
         self.bouton_enregistrer.grid(row=6, column=0, pady=(20, 0), sticky=tk.E)
         
-        self.bouton_connexion = ttk.Button(self, text='Connexion', command=self.clic_bouton_connexion)
+        self.bouton_connexion = ttk.Button(self, text='Connexion', command=self.clic_connection_temp)
         self.bouton_connexion.bind('<Return>', lambda e: self.bouton_connexion.invoke())
         self.bouton_connexion.grid(row=3, column=1, pady=(20, 0), sticky=tk.E)
         
@@ -56,6 +59,13 @@ class Vue(ttk.Frame):
             else:
                 self.afficher_erreur(f'Nom ou mot de passe incorrects')
                 return False
+            
+    def clic_connection_temp(self):
+        layout_enregistrer = Vue_accueil()
+        # l.grid(row=0, column=0, padx=10, pady=10)
+        layout_enregistrer.set_controleur(self.controleur)
+        self.controleur.set_vue(layout_enregistrer)
+        self.if_enregistrer = True;
             
     def clic_bouton_enregistrer(self):
         layout_enregistrer = Vue_enregistrer()

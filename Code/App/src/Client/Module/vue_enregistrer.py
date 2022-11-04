@@ -1,10 +1,9 @@
 from cProfile import label
 from tkinter import *
 import tkinter as tk
+import tkinter
 from tkinter.ttk import *
 import os
-
-
 
 class Vue_enregistrer():
     def __init__(self):
@@ -35,42 +34,42 @@ class Vue_enregistrer():
         self.label_vide(2, 0)
         self.label_vide(3, 0)
 
-        identifiant_text = Label(self.master, text="ID: ") # prenom
-        identifiant_text.grid(row=0, column=1,  pady=(5, 0), sticky=tk.E)
+        nom_text = Label(self.master, text="Nom : ")
+        nom_text.grid(row=0, column=1,  pady=(5, 0), sticky=tk.E)
         
-        self.var_identifiant = StringVar()
-        self.input_identifiant = Entry(self.master, textvariable=self.var_identifiant, width=30)
-        self.input_identifiant.grid(row=0, column=2,  pady=(5, 0), sticky=tk.E)
+        self.nom_var = StringVar()
+        self.nom_edit = Entry(self.master, textvariable=self.nom_var, width=30)
+        self.nom_edit.grid(row=0, column=2,  pady=(5, 0), sticky=tk.E)
         
-        nom_company_text = Label(self.master, text="Compagnie: ") # nom Compagnie
-        nom_company_text.grid(row=1, column=1, pady=(5, 0), sticky=tk.E)
+        prenom_var = Label(self.master, text="Prenom : ")
+        prenom_var.grid(row=1, column=1, pady=(5, 0), sticky=tk.E)
         
-        self.var_name_compagny = StringVar()
-        self.input_name_company = Entry(self.master, textvariable=self.var_name_compagny, width=30)
-        self.input_name_company.grid(row=1, column=2, pady=(5, 0), sticky=tk.E)
+        self.prenom_var = StringVar()
+        self.prenom_edit = Entry(self.master, textvariable=self.prenom_var, width=30)
+        self.prenom_edit.grid(row=1, column=2, pady=(5, 0), sticky=tk.E)
         
-        email_text = Label(self.master, text="E-mail: ") # mail
-        email_text.grid(row=2, column=1, pady=(5, 0), sticky=tk.E)
+        courriel_text = Label(self.master, text="E-mail : ")
+        courriel_text.grid(row=2, column=1, pady=(5, 0), sticky=tk.E)
         
         
-        self.var_email= StringVar()
-        self.input_email = Entry(self.master, textvariable=self.var_email, width=30)
-        self.input_email.grid(row=2, column=2, pady=(5, 0), sticky=tk.E)
+        self.courriel_var= StringVar()
+        self.courriel_edit = Entry(self.master, textvariable=self.courriel_var, width=30)
+        self.courriel_edit.grid(row=2, column=2, pady=(5, 0), sticky=tk.E)
         
     
-        password_text = Label(self.master, text="Mot de passe: ") # mot de passe
-        password_text.grid(row=3, column=1, pady=(5, 0), sticky=tk.E)
+        tel_text = Label(self.master, text="Tel# : ")
+        tel_text.grid(row=3, column=1, pady=(5, 0), sticky=tk.E)
     
-        self.var_password = StringVar()
-        self.input_title = Entry(self.master, textvariable=self.var_password, width=30)
-        self.input_title.grid(row=3, column=2, pady=(5, 0), sticky=tk.E)
+        self.tel_var = StringVar()
+        self.tel_edit = Entry(self.master, textvariable=self.tel_var, width=30)
+        self.tel_edit.grid(row=3, column=2, pady=(5, 0), sticky=tk.E)
         
-        permission_text = Label(self.master, text="Permission: ") # permission
-        permission_text.grid(row=4, column=1, pady=(5, 0), sticky=tk.E)
+        adresse_text = Label(self.master, text="Adresse : ")
+        adresse_text.grid(row=4, column=1, pady=(5, 0), sticky=tk.E)
         
-        self.var_permission = StringVar()
-        self.input_permission = Entry(self.master, textvariable=self.var_permission, width=30)
-        self.input_permission.grid(row=4, pady=(5, 0),column=2, sticky=tk.E)
+        self.adresse_var = StringVar()
+        self.adresse_edit = Entry(self.master, textvariable=self.adresse_var, width=30)
+        self.adresse_edit.grid(row=4, pady=(5, 0),column=2, sticky=tk.E)
         
         
         btn_1 = Button(self.master, text="Enregistrer", command=self.btn_enregistrer)        
@@ -79,9 +78,33 @@ class Vue_enregistrer():
       
         self.master.mainloop()
         
+
     def btn_enregistrer(self):
-        #if self.controleur:
+        if self.controleur:
             #message d'erreur par controleur ou par vue?
-            #reponse = self.controleur.enregistrer_usager()
-            pass
-        
+            reponse = self.controleur.creer_personne(self.nom_var.get(), self.prenom_var.get(), self.courriel_var.get(), self.tel_var.get(), self.adresse_var.get())
+            if len(reponse):
+                self.afficher_succes(reponse)
+                return True  
+            else:
+                self.afficher_erreur(f'Vide, remplis les cases, mon cher')
+                return False
+    
+    def afficher_erreur(self, message):
+        self.label_message['text'] = message
+        self.label_message['foreground'] = 'red'
+        self.label_message.after(3000, self.cacher_message)
+        self.input_nom['foreground'] = 'red'
+        self.input_mdp['foreground'] = 'red'
+
+    def afficher_succes(self, message):
+        self.label_message['text'] = message
+        self.label_message['foreground'] = 'green'
+        self.label_message.after(3000, self.cacher_message)
+        self.input_nom['foreground'] = 'black'
+        #self.var_nom.set(self.input_nom)
+        self.input_mdp['foreground'] = 'black'
+        #self.var_mdp.set(self.input_mdp)
+    
+    def cacher_message(self):
+        self.label_message['text'] = ''
