@@ -62,7 +62,6 @@ class Vue_accueil():
         self.master.mainloop()
         
 
-        
     def open_enregistrer(self):
         topProjet = Toplevel()
         topProjet.title("Enregistrer")
@@ -86,7 +85,6 @@ class Vue_accueil():
     def open_facture(self):
         topProjet = Toplevel()
         topProjet.title("facture")
-        
         
     def open_messagerie(self):
         topProjet = Toplevel()

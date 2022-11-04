@@ -10,7 +10,8 @@ import utils
 class Controleur_Serveur:
     def __init__(self):
         self.fonctions = {
-            utils.IDENTIFIER_USAGER:self.identifier_usager
+            utils.IDENTIFIER_USAGER:self.identifier_usager,
+            utils.CREER_PERSONNE:self.creer_personne
         }
 
     # Le nom de la fonction voulue est envoyée
@@ -36,7 +37,7 @@ class Controleur_Serveur:
         courriel = form[utils.COURRIEL],
         telephone = form[utils.TELEPHONE_PERSONNE],
         adresse = form[utils.ADRESSE]
-        return Dao.creer_personne(nom,prenom,courriel,telephone,adresse) 
+        return Dao().creer_personne(nom, prenom, courriel, telephone, adresse) 
     
     def creer_locateur(self,form):
         nomCompagnie = form[utils.NOM_COMPAGNIE],
