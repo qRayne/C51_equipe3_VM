@@ -1,42 +1,41 @@
 from asyncio.windows_events import NULL
 from dao import Dao
 
-def insert(dao):
-    # problème binding 
-    #Dao().select_locateur
+
+def initial(dao): #hard codes des valeurs de base dans le DAO
+
+    #LOCATEURS 
+    dao.creer_locateur('Bell', '345-345-1234', 'a')   
+    dao.creer_locateur('Videotron', '345-145-3456', 'b')   
+    dao.creer_locateur('Fido', '345-536-6234', 'c')   
+    dao.creer_locateur('Telus', '345-414-1582', 'd')   
+    dao.creer_locateur('koodo', '345-346-3976', 'e')   
     
+
+    #ADMIN TEST
     if not dao.trouver_personne('boubou@gmail.com'):
         dao.creer_personne('boubou', 'babou', 'boubou@gmail.com', '123-1234-1234', '220 rue robert-cliche')
     
-    if not dao.trouver_locateur('Bell'):
-        dao.creer_locateur('Bell', '345-3456-3456', '')     
-    
     dao.enregistrer_usager('boubou@gmail.com', 'Bell', 'boubou', '12345', 'admin')
-        
-        
+       
+    #USER TEST       
     if not dao.trouver_personne('boul.com'):
             dao.creer_personne('bou', 'bou', 'boul.com', '123-1234', '220 rert-cliche')
-    
-    if not dao.trouver_locateur('Bell'):
-        dao.creer_locateur('Bell', '345-3456-3456', '')     
-    
-    dao.enregistrer_usager('boul.com', 'Bell', 'bou', '145', 'admin')
+   
+    dao.enregistrer_usager('boul.com', 'Bell', 'bou', '145', 'user')
             
     
-    # dao.insert_compagnie('Totologie')
-    # dao.insert_compagnie('Tatalogie')
-    # dao.insert_membre(2, 'toto', 'totototo', 'admin', 'mr')
-    # dao.insert_membre(1, 'tata', 'tatatata', 'user', 'mrs')
-
-def select(dao):
-    # print('\nCompagnie')
-    # for rangee in dao.select_compagnie():
-    #     print(rangee)
-        
-    # print('\nMembre')
-    # for rangee in dao.select_membre():
-    #     print(rangee)
+def insert_usager(dao, nom, prenom, email, numTel, adresse, locateur, mdp, access):
+    # problème binding 
+    #Dao().select_locateur
     
+    if not dao.trouver_personne(email):
+        dao.creer_personne(nom, prenom, email, numTel, adresse)
+    
+    dao.enregistrer_usager(email, locateur, nom, mdp, access)
+       
+    
+def select(dao):
  
     c = dao.select_personne()
     print(c)
@@ -45,15 +44,17 @@ def select(dao):
     usage = dao.select_usager()
     print(usage)
     
+    
 
 
 def main():
     bd = Dao()
-    insert(bd)
+    initial(bd)
+    insert_usager(bd, 'bricoleur', 'bob', 'bob@gmail.com', '256-254-2478', 'rue construction', 'Fido', '68223', 'admin')
     select(bd)
 
-    # print('\nIdentifier l\'usager')
-    # print(bd.identifier_usager('toto', 'totototo'))
+    #print('\nIdentifier l\'usager')
+    #print(bd.identifier_usager('boubou', '12345'))
 
     return 0
 
