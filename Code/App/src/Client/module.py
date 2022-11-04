@@ -25,12 +25,6 @@ class Module(Tk):
         # l.grid(row=0, column=0, padx=10, pady=10)
         layout_accueil.set_controleur(self.controleur)
         self.controleur.set_vue(layout_accueil)
-        
-    def page_enregistrer(self):
-        layout_enregistrer = Vue_enregistrer(self)
-        # l.grid(row=0, column=0, padx=10, pady=10)
-        layout_enregistrer.set_controleur(self.controleur)
-        self.controleur.set_vue(layout_enregistrer)
     
     def add_user(self):
     
@@ -42,9 +36,7 @@ def main():
     try:
         module = Module()
         
-        if (module.login.if_enregistrer):
-            module.page_enregistrer()
-            module.login.clicked_enregistrer
+        
             
             
 

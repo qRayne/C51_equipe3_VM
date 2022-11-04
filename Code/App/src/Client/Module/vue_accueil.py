@@ -87,6 +87,7 @@ class Vue_accueil():
         topProjet = Toplevel()
         topProjet.title("facture")
         
+        
     def open_messagerie(self):
         topProjet = Toplevel()
         topProjet.title("messagerie")

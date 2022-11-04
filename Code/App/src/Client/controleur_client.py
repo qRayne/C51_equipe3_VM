@@ -45,14 +45,16 @@ class Controleur_Client:
         return self.appel_serveur(infos)
     
     def creer_personne(self, nom, prenom, courriel, telephone_personne, adresse=""):
+        print("cccccc")
         infos = {
             utils.FONCTION:utils.CREER_PERSONNE,
             utils.NOM:nom,
             utils.PRENOM:prenom,
             utils.COURRIEL:courriel,
-            utils.TELEPHONE:telephone_personne,
-            utils.ADRESSE:adresse
+            utils.TELEPHONE_PERSONNE:telephone_personne,
+            utils.CREER_ADRESSE:adresse
         }
+        
         return self.appel_serveur(infos)
     
     def creer_locateur(self,nom_compagnie,telephone_compagnie,adresse=""):

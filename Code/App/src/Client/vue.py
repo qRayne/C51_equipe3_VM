@@ -34,15 +34,15 @@ class Vue(ttk.Frame):
         self.input_mdp = ttk.Entry(self, textvariable=self.var_mdp, show='*', width=30)
         self.input_mdp.grid(row=2, column=1, sticky=tk.E)
         
-        self.bouton_enregistrer = ttk.Button(self, text='Enregistrer', command=self.clic_bouton_enregistrer)
+        self.bouton_enregistrer = ttk.Button(self, text='Enregistrer', command=self.btn_enregistrer)
         self.bouton_enregistrer.bind('<Return>', lambda e: self.bouton_connexion.invoke())
         self.bouton_enregistrer.grid(row=6, column=0, pady=(20, 0), sticky=tk.E)
         
-        self.bouton_connexion = ttk.Button(self, text='Connexion', command=self.clic_connection_temp)
+        self.bouton_connexion = ttk.Button(self, text='Connexion', command=self.btn_connexion)
         self.bouton_connexion.bind('<Return>', lambda e: self.bouton_connexion.invoke())
         self.bouton_connexion.grid(row=3, column=1, pady=(20, 0), sticky=tk.E)
         
-        self.bouton_annuler = ttk.Button(self, text='Annuler', command=self.clic_bouton_annuler)
+        self.bouton_annuler = ttk.Button(self, text='Annuler', command=self.btn_annuler)
         self.bouton_annuler.bind('<Return>', lambda e: self.bouton_annuler.invoke())
         self.bouton_annuler.grid(row=4, column=1, pady=(10, 0), sticky=tk.E)
         
@@ -60,19 +60,75 @@ class Vue(ttk.Frame):
                 self.afficher_erreur(f'Nom ou mot de passe incorrects')
                 return False
             
-    def clic_connection_temp(self):
+    def btn_enregistrer(self):
+        # layout_enregistrer = Vue_enregistrer()
+        layout_enregistrer = Toplevel()
+        layout_enregistrer.title("Projet")
+       
+        nom_text = ttk.Label(layout_enregistrer, text="Nom : ")
+        nom_text.grid(row=0, column=1,  pady=(5, 0), sticky=tk.E)
+        
+        self.nom_var = tk.StringVar()
+        self.nom_edit = ttk.Entry(layout_enregistrer, textvariable=self.nom_var, width=30)
+        self.nom_edit.grid(row=0, column=2,  pady=(5, 0), sticky=tk.E)
+        
+        prenom_var = ttk.Label(layout_enregistrer, text="Prenom : ")
+        prenom_var.grid(row=1, column=1, pady=(5, 0), sticky=tk.E)
+        
+        self.prenom_var = tk.StringVar()
+        self.prenom_edit = ttk.Entry(layout_enregistrer, textvariable=self.prenom_var, width=30)
+        self.prenom_edit.grid(row=1, column=2, pady=(5, 0), sticky=tk.E)
+        
+        courriel_text = ttk.Label(layout_enregistrer, text="E-mail : ")
+        courriel_text.grid(row=2, column=1, pady=(5, 0), sticky=tk.E)
+        
+        
+        self.courriel_var= tk.StringVar()
+        self.courriel_edit = ttk.Entry(layout_enregistrer, textvariable=self.courriel_var, width=30)
+        self.courriel_edit.grid(row=2, column=2, pady=(5, 0), sticky=tk.E)
+        
+    
+        tel_text = ttk.Label(layout_enregistrer, text="Tel# : ")
+        tel_text.grid(row=3, column=1, pady=(5, 0), sticky=tk.E)
+    
+        self.tel_var = tk.StringVar()
+        self.tel_edit = ttk.Entry(layout_enregistrer, textvariable=self.tel_var, width=30)
+        self.tel_edit.grid(row=3, column=2, pady=(5, 0), sticky=tk.E)
+        
+        adresse_text = ttk.Label(layout_enregistrer, text="Adresse : ")
+        adresse_text.grid(row=4, column=1, pady=(5, 0), sticky=tk.E)
+        
+        self.adresse_var = tk.StringVar()
+        self.adresse_edit = ttk.Entry(layout_enregistrer, textvariable=self.adresse_var, width=30)
+        self.adresse_edit.grid(row=4, pady=(5, 0),column=2, sticky=tk.E)
+        
+        btn_1 = ttk.Button(layout_enregistrer, text="Enregistrer", command=self.clic_enregistrer)
+        btn_1.grid(row=6, column=2)
+        
+    def clic_enregistrer(self):
+        print("ok") 
+        reponse = self.controleur.creer_personne(self.nom_var.get(), self.prenom_var.get(), self.courriel_var.get(), self.tel_var.get(), self.adresse_var.get())
+            
+        if len(reponse):
+            self.afficher_succes(reponse)
+            return True  
+        else:
+            self.afficher_erreur(f'Vide, remplis les cases, mon cher')
+            return False
+        
+    def btn_connexion(self):
         layout_enregistrer = Vue_accueil()
         # l.grid(row=0, column=0, padx=10, pady=10)
         layout_enregistrer.set_controleur(self.controleur)
         self.controleur.set_vue(layout_enregistrer)
         self.if_enregistrer = True;
             
-    def clic_bouton_enregistrer(self):
-        layout_enregistrer = Vue_enregistrer()
-        # l.grid(row=0, column=0, padx=10, pady=10)
-        layout_enregistrer.set_controleur(self.controleur)
-        self.controleur.set_vue(layout_enregistrer)
-        self.if_enregistrer = True;
+    # def clic_bouton_enregistrer(self):
+    #     layout_enregistrer = Vue_enregistrer()
+    #     # l.grid(row=0, column=0, padx=10, pady=10)
+    #     layout_enregistrer.set_controleur(self.controleur)
+    #     self.controleur.set_vue(layout_enregistrer)
+    #     self.if_enregistrer = True;
         
     def if_clic_enregistrer(self):
         return self.if_enregistrer;
@@ -80,7 +136,7 @@ class Vue(ttk.Frame):
     def clicked_enregistrer(self):
         self.if_enregistrer = False;
          
-    def clic_bouton_annuler(self):
+    def btn_annuler(self):
         self.var_nom.set('')
         self.var_mdp.set('')
 
