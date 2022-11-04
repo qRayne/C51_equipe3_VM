@@ -480,14 +480,14 @@ class Dao():
                 personne.courriel
             FROM personne
             WHERE personne.courriel = ?
-        ''' 
-        self.cur.execute(sql,(courriel))
+        '''
+        self.cur.execute(sql,(courriel,))
         return self.cur.fetchall()
         
     def creer_personne(self,nom,prenom,courriel,telephone,adresse):
         sql = INSERT_PERSONNE
         # adresse à voir
-        self.cur.execute(sql,(nom,prenom,courriel,telephone,adresse))
+        self.cur.execute(sql,(nom,prenom,courriel,telephone,adresse,))
         return self.cur.fetchall()
      
     def trouver_locateur(self, nom_compagnie):
