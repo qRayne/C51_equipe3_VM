@@ -2,6 +2,9 @@ import tkinter as tk
 from tkinter import Toplevel, ttk
 from sys import path
 
+path.append('../Serveur')
+from controleur_serveur import Controleur_Serveur
+
 path.append('./Module')
 from vue_enregistrer import Vue_enregistrer
 
@@ -11,7 +14,7 @@ from vue_accueil import Vue_accueil
 class Vue(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
-        self.controleur = None
+        self.controleur = Controleur_Serveur()
         self.remplir_vue()
         # self.module = Module()
         self.if_enregistrer = False;
@@ -38,7 +41,7 @@ class Vue(ttk.Frame):
         self.bouton_enregistrer.bind('<Return>', lambda e: self.bouton_connexion.invoke())
         self.bouton_enregistrer.grid(row=6, column=0, pady=(20, 0), sticky=tk.E)
         
-        self.bouton_connexion = ttk.Button(self, text='Connexion', command=self.btn_connexion)
+        self.bouton_connexion = ttk.Button(self, text='Connexion', command=self.clic_bouton_connexion)
         self.bouton_connexion.bind('<Return>', lambda e: self.bouton_connexion.invoke())
         self.bouton_connexion.grid(row=3, column=1, pady=(20, 0), sticky=tk.E)
         
@@ -53,8 +56,15 @@ class Vue(ttk.Frame):
         if self.controleur:
             #message d'erreur par controleur ou par vue?
             reponse = self.controleur.identifier_usager(self.var_nom.get(), self.var_mdp.get())
+            print(self.var_nom.get())
+            print(self.var_mdp.get())
+            print(reponse)
+            
+            
             if len(reponse):
+                print('reposnse')
                 self.afficher_succes(reponse)
+                
                 return True  
             else:
                 self.afficher_erreur(f'Nom ou mot de passe incorrects')

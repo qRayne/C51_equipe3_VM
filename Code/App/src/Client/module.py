@@ -37,13 +37,6 @@ def main():
         module = Module()
         
         
-            
-            
-
-            
-            
-            
-        
         #print(module.login.clic_bouton_connexion())
         #module.login.afficher_succes()
         # module.page_accueil()

@@ -53,8 +53,8 @@ def main():
     insert_usager(bd, 'bricoleur', 'bob', 'bob@gmail.com', '256-254-2478', 'rue construction', 'Fido', '68223', 'admin')
     select(bd)
 
-    #print('\nIdentifier l\'usager')
-    #print(bd.identifier_usager('boubou', '12345'))
+    print('\nIdentifier l\'usager')
+    print(bd.identifier_usager('boubou', '12345'))
 
     return 0
 
