@@ -20,6 +20,9 @@ COURRIEL='courriel'
 TELEPHONE_PERSONNE='telephone_personne'
 ADRESSE = 'adresse'
 
+# lemar
+LIRE_PERSONNE = 'lire_personne'
+
 # une autre fonction vue fenêtre pour faire l'enregistrement de l'adresse
 # qui sera référé ici en id
 

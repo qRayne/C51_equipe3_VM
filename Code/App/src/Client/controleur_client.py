@@ -45,7 +45,6 @@ class Controleur_Client:
         return self.appel_serveur(infos)
     
     def creer_personne(self, nom, prenom, courriel, telephone_personne, adresse):
-        print("ici")
         infos = {
             utils.FONCTION:utils.CREER_PERSONNE,
             utils.NOM:nom,
@@ -55,6 +54,7 @@ class Controleur_Client:
             utils.ADRESSE:adresse
         }
         
+        print(infos)
         return self.appel_serveur(infos)
     
     def creer_locateur(self,nom_compagnie,telephone_compagnie,adresse=""):
@@ -65,11 +65,17 @@ class Controleur_Client:
             utils.ADRESSE:adresse
         }
         return self.appel_serveur(infos)
-
+    
+    # lemar
+    def lire_personne(self):
+        infos = {
+            utils.FONCTION:utils.LIRE_PERSONNE
+        }
+        return self.appel_serveur(infos)
     
     def enregistrer_usager(self,personne_email,locateur_nom_compagnie,identifiant,mdp,permission):
         infos = {
-            utils.FONCTION:utils.ENREGISTER_USAGER,
+            utils.FONCTION:utils.ENREGISTRER_USAGER,
             utils.PERSONNE_EMAIL:personne_email,
             utils.LOCATEUR_NOM_COMPAGNIE:locateur_nom_compagnie,
             utils.IDENTIFIANT:identifiant,

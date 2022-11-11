@@ -64,7 +64,6 @@ class Vue(ttk.Frame):
             if len(reponse):
                 print('reposnse')
                 self.afficher_succes(reponse)
-                
                 return True  
             else:
                 self.afficher_erreur(f'Nom ou mot de passe incorrects')
@@ -112,15 +111,29 @@ class Vue(ttk.Frame):
         self.adresse_edit = ttk.Entry(layout_enregistrer, textvariable=self.adresse_var, width=30)
         self.adresse_edit.grid(row=4, pady=(5, 0),column=2, sticky=tk.E)
         
+        locateur_text = ttk.Label(layout_enregistrer, text="Locateur : ")
+        locateur_text.grid(row=5, column=1, pady=(5, 0), sticky=tk.E)
+        
+        self.locateur_var = tk.StringVar()
+        self.locateur_edit = ttk.Entry(layout_enregistrer, textvariable=self.locateur_var, width=30)
+        self.locateur_edit.grid(row=5, pady=(5, 0),column=2, sticky=tk.E)
+        
+        mdp_text = ttk.Label(layout_enregistrer, text="Mot de passe : ")
+        mdp_text.grid(row=6, column=1, pady=(5, 0), sticky=tk.E)
+        
+        self.mdp_var = tk.StringVar()
+        self.mdp_edit = ttk.Entry(layout_enregistrer, textvariable=self.mdp_var, width=30)
+        self.mdp_edit.grid(row=6, pady=(5, 0),column=2, sticky=tk.E)
+        
         btn_1 = ttk.Button(layout_enregistrer, text="Enregistrer", command=self.clic_enregistrer)
-        btn_1.grid(row=6, column=2)
+        btn_1.grid(row=7, column=2)
         
     def clic_enregistrer(self):
-        print("ok") 
-        reponse = self.ctrl_client.creer_personne(self.nom_var.get(), self.prenom_var.get(), self.courriel_var.get(), self.tel_var.get(), self.adresse_var.get())
-            
-        if len(reponse):
-            self.afficher_succes(reponse)
+        print("clic enregistrer") 
+        self.ctrl_client.creer_personne(self.nom_var.get(), self.prenom_var.get(), self.courriel_var.get(), self.tel_var.get(), self.adresse_var.get())
+        self.ctrl_client.enregistrer_usager(self.courriel_var.get(), self.locateur_var.get(), self.nom_var.get(), self.mdp_var.get(), 'admin')
+        if (self.nom_var.get()):
+            self.afficher_succes(self.nom_var)
             return True  
         else:
             self.afficher_erreur(f'Vide, remplis les cases, mon cher')

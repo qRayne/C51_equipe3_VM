@@ -1,5 +1,6 @@
 from controleur_serveur import Controleur_Serveur
 from serveur_web import Serveur_Web
+import os
 
 from sys import path
 path.append('../Utils')
@@ -14,4 +15,11 @@ def main():
     return 0
 
 if __name__ == '__main__':
+    # os.system('python dao.py')
+    # os.system('python tester_tables_dao.py')
+    # os.system('python Code/App/src/Serveur/dao.py')
+    # os.system('python Code/App/src/Serveur/tester_tables_dao.py')
+    # os.system('python Code/App/src/Serveur/serveur.py')
+    
+    # os.system('python Code/App/src/Client/module.py')
     quit(main())

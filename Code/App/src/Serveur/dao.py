@@ -489,6 +489,7 @@ class Dao():
         return self.cur.fetchall()
         
     def creer_personne(self,nom,prenom,courriel,telephone,adresse):
+        
         sql = INSERT_PERSONNE
         # adresse à voir
         self.cur.execute(sql,(nom,prenom,courriel,telephone,adresse))

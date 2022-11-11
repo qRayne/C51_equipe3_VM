@@ -11,7 +11,8 @@ class Controleur_Serveur:
     def __init__(self):
         self.fonctions = {
             utils.IDENTIFIER_USAGER:self.identifier_usager,
-            utils.CREER_PERSONNE:self.creer_personne
+            utils.CREER_PERSONNE:self.creer_personne,
+            utils.ENREGISTRER_USAGER:self.enregistrer_usager
         }
 
     # Le nom de la fonction voulue est envoyée
@@ -32,26 +33,33 @@ class Controleur_Serveur:
         return Dao().identifier_usager(identifiant, mdp)
     
     def creer_personne(self,form):
-        nom = form[utils.NOM],
-        prenom = form[utils.PRENOM],
-        courriel = form[utils.COURRIEL],
-        telephone = form[utils.TELEPHONE_PERSONNE],
+        print(form)
+        nom = form[utils.NOM]
+        prenom = form[utils.PRENOM]
+        courriel = form[utils.COURRIEL]
+        telephone = form[utils.TELEPHONE_PERSONNE]
         adresse = form[utils.ADRESSE]
+        print(nom, prenom, courriel, telephone, adresse)
         return Dao().creer_personne(nom, prenom, courriel, telephone, adresse) 
     
-    def creer_locateur(self,form):
-        nomCompagnie = form[utils.NOM_COMPAGNIE],
-        telephoneCompagnie = form[utils.TELEPHONE_COMPAGNIE],
-        adresse = form[utils.ADRESSE]
-        return Dao.creer_locateur(nomCompagnie,telephoneCompagnie,adresse)  
+    # lemar
+    def lire_personne(self, form):
+        lire_personne = form[utils.LIRE_PERSONNE]
+        return Dao().trouver_personne(lire_personne);
     
-    def enregister_usager(self,form):
-        personneEmail = form[utils.PERSONNE_EMAIL],
-        locateurNomCompagnie = form[utils.LOCATEUR_NOM_COMPAGNIE],
+    def creer_locateur(self,form):
+        nomCompagnie = form[utils.NOM_COMPAGNIE]
+        telephoneCompagnie = form[utils.TELEPHONE_COMPAGNIE]
+        adresse = form[utils.ADRESSE]
+        return Dao().creer_locateur(nomCompagnie,telephoneCompagnie,adresse)  
+    
+    def enregistrer_usager(self,form):
+        personneEmail = form[utils.PERSONNE_EMAIL]
+        locateurNomCompagnie = form[utils.LOCATEUR_NOM_COMPAGNIE]
         identifiant = form[utils.IDENTIFIANT]
-        mdp = form[utils.MDP],
+        mdp = form[utils.MDP]
         permission = form[utils.PERMISSION]
-        return Dao.enregistrer_usager(personneEmail,locateurNomCompagnie,identifiant,mdp,permission) 
+        return Dao().enregistrer_usager(personneEmail,locateurNomCompagnie,identifiant,mdp,permission) 
 
     
     # def creer_adresse(self,form):
