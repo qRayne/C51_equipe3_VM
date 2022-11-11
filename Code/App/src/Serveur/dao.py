@@ -2,6 +2,7 @@ import sqlite3
 
 FK_ON = 'PRAGMA foreign_keys = 1'
 
+#BD_GEST_MEDIA = 'C:\\travail\\C51_equipe3_VM\\Code\\App\\src\\Serveur\\gestion_media.db'
 BD_GEST_MEDIA = 'gestion_media.db'
 
 
@@ -492,6 +493,7 @@ class Dao():
         # adresse à voir
         self.cur.execute(sql,(nom,prenom,courriel,telephone,adresse))
         print("personne ajouté")
+        self.conn.commit()
      
     def trouver_locateur(self, nom_compagnie):
         sql = '''
@@ -508,11 +510,14 @@ class Dao():
         sql = INSERT_LOCATEUR
         self.cur.execute(sql,(nom_compagnie,telephone_compagnie,adresse))
         print("locateur ajouté")
+        self.conn.commit()
     
     def enregistrer_usager(self, personne_email, locateur_nom_compagnie, identifiant, mdp, permission):
         sql = INSERT_USAGER
         self.cur.execute(sql, (personne_email, locateur_nom_compagnie, identifiant, mdp, permission))
         print("usager ajouté")
+        self.conn.commit()
+
         
     def select_usager(self):
         sql = SELECT_USAGER
