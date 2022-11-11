@@ -2,8 +2,8 @@ import tkinter as tk
 from tkinter import Toplevel, ttk
 from sys import path
 
-path.append('../Serveur')
-from controleur_serveur import Controleur_Serveur
+path.append('./Module')
+from controleur_client import Controleur_Client
 
 path.append('./Module')
 from vue_enregistrer import Vue_enregistrer
@@ -14,13 +14,13 @@ from vue_accueil import Vue_accueil
 class Vue(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
-        self.controleur = Controleur_Serveur()
+        self.ctrl_client = Controleur_Client()
         self.remplir_vue()
         # self.module = Module()
         self.if_enregistrer = False;
         
     def set_controleur(self, controleur):
-        self.controleur = controleur
+        self.ctrl_client = controleur
 
     def remplir_vue(self):
         self.label_nom = ttk.Label(self, text='Nom ')
@@ -53,9 +53,9 @@ class Vue(ttk.Frame):
         self.label_message.grid(row=5, column=0, columnspan=2, sticky=tk.W)
 
     def clic_bouton_connexion(self):
-        if self.controleur:
+        if self.ctrl_client:
             #message d'erreur par controleur ou par vue?
-            reponse = self.controleur.identifier_usager(self.var_nom.get(), self.var_mdp.get())
+            reponse = self.ctrl_client.identifier_usager(self.var_nom.get(), self.var_mdp.get())
             print(self.var_nom.get())
             print(self.var_mdp.get())
             print(reponse)
@@ -117,7 +117,7 @@ class Vue(ttk.Frame):
         
     def clic_enregistrer(self):
         print("ok") 
-        reponse = self.controleur.creer_personne(self.nom_var.get(), self.prenom_var.get(), self.courriel_var.get(), self.tel_var.get(), self.adresse_var.get())
+        reponse = self.ctrl_client.creer_personne(self.nom_var.get(), self.prenom_var.get(), self.courriel_var.get(), self.tel_var.get(), self.adresse_var.get())
             
         if len(reponse):
             self.afficher_succes(reponse)
@@ -129,8 +129,8 @@ class Vue(ttk.Frame):
     def btn_connexion(self):
         layout_enregistrer = Vue_accueil()
         # l.grid(row=0, column=0, padx=10, pady=10)
-        layout_enregistrer.set_controleur(self.controleur)
-        self.controleur.set_vue(layout_enregistrer)
+        layout_enregistrer.set_controleur(self.ctrl_client)
+        self.ctrl_client.set_vue(layout_enregistrer)
         self.if_enregistrer = True;
             
     # def clic_bouton_enregistrer(self):

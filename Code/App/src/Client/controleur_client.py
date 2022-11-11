@@ -95,8 +95,10 @@ class Controleur_Client:
 # test
 def main():
     c = Controleur_Client()
-    d = c.identifier_usager('toto', 'totototo')
+    # d = c.identifier_usager('toto', 'totototo')
     e = c.set_vue(Vue_accueil);
+    d = c.identifier_usager('boubou', '12345')
+
     
     print(d)
     return 0
