@@ -74,59 +74,65 @@ class Vue(ttk.Frame):
         layout_enregistrer = Toplevel()
         layout_enregistrer.title("Projet")
        
+        pseudo_text = ttk.Label(layout_enregistrer, text="Pseudo : ")
+        pseudo_text.grid(row=0, column=1,  pady=(5, 0), sticky=tk.E)
+        
+        self.pseudo_var = tk.StringVar()
+        self.pseudo_edit = ttk.Entry(layout_enregistrer, textvariable=self.pseudo_var, width=30)
+        self.pseudo_edit.grid(row=0, column=2,  pady=(5, 0), sticky=tk.E)
+       
         nom_text = ttk.Label(layout_enregistrer, text="Nom : ")
-        nom_text.grid(row=0, column=1,  pady=(5, 0), sticky=tk.E)
+        nom_text.grid(row=1, column=1,  pady=(5, 0), sticky=tk.E)
         
         self.nom_var = tk.StringVar()
         self.nom_edit = ttk.Entry(layout_enregistrer, textvariable=self.nom_var, width=30)
-        self.nom_edit.grid(row=0, column=2,  pady=(5, 0), sticky=tk.E)
+        self.nom_edit.grid(row=1, column=2,  pady=(5, 0), sticky=tk.E)      
         
         prenom_var = ttk.Label(layout_enregistrer, text="Prenom : ")
-        prenom_var.grid(row=1, column=1, pady=(5, 0), sticky=tk.E)
+        prenom_var.grid(row=2, column=1, pady=(5, 0), sticky=tk.E)
         
         self.prenom_var = tk.StringVar()
         self.prenom_edit = ttk.Entry(layout_enregistrer, textvariable=self.prenom_var, width=30)
-        self.prenom_edit.grid(row=1, column=2, pady=(5, 0), sticky=tk.E)
+        self.prenom_edit.grid(row=2, column=2, pady=(5, 0), sticky=tk.E)
         
         courriel_text = ttk.Label(layout_enregistrer, text="E-mail : ")
-        courriel_text.grid(row=2, column=1, pady=(5, 0), sticky=tk.E)
-        
+        courriel_text.grid(row=3, column=1, pady=(5, 0), sticky=tk.E)
         
         self.courriel_var= tk.StringVar()
         self.courriel_edit = ttk.Entry(layout_enregistrer, textvariable=self.courriel_var, width=30)
-        self.courriel_edit.grid(row=2, column=2, pady=(5, 0), sticky=tk.E)
+        self.courriel_edit.grid(row=3, column=2, pady=(5, 0), sticky=tk.E)
         
     
         tel_text = ttk.Label(layout_enregistrer, text="Tel# : ")
-        tel_text.grid(row=3, column=1, pady=(5, 0), sticky=tk.E)
+        tel_text.grid(row=4, column=1, pady=(5, 0), sticky=tk.E)
     
         self.tel_var = tk.StringVar()
         self.tel_edit = ttk.Entry(layout_enregistrer, textvariable=self.tel_var, width=30)
-        self.tel_edit.grid(row=3, column=2, pady=(5, 0), sticky=tk.E)
+        self.tel_edit.grid(row=4, column=2, pady=(5, 0), sticky=tk.E)
         
         adresse_text = ttk.Label(layout_enregistrer, text="Adresse : ")
-        adresse_text.grid(row=4, column=1, pady=(5, 0), sticky=tk.E)
+        adresse_text.grid(row=5, column=1, pady=(5, 0), sticky=tk.E)
         
         self.adresse_var = tk.StringVar()
         self.adresse_edit = ttk.Entry(layout_enregistrer, textvariable=self.adresse_var, width=30)
-        self.adresse_edit.grid(row=4, pady=(5, 0),column=2, sticky=tk.E)
+        self.adresse_edit.grid(row=5, pady=(5, 0),column=2, sticky=tk.E)
         
         locateur_text = ttk.Label(layout_enregistrer, text="Locateur : ")
-        locateur_text.grid(row=5, column=1, pady=(5, 0), sticky=tk.E)
+        locateur_text.grid(row=6, column=1, pady=(5, 0), sticky=tk.E)
         
         self.locateur_var = tk.StringVar()
         self.locateur_edit = ttk.Entry(layout_enregistrer, textvariable=self.locateur_var, width=30)
-        self.locateur_edit.grid(row=5, pady=(5, 0),column=2, sticky=tk.E)
+        self.locateur_edit.grid(row=6, pady=(5, 0),column=2, sticky=tk.E)
         
         mdp_text = ttk.Label(layout_enregistrer, text="Mot de passe : ")
-        mdp_text.grid(row=6, column=1, pady=(5, 0), sticky=tk.E)
+        mdp_text.grid(row=7, column=1, pady=(5, 0), sticky=tk.E)
         
         self.mdp_var = tk.StringVar()
         self.mdp_edit = ttk.Entry(layout_enregistrer, textvariable=self.mdp_var, width=30)
-        self.mdp_edit.grid(row=6, pady=(5, 0),column=2, sticky=tk.E)
+        self.mdp_edit.grid(row=7, pady=(5, 0),column=2, sticky=tk.E)
         
         btn_1 = ttk.Button(layout_enregistrer, text="Enregistrer", command=self.clic_enregistrer)
-        btn_1.grid(row=7, column=2)
+        btn_1.grid(row=8, column=2)
         
     def clic_enregistrer(self):
         print("clic enregistrer") 
