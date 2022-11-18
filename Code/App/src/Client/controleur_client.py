@@ -1,3 +1,4 @@
+from ctypes import util
 import urllib.request
 import urllib.parse 
 import json
@@ -66,12 +67,6 @@ class Controleur_Client:
         }
         return self.appel_serveur(infos)
     
-    # lemar
-    def lire_personne(self):
-        infos = {
-            utils.FONCTION:utils.LIRE_PERSONNE
-        }
-        return self.appel_serveur(infos)
     
     def enregistrer_usager(self,personne_email,locateur_nom_compagnie,identifiant,mdp,permission):
         infos = {
@@ -96,7 +91,41 @@ class Controleur_Client:
             utils.CODE_POSTAL:code_postal
         }
         return self.appel_serveur(infos)
-        
+    
+    def creer_client(self, locateur, client):
+        infos = {
+            utils.FONCTION:utils.CREER_LOCATEUR_CLIENT,
+            utils.LOCATEUR:locateur,
+            utils.CLIENT:client
+        }
+        return self.appel_serveur(infos)
+    
+    def get_client(self, locateur):
+        infos = {
+            utils.FONCTION:utils.SELECT_LOCATEUR_CLIENT,
+            utils.LOCATEUR:locateur
+        }    
+        return self.appel_serveur(infos)
+    
+    def get_personne(self, personne):
+        infos = {
+            utils.FONCTION:utils.SELECT_PERSONNE,
+            utils.PERSONNE:personne
+        }
+        return self.appel_serveur(infos)
+    
+    def get_employe(self, locateur):
+        infos = {
+            utils.FONCTION:utils.SELECT_USAGER,
+            utils.LOCATEUR:locateur
+        }    
+        return self.appel_serveur(infos)
+    
+    
+    
+    
+    
+    
     
 # test
 def main():

@@ -299,10 +299,15 @@ CREATE TABLE IF NOT EXISTS locateur_client
     client INTEGER REFERENCES personne(id_personne)
 )
 '''
+
+# INSERT_USAGER = '''INSERT INTO usager (personne, locateur, identifiant, mdp, permission) VALUES
+# 	    ( ((SELECT id_personne from personne WHERE courriel = ?)),
+# 	      ((SELECT id_locateur from locateur WHERE nom_compagnie = ?)),? , ?, ?)'''
+
 DROP_LOCATEUR_CLIENT = 'DROP TABLE IF EXISTS locateur_client'
-INSERT_LOCATEUR_CLIENT = '''INSERT INTO locateur_client(locateur, personne) VALUES
-    ('locateur', (SELECT id_locateur FROM locateur WHERE nom_compagnie = ?)
-    ('client', (SELECT id_personne FROM personne WHERE courriel = ?))'''
+INSERT_LOCATEUR_CLIENT = '''INSERT INTO locateur_client(locateur, client) VALUES
+    ((SELECT id_locateur FROM locateur WHERE id_locateur = ?),
+    (SELECT id_personne FROM personne WHERE id_personne = ?))'''
 SELECT_LOCATEUR_CLIENT = 'SELECT * FROM locateur_client'
 
 
@@ -488,7 +493,7 @@ class Dao():
         self.cur.execute(sql,(courriel,))
         return self.cur.fetchall()
         
-    def creer_personne(self,nom,prenom,courriel,telephone,adresse):
+    def creer_personne(self,nom,prenom,courriel,telephone,adresse): #employe ou clients
         
         sql = INSERT_PERSONNE
         # adresse à voir
@@ -510,13 +515,11 @@ class Dao():
     def creer_locateur(self,nom_compagnie,telephone_compagnie,adresse):
         sql = INSERT_LOCATEUR
         self.cur.execute(sql,(nom_compagnie,telephone_compagnie,adresse))
-        print("locateur ajouté")
         self.conn.commit()
     
     def enregistrer_usager(self, personne_email, locateur_nom_compagnie, identifiant, mdp, permission):
         sql = INSERT_USAGER
         self.cur.execute(sql, (personne_email, locateur_nom_compagnie, identifiant, mdp, permission))
-        print("usager ajouté")
         self.conn.commit()
 
         
@@ -534,6 +537,34 @@ class Dao():
         sql = SELECT_LOCATEUR
         self.cur.execute(sql)
         return self.cur.fetchall()
+    
+    
+    
+    def get_personne_info(self, personne): #clients ou employee
+        sql = ''' SELECT * FROM personne WHERE personne.id_personne = ? '''
+        self.cur.execute(sql, (personne,))
+        return self.cur.fetchall() 
+
+    
+    def get_employee(self, locateur):
+        sql = ''' SELECT personne, identifiant FROM usager WHERE usager.locateur = ? '''
+        self.cur.execute(sql, (locateur,))
+        return self.cur.fetchall()
+    
+    def creer_client(self,locateur,client):
+        sql = INSERT_LOCATEUR_CLIENT
+        self.cur.execute(sql, (locateur,client))
+        self.conn.commit()
+        
+
+    def get_client(self, locateur):
+        sql = ''' SELECT * FROM locateur_client WHERE locateur_client.locateur = ? '''
+        self.cur.execute(sql, (locateur,))
+        return self.cur.fetchall() 
+    
+    
+ 
+    
 
     # def creer_adresse(self,rue,numero,appartement,ville,province,pays,code_postal):
     #     sql = INSERT_ADRESSE

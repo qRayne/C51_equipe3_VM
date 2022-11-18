@@ -23,11 +23,11 @@ class Vue(ttk.Frame):
         self.ctrl_client = controleur
 
     def remplir_vue(self):
-        self.label_nom = ttk.Label(self, text='Nom ')
+        self.label_nom = ttk.Label(self, text='Pseudo ')
         self.label_nom.grid(row=1, column=0, pady=(5, 0), sticky=tk.E)
 
-        self.var_nom = tk.StringVar()
-        self.input_nom = ttk.Entry(self, textvariable=self.var_nom, width=30)
+        self.var_pseudo = tk.StringVar()
+        self.input_nom = ttk.Entry(self, textvariable=self.var_pseudo, width=30)
         self.input_nom.grid(row=1, column=1, sticky=tk.E)
 
         self.label_mdp = ttk.Label(self, text='Mot de passe ')
@@ -55,16 +55,17 @@ class Vue(ttk.Frame):
     def clic_bouton_connexion(self):
         if self.ctrl_client:
             #message d'erreur par controleur ou par vue?
-            reponse = self.ctrl_client.identifier_usager(self.var_nom.get(), self.var_mdp.get())
-            print(self.var_nom.get())
-            print(self.var_mdp.get())
+            reponse = self.ctrl_client.identifier_usager(self.var_pseudo.get(), self.var_mdp.get())
             print(reponse)
-            
-            
+            print("personne")
+            print(self.ctrl_client.get_personne(1))
+            print("employe")
+            print(self.ctrl_client.get_employe(1))
             if len(reponse):
-                print('reposnse')
                 self.afficher_succes(reponse)
-                return True  
+                donnes =[reponse[0][1], reponse[0][2]]
+                print(donnes)
+                return donnes
             else:
                 self.afficher_erreur(f'Nom ou mot de passe incorrects')
                 return False
@@ -137,7 +138,7 @@ class Vue(ttk.Frame):
     def clic_enregistrer(self):
         print("clic enregistrer") 
         self.ctrl_client.creer_personne(self.nom_var.get(), self.prenom_var.get(), self.courriel_var.get(), self.tel_var.get(), self.adresse_var.get())
-        self.ctrl_client.enregistrer_usager(self.courriel_var.get(), self.locateur_var.get(), self.nom_var.get(), self.mdp_var.get(), 'admin')
+        self.ctrl_client.enregistrer_usager(self.courriel_var.get(), self.locateur_var.get(), self.pseudo_var.get(), self.mdp_var.get(), 'admin')
         if (self.nom_var.get()):
             self.afficher_succes(self.nom_var)
             return True  

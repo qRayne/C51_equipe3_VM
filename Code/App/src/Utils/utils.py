@@ -1,5 +1,7 @@
 
 # web
+
+
 HOTE = '127.0.0.1'
 PORT = 5000
 URL = f'http://{HOTE}:{PORT}'
@@ -20,8 +22,6 @@ COURRIEL='courriel'
 TELEPHONE_PERSONNE='telephone_personne'
 ADRESSE = 'adresse'
 
-# lemar
-LIRE_PERSONNE = 'lire_personne'
 
 # une autre fonction vue fenêtre pour faire l'enregistrement de l'adresse
 # qui sera référé ici en id
@@ -42,6 +42,22 @@ LOCATEUR_NOM_COMPAGNIE='locateur_nom_compagnie'
 IDENTIFIANT='identifiant'
 PERMISSION='permission'
 MDP='mdp'
+
+# creer_client
+CREER_LOCATEUR_CLIENT ='creer_client'
+LOCATEUR = 'locateur'
+CLIENT = 'client'
+
+#get client
+SELECT_LOCATEUR_CLIENT = 'get_client'
+
+#get_personne
+SELECT_PERSONNE = "get_personne_info"
+PERSONNE = "personne"
+
+#get_employe
+SELECT_USAGER = "get_employee"
+
 
 # creer adresse
 # CREER_ADRESSE = 'creer_adresse'
