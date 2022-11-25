@@ -1,65 +1,67 @@
-from tkinter import *
-from tkinter.ttk import *
+import tkinter as tk
+from tkinter import Toplevel, ttk
 import os
 
-class Vue_accueil():
-    def __init__(self):
-        super().__init__()
-        self.title = "Page d'acceuil"
-        self.width = 1280
-        self.height = 720
-        self.master = None
-        self.controleur = None
-        self.remplir_vue()
+from vue_enregistrer import Vue_enregistrer
 
-    def set_controleur(self, controleur):
-        self.controleur = controleur
+from controleur_client import Controleur_Client
+
+
+
+class Vue_accueil(tk.Frame):
+    def __init__(self, parent, new_view):
+        tk.Frame.__init__(self, parent)
+        self.new_view = new_view
+        self.ctrl_client = Controleur_Client()
+        
+        self.remplir_vue()
         
     def open_file(self, file):
         os.system('python' + file)
 
+    
     def remplir_vue(self):
-        self.master = Tk()
-        
-        label = Label(self.master, text="test")
-        
-        last_name = Label(self.master, text="last name")
-        last_name.grid(row=0, column=0)
-        
-        first_name = Label(self.master, text="first name")
+
+        self.name = self.ctrl_client.get_employe(1)
+
+        self.var_name = tk.StringVar()
+        self.var_name = self.name[0][1]
+
+        first_name = ttk.Label(self, text='name : ' + self.var_name)
         first_name.grid(row=0, column=1)
         
-        title_name = Label(self.master, text="title name")
+        title_name = ttk.Label(self, text="title name")
         title_name.grid(row=0, column=5)
         
-        btn_1 = Button(self.master, text="Enregistrer", command=self.open_enregistrer)        
+        btn_1 = ttk.Button(self, text="Enregistrer", command=self.open_enregistrer)        
         btn_1.grid(row=2, column=2)
         
-        btn_2 = Button(self.master, text="Materiel", command=self.open_materiel)
+        btn_2 = ttk.Button(self, text="Materiel", command=self.open_materiel)
         btn_2.grid(row=3, column=2)
         
-        btn_3 = Button(self.master, text="Projet", command=self.open_projet)
+        btn_3 = ttk.Button(self, text="Projet", command=self.open_projet)
         btn_3.grid(row=4, column=2)
                 
-        btn_4 = Button(self.master, text="Locaux", command=self.open_locaux)
+        btn_4 = ttk.Button(self, text="Locaux", command=self.open_locaux)
         btn_4.grid(row=5, column=2)
         
-        btn_4 = Button(self.master, text="Employe", command=self.open_employe)
+        btn_4 = ttk.Button(self, text="Employe", command=self.open_employe)
         btn_4.grid(row=6, column=2)
                 
-        btn_4 = Button(self.master, text="Facture", command=self.open_facture)
+        btn_4 = ttk.Button(self, text="Facture", command=self.open_facture)
         btn_4.grid(row=7, column=2)
                 
-        btn_4 = Button(self.master, text="Messagerie", command=self.open_messagerie)
+        btn_4 = ttk.Button(self, text="Messagerie", command=self.open_messagerie)
         btn_4.grid(row=8, column=2)
                 
-        btn_4 = Button(self.master, text="Developpeur", command=self.open_developpeur)
+        btn_4 = ttk.Button(self, text="Developpeur", command=self.open_developpeur)
         btn_4.grid(row=9, column=2)
                 
-        btn_4 = Button(self.master, text="Admin", command=self.open_admin)
+        btn_4 = ttk.Button(self, text="Admin", command=self.open_admin)
         btn_4.grid(row=10, column=2)
-                
-        self.master.mainloop()
+
+        btn_4 = ttk.Button(self, text="Enregistrer", command=lambda : self.new_view.show_frame(Vue_enregistrer))
+        btn_4.place(x=300,y=300)
         
 
     def open_enregistrer(self):

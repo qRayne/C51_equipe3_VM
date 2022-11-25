@@ -1,47 +1,44 @@
 from traceback import print_exc
-from tkinter import Tk
-
+import tkinter as tk
 from vue import Vue
-from controleur_client import Controleur_Client
 from sys import path
 
 path.append('./Module')
 from vue_accueil import Vue_accueil
 
 path.append('./Module')
-from vue_enregistrer import Vue_enregistrer
+from vue_enregistrer import Vue_enregistrer 
 
-class Module(Tk):
-    def __init__(self):
-        super().__init__()
-        self.controleur = Controleur_Client()   
-        self.login = Vue(self)
-        self.login.grid(row=0, column=0, padx=10, pady=10)
-        self.login.set_controleur(self.controleur)
-        self.controleur.set_vue(self.login)
+
+
+class Module(tk.Tk):
+    def __init__(self, *args, **kwargs):
+        tk.Tk.__init__(self, *args, **kwargs)
         
-    def page_accueil(self):
-        layout_accueil = Vue_accueil(self)
-        # l.grid(row=0, column=0, padx=10, pady=10)
-        layout_accueil.set_controleur(self.controleur)
-        self.controleur.set_vue(layout_accueil)
+        window = tk.Frame(self)
+        window.pack()
+        window.grid_rowconfigure(0, minsize = 500)
+        window.grid_columnconfigure(0, minsize = 800)
+        self.title('Gestion')
+        self['bg'] = '#49A'
+     
+        self.frames = {}
+        for F in (Vue, Vue_accueil, Vue_enregistrer):
+            frame = F(window,self)
+            self.frames[F] = frame
+            frame.grid(row = 0, column = 0, sticky = "nsew")
+        self.show_frame(Vue)
+
+    def show_frame(self,page):
+        frame = self.frames[page]
+        frame.tkraise()
+        
     
-    def add_user(self):
-    
-        #self.var_identifiant.get(), self.var_password.get(), 
-        #self.var_email.get(), self.var_permission, self.var_name_compagny.get()
-        pass
-    
+
 def main():
     try:
         module = Module()
-        
-        
-        #print(module.login.clic_bouton_connexion())
-        #module.login.afficher_succes()
-        # module.page_accueil()
             
-        
         module.mainloop()
     except:
         print_exc()

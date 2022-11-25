@@ -8,10 +8,6 @@ path.append('../Utils')
 import utils
 
 
-path.append('./Module')
-from vue_accueil import Vue_accueil
-
-
 class Controleur_Client:
     def set_vue(self, vue):
         self.vue = vue
@@ -124,14 +120,11 @@ class Controleur_Client:
     
     
     
-    
-    
-    
+
 # test
 def main():
     c = Controleur_Client()
-    # d = c.identifier_usager('toto', 'totototo')
-    e = c.set_vue(Vue_accueil);
+
     d = c.identifier_usager('boubou', '12345')
 
     
