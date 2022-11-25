@@ -51,7 +51,10 @@ def select(dao):
 def main():
     bd = Dao()
     initial(bd)
-    insert_usager(bd, 'bricoleur', 'bob', 'bob@gmail.com', '256-254-2478', 'rue construction', 'Fido', '68223', 'admin')
+    insert_usager(bd, 'bricoleur', 'bob', 'bob@gmail.com', '256-254-2478', 'rue construction', 'Bell', '68223', 'admin')
+    insert_usager(bd, 'bricoleur', 'roger', 'roger@gmail.com', '256-254-2478', 'rue construction', 'Bell', '68223', 'admin')
+    insert_usager(bd, 'bricoleur', 'alice', 'alice@gmail.com', '256-254-2478', 'rue construction', 'Bell', '68223', 'admin')
+    insert_usager(bd, 'bricoleur', 'fune', 'fune@gmail.com', '256-254-2478', 'rue construction', 'Bell', '68223', 'admin')
     select(bd)
 
     print('\nIdentifier l\'usager')

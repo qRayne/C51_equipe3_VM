@@ -73,7 +73,7 @@ class Controleur_Serveur:
     
     def get_personne(self,form):
         personne = form[utils.PERSONNE]
-        return Dao().get_client(personne)
+        return Dao().get_personne_info(personne)
     
     def get_employee(self,form):
         locateur = form[utils.LOCATEUR]
@@ -82,7 +82,6 @@ class Controleur_Serveur:
     def get_client(self,form):
         locateur = form[utils.LOCATEUR]
         return Dao().get_client(locateur)
-    
     
     
     

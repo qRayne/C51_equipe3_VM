@@ -124,8 +124,44 @@ class Vue_accueil(tk.Frame):
         self.topProjet.title("Locaux")
         
     def open_employe(self):
-        self.topProjet = Toplevel()
-        self.topProjet.title("employe")
+        
+        liste_emp = self.ctrl_client.get_employe(1)
+        
+        self.top_employe = Toplevel()
+        self.top_employe.title("employe")
+        
+        nom_col = ["id", "pseudo", "prenom", "courriel", "num telephone", "adresse"]
+        
+        for i, col in enumerate(nom_col):
+            frame_employe = tk.Frame(master=self.top_employe, relief=tk.FLAT, borderwidth=2)
+            frame_employe.grid(row=0, column=i)
+            labelGrid = tk.Label(master=frame_employe, text=col)
+            labelGrid.pack()
+            
+        
+        
+
+        
+        for y in range(6):
+            for x, emp in enumerate(liste_emp):
+                employe = self.ctrl_client.get_personne(emp[0])
+                frame_employe = tk.Frame(master=self.top_employe, relief=tk.FLAT, borderwidth=2)
+                frame_employe.grid(row=(x + 1), column=y)
+                labelGrid = tk.Label(master=frame_employe, text=str(employe[0][y]))
+                labelGrid.pack()
+        self.text_liste = tk.Text(frame_employe, width= 100, height=50)
+        
+
+        # for i, emp in enumerate(liste_emp):
+        #     employe = self.ctrl_client.get_personne(emp[0])
+        #     self.text_liste.insert(str(i) + '.0' , str(employe[0][1]) + '\n')
+        #     print(employe)
+        
+        # self.text_liste.pack()
+        # self.text_liste['state'] = 'disabled'
+        
+        
+        
         
     def open_facture(self):
         self.topProjet = Toplevel()

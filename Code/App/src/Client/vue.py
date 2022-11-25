@@ -58,11 +58,6 @@ class Vue(ttk.Frame):
         if self.ctrl_client:
             #message d'erreur par controleur ou par vue?
             reponse = self.ctrl_client.identifier_usager(self.var_pseudo.get(), self.var_mdp.get())
-            print(reponse)
-            print("personne")
-            print(self.ctrl_client.get_personne(1))
-            print("employe")
-            print(self.ctrl_client.get_employe(1))
             if len(reponse):
                 self.afficher_succes(reponse)
                 self.new_view.show_frame(Vue_accueil)
