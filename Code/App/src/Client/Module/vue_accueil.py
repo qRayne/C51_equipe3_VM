@@ -11,6 +11,7 @@ class Vue_accueil(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.new_view = new_view
         self.ctrl_client = Controleur_Client()
+        self.topProjet = None
         self.remplir_vue()
         
     def open_file(self, file):
@@ -60,38 +61,87 @@ class Vue_accueil(tk.Frame):
         
 
     def open_enregistrer(self):
-        topProjet = Toplevel()
-        topProjet.title("Enregistrer")
+        self.topProjet = Toplevel()
+        self.topProjet.title("Enregistrer")
+        nom_text = ttk.Label(self.topProjet, text="Nom : ")
+        nom_text.grid(row=0, column=1,  pady=(5, 0), sticky=tk.E)
+        
+        self.nom_var = tk.StringVar()
+        self.nom_edit = ttk.Entry(self.topProjet, textvariable=self.nom_var, width=30)
+        self.nom_edit.grid(row=0, column=2,  pady=(5, 0), sticky=tk.E)
+        
+        prenom_var = ttk.Label(self.topProjet, text="Prenom : ")
+        prenom_var.grid(row=1, column=1, pady=(5, 0), sticky=tk.E)
+        
+        self.prenom_var = tk.StringVar()
+        self.prenom_edit = ttk.Entry(self.topProjet, textvariable=self.prenom_var, width=30)
+        self.prenom_edit.grid(row=1, column=2, pady=(5, 0), sticky=tk.E)
+        
+        courriel_text = ttk.Label(self.topProjet, text="E-mail : ")
+        courriel_text.grid(row=2, column=1, pady=(5, 0), sticky=tk.E)
+        
+        self.courriel_var= tk.StringVar()
+        self.courriel_edit = ttk.Entry(self.topProjet, textvariable=self.courriel_var, width=30)
+        self.courriel_edit.grid(row=2, column=2, pady=(5, 0), sticky=tk.E)
+    
+        tel_text = ttk.Label(self.topProjet, text="Tel# : ")
+        tel_text.grid(row=3, column=1, pady=(5, 0), sticky=tk.E)
+    
+        self.tel_var = tk.StringVar()
+        self.tel_edit = ttk.Entry(self.topProjet, textvariable=self.tel_var, width=30)
+        self.tel_edit.grid(row=3, column=2, pady=(5, 0), sticky=tk.E)
+        
+        adresse_text = ttk.Label(self.topProjet, text="Adresse : ")
+        adresse_text.grid(row=4, column=1, pady=(5, 0), sticky=tk.E)
+        
+        self.adresse_var = tk.StringVar()
+        self.adresse_edit = ttk.Entry(self.topProjet, textvariable=self.adresse_var, width=30)
+        self.adresse_edit.grid(row=4, pady=(5, 0),column=2, sticky=tk.E)
+        
+ 
+        
+        btn_1 = ttk.Button(self.topProjet, text="Enregistrer", command=self.btn_enregistrer)
+        btn_1.grid(row=6, column=2)
+
+    
+        
+    def btn_enregistrer(self):
+          
+        self.ctrl_client.creer_personne(self.nom_var.get(), self.prenom_var.get(), self.courriel_var.get(), self.tel_var.get(), self.adresse_var.get())
+        
+        self.topProjet.destroy() 
         
     def open_materiel(self):
-        topProjet = Toplevel()
-        topProjet.title("Materiel")
+        self.topProjet = Toplevel()
+        self.topProjet.title("Materiel")
         
     def open_projet(self):
-        topProjet = Toplevel()
-        topProjet.title("Projet")
+        self.topProjet = Toplevel()
+        self.topProjet.title("Projet")
         
     def open_locaux(self):
-        topProjet = Toplevel()
-        topProjet.title("Locaux")
+        self.topProjet = Toplevel()
+        self.topProjet.title("Locaux")
         
     def open_employe(self):
-        topProjet = Toplevel()
-        topProjet.title("employe")
+        self.topProjet = Toplevel()
+        self.topProjet.title("employe")
         
     def open_facture(self):
-        topProjet = Toplevel()
-        topProjet.title("facture")
+        self.topProjet = Toplevel()
+        self.topProjet.title("facture")
         
     def open_messagerie(self):
-        topProjet = Toplevel()
-        topProjet.title("messagerie")
+        self.topProjet = Toplevel()
+        self.topProjet.title("messagerie")
         
     def open_developpeur(self):
-        topProjet = Toplevel()
-        topProjet.title("developpeur")
+        self.topProjet = Toplevel()
+        self.topProjet.title("developpeur")
         
     def open_admin(self):
-        topProjet = Toplevel()
-        topProjet.title("admin")
+        self.topProjet = Toplevel()
+        self.topProjet.title("admin")
+        
+    
         

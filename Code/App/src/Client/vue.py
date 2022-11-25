@@ -51,6 +51,8 @@ class Vue(ttk.Frame):
         
         self.label_message = ttk.Label(self, text='',background='#FA8072',foreground='red')
         self.label_message.place(x=480,y=360)
+        
+        
 
     def clic_bouton_connexion(self):
         if self.ctrl_client:
