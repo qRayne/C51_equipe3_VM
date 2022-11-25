@@ -1,7 +1,9 @@
 from ast import Mod
+from operator import truediv
 import tkinter as tk
 from tkinter import Toplevel, ttk
 import os
+from xml.sax.saxutils import prepare_input_source
 
 from vue_enregistrer import Vue_enregistrer
 from controleur_client import Controleur_Client
@@ -32,7 +34,7 @@ class Vue_accueil(tk.Frame):
         title_name = ttk.Label(self, text="title name")
         title_name.place(x=700, y=0)
         
-        btn_1 = ttk.Button(self, text="Enregistrer", command=self.open_enregistrer)        
+        btn_1 = ttk.Button(self, text="Creer Personne", command=self.open_enregistrer)        
         btn_1.place(x=self.x, y=self.y)
         
         btn_2 = ttk.Button(self, text="Materiel", command=self.open_materiel)
@@ -59,57 +61,81 @@ class Vue_accueil(tk.Frame):
         btn_9 = ttk.Button(self, text="Admin", command=self.open_admin)
         btn_9.place(x=self.x , y=self.y+240)
         
+        btn_9 = ttk.Button(self, text="Admin", command=self.open_admin)
+        btn_9.place(x=self.x , y=self.y+240)
+        
 
     def open_enregistrer(self):
-        self.topProjet = Toplevel()
-        self.topProjet.title("Enregistrer")
-        nom_text = ttk.Label(self.topProjet, text="Nom : ")
+        self.topProjet_enregsiter = Toplevel()
+        self.topProjet_enregsiter.title("Enregistrer")
+        nom_text = ttk.Label(self.topProjet_enregsiter, text="Nom : ")
         nom_text.grid(row=0, column=1,  pady=(5, 0), sticky=tk.E)
         
         self.nom_var = tk.StringVar()
-        self.nom_edit = ttk.Entry(self.topProjet, textvariable=self.nom_var, width=30)
+        self.nom_edit = ttk.Entry(self.topProjet_enregsiter, textvariable=self.nom_var, width=30)
         self.nom_edit.grid(row=0, column=2,  pady=(5, 0), sticky=tk.E)
         
-        prenom_var = ttk.Label(self.topProjet, text="Prenom : ")
+        prenom_var = ttk.Label(self.topProjet_enregsiter, text="Prenom : ")
         prenom_var.grid(row=1, column=1, pady=(5, 0), sticky=tk.E)
         
         self.prenom_var = tk.StringVar()
-        self.prenom_edit = ttk.Entry(self.topProjet, textvariable=self.prenom_var, width=30)
+        self.prenom_edit = ttk.Entry(self.topProjet_enregsiter, textvariable=self.prenom_var, width=30)
         self.prenom_edit.grid(row=1, column=2, pady=(5, 0), sticky=tk.E)
         
-        courriel_text = ttk.Label(self.topProjet, text="E-mail : ")
+        courriel_text = ttk.Label(self.topProjet_enregsiter, text="E-mail : ")
         courriel_text.grid(row=2, column=1, pady=(5, 0), sticky=tk.E)
         
         self.courriel_var= tk.StringVar()
-        self.courriel_edit = ttk.Entry(self.topProjet, textvariable=self.courriel_var, width=30)
+        self.courriel_edit = ttk.Entry(self.topProjet_enregsiter, textvariable=self.courriel_var, width=30)
         self.courriel_edit.grid(row=2, column=2, pady=(5, 0), sticky=tk.E)
     
-        tel_text = ttk.Label(self.topProjet, text="Tel# : ")
+        tel_text = ttk.Label(self.topProjet_enregsiter, text="Tel# : ")
         tel_text.grid(row=3, column=1, pady=(5, 0), sticky=tk.E)
     
         self.tel_var = tk.StringVar()
-        self.tel_edit = ttk.Entry(self.topProjet, textvariable=self.tel_var, width=30)
+        self.tel_edit = ttk.Entry(self.topProjet_enregsiter, textvariable=self.tel_var, width=30)
         self.tel_edit.grid(row=3, column=2, pady=(5, 0), sticky=tk.E)
         
-        adresse_text = ttk.Label(self.topProjet, text="Adresse : ")
+        adresse_text = ttk.Label(self.topProjet_enregsiter, text="Adresse : ")
         adresse_text.grid(row=4, column=1, pady=(5, 0), sticky=tk.E)
         
         self.adresse_var = tk.StringVar()
-        self.adresse_edit = ttk.Entry(self.topProjet, textvariable=self.adresse_var, width=30)
+        self.adresse_edit = ttk.Entry(self.topProjet_enregsiter, textvariable=self.adresse_var, width=30)
         self.adresse_edit.grid(row=4, pady=(5, 0),column=2, sticky=tk.E)
         
- 
+        self.check = ttk.Checkbutton(self.topProjet_enregsiter, text = "Créer usager?", command=self.isChecked)
+        self.check.grid(row=6, column=1)
         
-        btn_1 = ttk.Button(self.topProjet, text="Enregistrer", command=self.btn_enregistrer)
+        btn_1 = ttk.Button(self.topProjet_enregsiter, text="Enregistrer", command=self.btn_savepersonne)
         btn_1.grid(row=6, column=2)
-
-    
         
-    def btn_enregistrer(self):
-          
-        self.ctrl_client.creer_personne(self.nom_var.get(), self.prenom_var.get(), self.courriel_var.get(), self.tel_var.get(), self.adresse_var.get())
+    def isChecked(self):
+        if "selected" in str(self.check.state()):
+            return True
+        else:
+            return False
+            
         
-        self.topProjet.destroy() 
+    def open_usager(self):
+        self.topProjet = Toplevel()
+        self.topProjet.title("Créer Usager")
+        
+        id_text = ttk.Label(self.topProjet, text="Identifiant : ")
+        id_text.grid(row=0, column=1,  pady=(5, 0), sticky=tk.E)
+        
+        self.id_var = tk.StringVar()
+        self.id_edit = ttk.Entry(self.topProjet, textvariable=self.id_var, width=30)
+        self.id_edit.grid(row=0, column=2,  pady=(5, 0), sticky=tk.E)
+        
+        mdp_var = ttk.Label(self.topProjet, text="Mot de passe : ")
+        mdp_var.grid(row=1, column=1, pady=(5, 0), sticky=tk.E)
+        
+        self.mdp_var = tk.StringVar()
+        self.mdp_edit = ttk.Entry(self.topProjet, textvariable=self.mdp_var, width=30)
+        self.mdp_edit.grid(row=1, column=2, pady=(5, 0), sticky=tk.E)
+        
+        btn_1 = ttk.Button(self.topProjet, text="Enregistrer", command=self.btn_saveusager)
+        btn_1.grid(row=2, column=1)
         
     def open_materiel(self):
         self.topProjet = Toplevel()
@@ -143,5 +169,15 @@ class Vue_accueil(tk.Frame):
         self.topProjet = Toplevel()
         self.topProjet.title("admin")
         
-    
+    def btn_savepersonne(self):
+        self.ctrl_client.creer_personne(self.nom_var.get(), self.prenom_var.get(), self.courriel_var.get(), self.tel_var.get(), self.adresse_var.get())
+        
+        if self.isChecked():
+            self.open_usager()  
+            
+        self.topProjet_enregsiter.destroy()
+        
+    def btn_saveusager(self):
+        self.ctrl_client.enregistrer_usager(self.courriel_var.get(),"Bell",self.id_var.get(), self.mdp_var.get(), "user")
+        self.topProjet.destroy() 
         
