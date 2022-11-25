@@ -3,25 +3,19 @@ from tkinter import Toplevel, ttk
 import os
 
 from vue_enregistrer import Vue_enregistrer
-
 from controleur_client import Controleur_Client
-
-
 
 class Vue_accueil(tk.Frame):
     def __init__(self, parent, new_view):
         tk.Frame.__init__(self, parent)
         self.new_view = new_view
         self.ctrl_client = Controleur_Client()
-        
         self.remplir_vue()
         
     def open_file(self, file):
         os.system('python' + file)
-
     
     def remplir_vue(self):
-
         self.name = self.ctrl_client.get_employe(1)
 
         self.var_name = tk.StringVar()

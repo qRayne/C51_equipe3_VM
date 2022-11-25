@@ -2,11 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import os
 
-
 from controleur_client import Controleur_Client
-
-
-
 
 class Vue_enregistrer(tk.Frame):
     def __init__(self, parent,new_view):
@@ -15,13 +11,10 @@ class Vue_enregistrer(tk.Frame):
         self.new_view = new_view
         self.remplir_vue()
         
-        
     def open_file(self, file):
         os.system('python' + file)
-
    
     def remplir_vue(self):
-       
         nom_text = ttk.Label(self, text="Nom : ")
         nom_text.grid(row=0, column=1,  pady=(5, 0), sticky=tk.E)
         
@@ -39,12 +32,9 @@ class Vue_enregistrer(tk.Frame):
         courriel_text = ttk.Label(self, text="E-mail : ")
         courriel_text.grid(row=2, column=1, pady=(5, 0), sticky=tk.E)
         
-        
-        
         self.courriel_var= tk.StringVar()
         self.courriel_edit = ttk.Entry(self, textvariable=self.courriel_var, width=30)
         self.courriel_edit.grid(row=2, column=2, pady=(5, 0), sticky=tk.E)
-        
     
         tel_text = ttk.Label(self, text="Tel# : ")
         tel_text.grid(row=3, column=1, pady=(5, 0), sticky=tk.E)
@@ -63,7 +53,7 @@ class Vue_enregistrer(tk.Frame):
         btn_1 = ttk.Button(self, text="Enregistrer", command=self.btn_enregistrer)
         btn_1.grid(row=6, column=2)
 
-        btn_1 = ttk.Button(self, text="Back", command=self.forget)
+        btn_1 = ttk.Button(self, text="Back", command=self.grid_forget)
         btn_1.grid(row=8, column=2)
     
 
