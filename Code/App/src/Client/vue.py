@@ -1,13 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
 from controleur_client import Controleur_Client
-
-
 from sys import path
 
 path.append('./Module')
 from vue_accueil import Vue_accueil
-
 
 class Vue(ttk.Frame):
     def __init__(self, parent,new_view):
