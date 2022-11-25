@@ -24,6 +24,7 @@ def initial(dao): #hard codes des valeurs de base dans le DAO
    
     dao.enregistrer_usager('boul.com', 'Bell', 'bou', '145', 'user')
             
+    
             
     
 def insert_usager(dao, nom, prenom, email, numTel, adresse, locateur, mdp, access):
