@@ -17,8 +17,8 @@ class Vue(ttk.Frame):
         self.ctrl_client = controleur
 
     def remplir_vue(self):
-        self['bg'] = '#49A'
-        self.label_nom = ttk.Label(self, text='Gestion', font=("Times New Roman", 30), background='#49A')
+        self['bg'] = '#FA8072'
+        self.label_nom = ttk.Label(self, text='Gestion', font=("Times New Roman", 30), background='#FA8072')
         self.label_nom.place(x=350,y=110)
 
         style = ttk.Style()
@@ -27,14 +27,14 @@ class Vue(ttk.Frame):
         style.map('TButton',background=[('active', 'Blue')])
         style.map('TLabel',background=[('active', 'Blue')])
         
-        self.label_nom = ttk.Label(self, text='Pseudo :', background='#49A')
+        self.label_nom = ttk.Label(self, text='Pseudo :', background='#FA8072')
         self.label_nom.place(x=320,y=210)
 
         self.var_pseudo = tk.StringVar()
         self.input_nom = ttk.Entry(self, textvariable=self.var_pseudo, width=30)
         self.input_nom.place(x=375,y=210)
 
-        self.label_mdp = ttk.Label(self, text='Mot de passe :', background='#49A')
+        self.label_mdp = ttk.Label(self, text='Mot de passe :', background='#FA8072')
         self.label_mdp.place(x=290,y=240)
 
         self.var_mdp = tk.StringVar()
@@ -49,7 +49,7 @@ class Vue(ttk.Frame):
         self.bouton_annuler.bind('<Return>', lambda e: self.bouton_annuler.invoke())
         self.bouton_annuler.place(x=480,y=330)
         
-        self.label_message = ttk.Label(self, text='',background='#49A',foreground='red')
+        self.label_message = ttk.Label(self, text='',background='#FA8072',foreground='red')
         self.label_message.place(x=480,y=360)
 
     def clic_bouton_connexion(self):

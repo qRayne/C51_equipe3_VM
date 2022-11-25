@@ -10,17 +10,19 @@ path.append('./Module')
 from vue_enregistrer import Vue_enregistrer 
 
 
-
 class Module(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
         
+        self.x = 500
+        self.y = 800
         window = tk.Frame(self)
         window.pack()
-        window.grid_rowconfigure(0, minsize = 500)
-        window.grid_columnconfigure(0, minsize = 800)
+        window.grid_rowconfigure(0, minsize = self.x)
+        window.grid_columnconfigure(0, minsize = self.y)
         self.title('Gestion')
-        self['bg'] = '#49A'
+        
+        self['bg'] = '#FA8072'
      
         self.frames = {}
         for F in (Vue, Vue_accueil, Vue_enregistrer):
@@ -32,9 +34,7 @@ class Module(tk.Tk):
     def show_frame(self,page):
         frame = self.frames[page]
         frame.tkraise()
-        
     
-
 def main():
     try:
         module = Module()

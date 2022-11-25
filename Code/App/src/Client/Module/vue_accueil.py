@@ -1,3 +1,4 @@
+from ast import Mod
 import tkinter as tk
 from tkinter import Toplevel, ttk
 import os
@@ -18,6 +19,9 @@ class Vue_accueil(tk.Frame):
     def remplir_vue(self):
         self.name = self.ctrl_client.get_employe(1)
 
+        self.x = 350
+        self.y = 50
+        
         self.var_name = tk.StringVar()
         self.var_name = self.name[0][1]
 
@@ -25,37 +29,34 @@ class Vue_accueil(tk.Frame):
         first_name.grid(row=0, column=1)
         
         title_name = ttk.Label(self, text="title name")
-        title_name.grid(row=0, column=5)
+        title_name.place(x=700, y=0)
         
         btn_1 = ttk.Button(self, text="Enregistrer", command=self.open_enregistrer)        
-        btn_1.grid(row=2, column=2)
+        btn_1.place(x=self.x, y=self.y)
         
         btn_2 = ttk.Button(self, text="Materiel", command=self.open_materiel)
-        btn_2.grid(row=3, column=2)
+        btn_2.place(x=self.x , y=self.y+30)
         
         btn_3 = ttk.Button(self, text="Projet", command=self.open_projet)
-        btn_3.grid(row=4, column=2)
+        btn_3.place(x=self.x , y=self.y+60)
                 
         btn_4 = ttk.Button(self, text="Locaux", command=self.open_locaux)
-        btn_4.grid(row=5, column=2)
+        btn_4.place(x=self.x , y=self.y+90)
         
-        btn_4 = ttk.Button(self, text="Employe", command=self.open_employe)
-        btn_4.grid(row=6, column=2)
+        btn_5 = ttk.Button(self, text="Employe", command=self.open_employe)
+        btn_5.place(x=self.x , y=self.y+120)
                 
-        btn_4 = ttk.Button(self, text="Facture", command=self.open_facture)
-        btn_4.grid(row=7, column=2)
+        btn_6 = ttk.Button(self, text="Facture", command=self.open_facture)
+        btn_6.place(x=self.x , y=self.y+150)
                 
-        btn_4 = ttk.Button(self, text="Messagerie", command=self.open_messagerie)
-        btn_4.grid(row=8, column=2)
+        btn_7 = ttk.Button(self, text="Messagerie", command=self.open_messagerie)
+        btn_7.place(x=self.x , y=self.y+180)
                 
-        btn_4 = ttk.Button(self, text="Developpeur", command=self.open_developpeur)
-        btn_4.grid(row=9, column=2)
+        btn_8 = ttk.Button(self, text="Developpeur", command=self.open_developpeur)
+        btn_8.place(x=self.x , y=self.y+210)
                 
-        btn_4 = ttk.Button(self, text="Admin", command=self.open_admin)
-        btn_4.grid(row=10, column=2)
-
-        btn_4 = ttk.Button(self, text="Enregistrer", command=lambda : self.new_view.show_frame(Vue_enregistrer))
-        btn_4.place(x=300,y=300)
+        btn_9 = ttk.Button(self, text="Admin", command=self.open_admin)
+        btn_9.place(x=self.x , y=self.y+240)
         
 
     def open_enregistrer(self):
