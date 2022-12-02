@@ -1,14 +1,7 @@
 from traceback import print_exc
 import tkinter as tk
 from vue import Vue
-from sys import path
-
-path.append('./Module')
 from vue_accueil import Vue_accueil
-
-path.append('./Module')
-from vue_enregistrer import Vue_enregistrer 
-
 
 class Module(tk.Tk):
     def __init__(self, *args, **kwargs):
@@ -25,7 +18,7 @@ class Module(tk.Tk):
         self['bg'] = '#FA8072'
      
         self.frames = {}
-        for F in (Vue, Vue_accueil, Vue_enregistrer):
+        for F in (Vue, Vue_accueil):
             frame = F(window,self)
             self.frames[F] = frame
             frame.grid(row = 0, column = 0, sticky = "nsew")

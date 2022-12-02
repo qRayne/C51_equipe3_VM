@@ -1,9 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
 from controleur_client import Controleur_Client
-from sys import path
-
-path.append('./Module')
 from vue_accueil import Vue_accueil
 
 class Vue(ttk.Frame):
@@ -51,8 +48,6 @@ class Vue(ttk.Frame):
         
         self.label_message = ttk.Label(self, text='',background='#FA8072',foreground='red')
         self.label_message.place(x=480,y=360)
-        
-        
 
     def clic_bouton_connexion(self):
         if self.ctrl_client:
@@ -64,7 +59,6 @@ class Vue(ttk.Frame):
             else:
                 self.afficher_erreur(f'Nom ou mot de passe incorrects')
                 return False
-            
          
     def btn_annuler(self):
         self.var_pseudo.set('')

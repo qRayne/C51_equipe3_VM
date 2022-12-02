@@ -1,11 +1,7 @@
-from ast import Mod
-from operator import truediv
 import tkinter as tk
 from tkinter import Toplevel, ttk
 import os
-from xml.sax.saxutils import prepare_input_source
 
-from vue_enregistrer import Vue_enregistrer
 from controleur_client import Controleur_Client
 
 class Vue_accueil(tk.Frame):
@@ -164,10 +160,6 @@ class Vue_accueil(tk.Frame):
             labelGrid = tk.Label(master=frame_employe, text=col)
             labelGrid.pack()
             
-        
-        
-
-        
         for y in range(6):
             for x, emp in enumerate(liste_emp):
                 employe = self.ctrl_client.get_personne(emp[0])
@@ -185,9 +177,6 @@ class Vue_accueil(tk.Frame):
         
         # self.text_liste.pack()
         # self.text_liste['state'] = 'disabled'
-        
-        
-        
         
     def open_facture(self):
         self.topProjet = Toplevel()
