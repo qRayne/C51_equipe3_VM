@@ -4,35 +4,25 @@ from vue import Vue
 from vue_accueil import Vue_accueil
 
 class Module(tk.Tk):
-    def __init__(self, *args, **kwargs):
-        tk.Tk.__init__(self, *args, **kwargs)
-        
-        self.x = 500
-        self.y = 800
-        window = tk.Frame(self)
-        window.pack()
-        window.grid_rowconfigure(0, minsize = self.x)
-        window.grid_columnconfigure(0, minsize = self.y)
+    def __init__(self):
+        super().__init__()
         self.title('Gestion')
-        
-        self['bg'] = '#FA8072'
-     
-        self.frames = {}
-        for F in (Vue, Vue_accueil):
-            frame = F(window,self)
-            self.frames[F] = frame
-            frame.grid(row = 0, column = 0, sticky = "nsew")
-        self.show_frame(Vue)
+        self.show_frame(None, Vue)
 
-    def show_frame(self,page):
-        frame = self.frames[page]
-        frame.tkraise()
+    def show_frame(self, instance_vue_courante, class_vue):
+        if instance_vue_courante is not None:
+            for widget in instance_vue_courante.winfo_children():
+                widget.destroy()
+            instance_vue_courante.destroy()
+        self.frame = class_vue(self)
+        self.frame.grid(row = 0, column = 0, sticky = "nsew")
+        self.frame.remplir_vue()
     
 def main():
     try:
-        module = Module()
-            
+        module = Module()   
         module.mainloop()
+        
     except:
         print_exc()
         return 1
