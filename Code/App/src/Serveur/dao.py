@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS personne
 DROP_PERSONNE = 'DROP TABLE IF EXISTS personne'
 INSERT_PERSONNE = '''INSERT INTO personne(nom, prenom, courriel, telephone, adresse) VALUES(?, ?, ?, ?, ?)'''
 SELECT_PERSONNE = 'SELECT * FROM personne'
+SELECT_PERSONNE_COURRIEL = 'SELECT * FROM personne WHERE courriel = ?'
 
 
 # ***************** MODULE *********************
@@ -545,6 +546,11 @@ class Dao():
         self.cur.execute(sql, (personne,))
         return self.cur.fetchall() 
 
+    def get_personne_courriel(self, courriel): #clients ou employee
+        sql = ''' SELECT * FROM personne WHERE personne.courriel = ? '''
+        self.cur.execute(sql, (courriel,))
+        return self.cur.fetchall() 
+
     
     def get_employee(self, locateur):
         sql = ''' SELECT personne, identifiant FROM usager WHERE usager.locateur = ? '''
@@ -558,9 +564,11 @@ class Dao():
         
 
     def get_client(self, locateur):
-        sql = ''' SELECT * FROM locateur_client WHERE locateur_client.locateur = ? '''
+        sql = ''' SELECT client FROM locateur_client WHERE locateur_client.locateur = ? '''
         self.cur.execute(sql, (locateur,))
         return self.cur.fetchall() 
+    
+    
     
     
  
