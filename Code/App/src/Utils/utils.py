@@ -1,3 +1,10 @@
+# vue
+VUE = 0
+VUE_ACCUEIL = 1
+
+
+
+
 
 # web
 

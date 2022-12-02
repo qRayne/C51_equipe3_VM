@@ -1,6 +1,13 @@
+from sys import path
+
+path.append("..")
+
 import tkinter as tk
 from tkinter import Toplevel, ttk
 import os
+# from vue import Vue
+from Utils import utils
+# from module import Module
 
 from controleur_client import Controleur_Client
 
@@ -10,10 +17,10 @@ class Vue_accueil(tk.Frame):
         self.parent = parent
         self.ctrl_client = Controleur_Client()
         self.topProjet = None
-        self.remplir_vue()
+        # self.remplir_vue()
         
-    def open_file(self, file):
-        os.system('python' + file)
+    # def open_file(self, file):
+    #     os.system('python' + file)
     
     def remplir_vue(self):
         self.name = self.ctrl_client.get_employe(1)
@@ -57,7 +64,7 @@ class Vue_accueil(tk.Frame):
         btn_9 = ttk.Button(self, text="Admin", command=self.open_admin)
         btn_9.grid(row=10, column=1)
         
-        btn_9 = ttk.Button(self, text="Admin", command=self.open_admin)
+        btn_9 = ttk.Button(self, text="quitter", command=self.quitter)
         btn_9.grid(row=11, column=1)
         
 
@@ -193,6 +200,10 @@ class Vue_accueil(tk.Frame):
     def open_admin(self):
         self.topProjet = Toplevel()
         self.topProjet.title("admin")
+        
+    def quitter(self):
+        #self.parent.destroy()
+        self.parent.show_frame(self, utils.VUE)
         
     def btn_savepersonne(self):
         self.ctrl_client.creer_personne(self.nom_var.get(), self.prenom_var.get(), self.courriel_var.get(), self.tel_var.get(), self.adresse_var.get())
