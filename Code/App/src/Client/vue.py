@@ -32,13 +32,13 @@ class Vue(ttk.Frame):
         self.input_nom = ttk.Entry(self, textvariable=self.var_pseudo, width=30)
         self.input_nom.insert(0, 'Pseudo')
         self.input_nom.grid(row=2, column=0)
-        self.input_mdp.bind("<Button-1>", lambda e: self.placeholder(self.input_mdp))
+        self.input_nom.bind("<Button-1>", lambda e: self.placeholder(self.input_nom))
         
         self.var_mdp = tk.StringVar()
         self.input_mdp = ttk.Entry(self, textvariable=self.var_mdp, show='*', width=30)
         self.input_mdp.insert(0, 'Mot de passe')
         self.input_mdp.grid(row=3, column=0)
-        self.input_nom.bind("<Button-1>", lambda e: self.placeholder(self.input_nom))
+        self.input_mdp.bind("<Button-1>", lambda e: self.placeholder(self.input_mdp))
         
         self.bouton_connexion = ttk.Button(self, text='Connexion', command=self.clic_bouton_connexion)
         self.bouton_connexion.bind('<Return>', lambda e: self.bouton_connexion.invoke())
