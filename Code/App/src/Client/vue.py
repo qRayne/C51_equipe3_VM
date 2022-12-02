@@ -8,17 +8,13 @@ class Vue(ttk.Frame):
         super().__init__(parent)
         self.parent = parent
         self.ctrl_client = Controleur_Client()
-        # self.new_view = new_view
-        # self.remplir_vue()
         
     def set_controleur(self, controleur):
         self.ctrl_client = controleur
 
     def remplir_vue(self):
         print("remplir vue")
-        # self['bg'] = '#FA8072'
         self.label_nom = ttk.Label(self, text='Gestion', font=("Times New Roman", 30), background='#FA8072')
-        #self.label_nom.place(x=350,y=110)
         self.label_nom.grid(row=0, column=0)
 
         style = ttk.Style()
@@ -27,45 +23,50 @@ class Vue(ttk.Frame):
         style.map('TButton',background=[('active', 'Blue')])
         style.map('TLabel',background=[('active', 'Blue')])
         
-        self.label_nom = ttk.Label(self, text='Pseudo :', background='#FA8072')
-        self.label_nom.grid(row=1, column=0)
-
-        #self.label_nom.place(x=320,y=210)
+        # self.label_nom = ttk.Label(self, text='Pseudo :', background='#FA8072')
+        # self.label_nom.grid(row=1, column=0)
 
         self.var_pseudo = tk.StringVar()
         self.input_nom = ttk.Entry(self, textvariable=self.var_pseudo, width=30)
+        self.input_nom.insert(0, 'Pseudo')
         self.input_nom.grid(row=2, column=0)
 
-        #self.input_nom.place(x=375,y=210)
-
-        self.label_mdp = ttk.Label(self, text='Mot de passe :', background='#FA8072')
-        self.label_mdp.grid(row=0, column=0)
-
-        #self.label_mdp.place(x=290,y=240)
+        # self.label_mdp = ttk.Label(self, text='Mot de passe :', background='#FA8072')
+        # self.label_mdp.grid(row=0, column=0)
 
         self.var_mdp = tk.StringVar()
         self.input_mdp = ttk.Entry(self, textvariable=self.var_mdp, show='*', width=30)
+        self.input_mdp.insert(0, 'Mot de passe')
         self.input_mdp.grid(row=3, column=0)
 
-        #self.input_mdp.place(x=375,y=240)
-    
+        self.input_mdp.bind("<Button-1>", lambda e: self.click(self.input_mdp))
+        # self.input_mdp.bind("<Leave>", lambda e: self.leave(self.input_mdp))
+        
+        self.input_nom.bind("<Button-1>", lambda e: self.click(self.input_nom))
+        # self.input_nom.bind("<Leave>", lambda e: self.leave(self.input_nom))
+        
         self.bouton_connexion = ttk.Button(self, text='Connexion', command=self.clic_bouton_connexion)
         self.bouton_connexion.bind('<Return>', lambda e: self.bouton_connexion.invoke())
         self.bouton_connexion.grid(row=4, column=0)
 
-        #self.bouton_connexion.place(x=480,y=300)
-        
         self.bouton_annuler = ttk.Button(self, text='Annuler', command=self.btn_annuler)
         self.bouton_annuler.bind('<Return>', lambda e: self.bouton_annuler.invoke())
         self.bouton_annuler.grid(row=5, column=0)
 
-        #self.bouton_annuler.place(x=480,y=330)
-        
         self.label_message = ttk.Label(self, text='',background='#FA8072',foreground='red')
         self.label_message.grid(row=6, column=0)
 
-        #self.label_message.place(x=480,y=360)
 
+    def click(self, input):
+        input.delete(0, 'end')
+            
+    def leave(self, input):
+        input.delete(0, 'end')
+        if input == self.input_mdp:
+            input.insert(0, 'Mot de passe')
+        elif input == self.input_nom:
+            input.insert(0, 'Pseudo')
+            
     def clic_bouton_connexion(self):
         if self.ctrl_client:
             #message d'erreur par controleur ou par vue?
