@@ -19,7 +19,7 @@ class Vue(ttk.Frame):
 
     def remplir_vue(self):
         print("remplir vue")
-        self.label_nom = ttk.Label(self, text='Gestion', font=("Times New Roman", 30), background='#FA8072')
+        self.label_nom = ttk.Label(self, text='Gestion', font=("Times New Roman", 30))
         self.label_nom.grid(row=0, column=0)
 
         style = ttk.Style()
@@ -48,7 +48,7 @@ class Vue(ttk.Frame):
         self.bouton_annuler.bind('<Return>', lambda e: self.bouton_annuler.invoke())
         self.bouton_annuler.grid(row=5, column=0)
 
-        self.label_message = ttk.Label(self, text='',background='#FA8072',foreground='red')
+        self.label_message = ttk.Label(self, text='',foreground='red')
         self.label_message.grid(row=6, column=0)
 
     def placeholder(self, input):
