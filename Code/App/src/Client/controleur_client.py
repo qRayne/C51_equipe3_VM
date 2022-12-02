@@ -110,6 +110,13 @@ class Controleur_Client:
         }
         return self.appel_serveur(infos)
     
+    def get_personne_courriel(self, courriel):
+        infos = {
+        utils.FONCTION:utils.SELECT_PERSONNE_COURRIEL,
+        utils.COURRIEL:courriel
+    }
+        return self.appel_serveur(infos)
+    
     def get_employe(self, locateur):
         infos = {
             utils.FONCTION:utils.SELECT_USAGER,

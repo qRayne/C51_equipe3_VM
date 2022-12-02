@@ -16,7 +16,8 @@ class Controleur_Serveur:
             utils.CREER_LOCATEUR_CLIENT:self.creer_client,
             utils.SELECT_LOCATEUR_CLIENT:self.get_client,
             utils.SELECT_PERSONNE:self.get_personne,
-            utils.SELECT_USAGER:self.get_employee
+            utils.SELECT_USAGER:self.get_employee,
+            utils.SELECT_PERSONNE_COURRIEL:self.get_personne_courriel
         }
 
     # Le nom de la fonction voulue est envoyée
@@ -82,6 +83,10 @@ class Controleur_Serveur:
     def get_client(self,form):
         locateur = form[utils.LOCATEUR]
         return Dao().get_client(locateur)
+    
+    def get_personne_courriel(self,form):
+        courriel = form[utils.COURRIEL]
+        return Dao().get_personne_courriel(courriel)
     
     
     

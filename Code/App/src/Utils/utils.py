@@ -8,7 +8,6 @@ VUE_ACCUEIL = 1
 
 # web
 
-
 HOTE = '127.0.0.1'
 PORT = 5000
 URL = f'http://{HOTE}:{PORT}'
@@ -61,6 +60,7 @@ SELECT_LOCATEUR_CLIENT = 'get_client'
 #get_personne
 SELECT_PERSONNE = "get_personne_info"
 PERSONNE = "personne"
+SELECT_PERSONNE_COURRIEL = "get_personne_courriel"
 
 #get_employe
 SELECT_USAGER = "get_employee"
