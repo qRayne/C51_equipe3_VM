@@ -1,13 +1,13 @@
 from sys import path
 
 path.append("..")
-
 import tkinter as tk
 from tkinter import Toplevel, ttk
 import os
 from Utils import utils
+from controleur_client import Controleur_Client
 
-# from controleur_client import Controleur_Client
+# TODO: facture, messagerie, developpeur, admin
 
 class Vue_accueil(tk.Frame):
     def __init__(self, parent, controleur_client):
@@ -17,7 +17,6 @@ class Vue_accueil(tk.Frame):
         self.topProjet = None
         self.locateur = 1  #a chercher 
         self.remplir_vue()
-        
         
     def open_file(self, file):
         os.system('python' + file)
@@ -31,48 +30,42 @@ class Vue_accueil(tk.Frame):
         self.var_name = tk.StringVar()
         self.var_name = self.name[0][1]
 
-        if self.controleur_client.credentials["permissions"] == 'admin':
-            btn_1 = ttk.Button(self, text="Creer Personne", command=self.open_enregistrer)        
-            btn_1.grid(row=2, column=1)
-            
-            btn_2 = ttk.Button(self, text="Materiel", command=self.open_materiel)
-            btn_2.grid(row=3, column=1)
-            
-            btn_3 = ttk.Button(self, text="Projet", command=self.open_projet)
-            btn_3.grid(row=4, column=1)
-                    
-            btn_4 = ttk.Button(self, text="Clients", command=self.open_client)
-            btn_4.grid(row=5, column=1)
-            
-            btn_5 = ttk.Button(self, text="Employe", command=self.open_employe)
-            btn_5.grid(row=6, column=1)
-                    
-            btn_6 = ttk.Button(self, text="Facture", command=self.open_facture)
-            btn_6.grid(row=7, column=1)
-                    
-            btn_7 = ttk.Button(self, text="Messagerie", command=self.open_messagerie)
-            btn_7.grid(row=8, column=1)
-                    
-            btn_8 = ttk.Button(self, text="Developpeur", command=self.open_developpeur)
-            btn_8.grid(row=9, column=1)
-                    
-            btn_9 = ttk.Button(self, text="Admin", command=self.open_admin)
-            btn_9.grid(row=10, column=1)
-    
-        
         first_name = ttk.Label(self, text='name : ' + self.var_name)
         first_name.grid(row=0, column=1)
         
         title_name = ttk.Label(self, text="compagnie : " + str(self.locateur))
         title_name.grid(row=1, column=1)
         
+        btn_1 = ttk.Button(self, text="Creer Personne", command=self.open_enregistrer)        
+        btn_1.grid(row=2, column=1)
+        
+        btn_2 = ttk.Button(self, text="Materiel", command=self.open_materiel)
+        btn_2.grid(row=3, column=1)
+        
+        btn_3 = ttk.Button(self, text="Projet", command=self.open_projet)
+        btn_3.grid(row=4, column=1)
+                
+        btn_4 = ttk.Button(self, text="Clients", command=self.open_client)
+        btn_4.grid(row=5, column=1)
+        
+        btn_5 = ttk.Button(self, text="Employe", command=self.open_employe)
+        btn_5.grid(row=6, column=1)
+                
+        btn_6 = ttk.Button(self, text="Facture", command=self.open_facture)
+        btn_6.grid(row=7, column=1)
+                
+        btn_7 = ttk.Button(self, text="Messagerie", command=self.open_messagerie)
+        btn_7.grid(row=8, column=1)
+                
+        btn_8 = ttk.Button(self, text="Developpeur", command=self.open_developpeur)
+        btn_8.grid(row=9, column=1)
+                
+        btn_9 = ttk.Button(self, text="Admin", command=self.open_admin)
+        btn_9.grid(row=10, column=1)
+        
         btn_9 = ttk.Button(self, text="quitter", command=self.quitter)
         btn_9.grid(row=11, column=1)
         
-        
-        
-        
-
     def open_enregistrer(self):
         self.topProjet_enregsiter = Toplevel()
         self.topProjet_enregsiter.title("Enregistrer")
@@ -118,21 +111,7 @@ class Vue_accueil(tk.Frame):
         self.checkClient.grid(row=6, column=3)
         
         btn_1 = ttk.Button(self.topProjet_enregsiter, text="Enregistrer", command=self.btn_savepersonne)
-        btn_1.grid(row=6, column=2)
-        
-    def isCheckedUsager(self):
-        if "selected" in str(self.checkUsager.state()):
-            return True
-        else:
-            return False
-        
-        
-    def isCheckedClient(self):
-        if "selected" in str(self.checkClient.state()):
-            return True
-        else:
-            return False
-            
+        btn_1.grid(row=6, column=2)    
         
     def open_usager(self):
         self.topProjet = Toplevel()
@@ -232,7 +211,10 @@ class Vue_accueil(tk.Frame):
         
     def quitter(self):
         #self.parent.destroy()
+<<<<<<< HEAD
         # ici il se log so on reset les deux permissions
+=======
+>>>>>>> ed86e57 (fixage code vue mode arrangement)
         self.parent.show_frame(self, utils.VUE)
         
     def btn_savepersonne(self):
@@ -252,4 +234,15 @@ class Vue_accueil(tk.Frame):
     def btn_saveusager(self):
         self.controleur_client.enregistrer_usager(self.courriel_var.get(),"Bell",self.id_var.get(), self.mdp_var.get(), "user")
         self.topProjet.destroy() 
+            
+    def isCheckedUsager(self):
+        if "selected" in str(self.checkUsager.state()):
+            return True
+        else:
+            return False
         
+    def isCheckedClient(self):
+        if "selected" in str(self.checkClient.state()):
+            return True
+        else:
+            return False
