@@ -9,8 +9,18 @@ import utils
 
 
 class Controleur_Client:
-    def set_vue(self, vue):
-        self.vue = vue
+    def __init__(self):
+        self.__credentials = {"user":None, 
+                              "locateur":None, 
+                              "permissions":None, 
+                              "modules":[]}
+    
+    @property
+    def permission(self):
+        return self.__credentials 
+    
+    # def set_vue(self, vue):
+    #     self.vue = vue
 
     # On prépare et on envoie les infos, incluant
     # le nom de la fonction, au serveur_web, qui, lui
