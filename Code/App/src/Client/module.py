@@ -1,4 +1,5 @@
 from sys import path
+from tkinter import ttk
 
 path.append("..")
 
@@ -17,8 +18,7 @@ class Module(tk.Tk):
         super().__init__()
         self.title('Gestion')
         self.controleur_client = Controleur_Client()
-        self.show_frame(None, utils.VUE_LOGIN)
-        
+        self.show_frame(None, utils.VUE)
 
     def show_frame(self, instance_vue_courante, index_class_vue):
         if instance_vue_courante is not None:
@@ -26,6 +26,8 @@ class Module(tk.Tk):
                 widget.destroy()
             instance_vue_courante.destroy()
         self.frame = VUES[index_class_vue](self, self.controleur_client)
+        self.columnconfigure(0, weight=1)
+        self.rowconfigure(0, weight=1)
         self.frame.grid(row = 0, column = 0, sticky = "nsew")
         self.frame.remplir_vue()
     

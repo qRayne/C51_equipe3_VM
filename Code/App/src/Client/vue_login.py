@@ -1,5 +1,7 @@
+from distutils.command.config import config
 from math import perm
 from sys import path
+from turtle import width
 from urllib import response
 
 path.append("..")
@@ -13,42 +15,52 @@ class VueLogin(ttk.Frame):
         super().__init__(parent)
         self.parent = parent
         self.controleur_client = controleur_client
-        
 
     def remplir_vue(self):
-        self.label_nom = ttk.Label(self, text='Gestion', font=("Times New Roman", 30))
-        self.label_nom.grid(row=0, column=0)
-
+        self.columnconfigure(0, weight=1)
+        self.columnconfigure(2, weight=1)
+        self.label_nom = ttk.Label(self, text='Gestion', font=("Times New Roman", 40), background='#2596be')
+        # self.label_nom.grid(row=0, column=1)
+        self.label_nom.place(x=280, y=120)
+        
+        self.parent.geometry('720x480')
+        self.parent.configure(background="#2596be")
+        
         style = ttk.Style()
         style.theme_use('alt')
-        style.configure('TButton', font=('Times New Roman', 10),background='#232323', foreground='white')
-        style.map('TButton',background=[('active', 'Blue')])
-        style.map('TLabel',background=[('active', 'Blue')])
+        style.configure('TButton', font=('Times New Roman', 10), background='#232323', foreground='white')
+        style.configure('TFrame', background='#2596be')
+        style.configure('TLabel', background='#2596be')
+        style.map('TButton', background=[('active', 'Blue')])
+        style.map('TLabel', background=[('active', 'Blue')])
         
         self.var_pseudo = tk.StringVar()
         self.input_nom = ttk.Entry(self, textvariable=self.var_pseudo, width=30)
         self.input_nom.insert(0, 'Pseudo')
-        self.input_nom.grid(row=2, column=0)
+        # self.input_nom.grid(row=2, column=1)
+        self.input_nom.place(x=280, y=190)
         self.input_nom.bind("<Button-1>", lambda e: self.placeholder(self.input_nom))
         
         self.var_mdp = tk.StringVar()
         self.input_mdp = ttk.Entry(self, textvariable=self.var_mdp, show='*', width=30)
         self.input_mdp.insert(0, 'Mot de passe')
-        self.input_mdp.grid(row=3, column=0)
+        # self.input_mdp.grid(row=3, column=1)
+        self.input_mdp.place(x=280, y=220)
         self.input_mdp.bind("<Button-1>", lambda e: self.placeholder(self.input_mdp))
         
         self.bouton_connexion = ttk.Button(self, text='Connexion', command=self.clic_bouton_connexion)
         self.parent.bind('<Return>', self.press_enter)
-        
-        # self.input_mdp.bind('<Return>', self.clic_bouton_connexion)
-        self.bouton_connexion.grid(row=4, column=0)
 
         self.bouton_annuler = ttk.Button(self, text='Annuler', command=self.clic_btn_annuler)
-        # self.bouton_annuler.bind('<Return>', lambda e: self.bouton_annuler.invoke())
-        self.bouton_annuler.grid(row=5, column=0)
+        # self.bouton_connexion.grid(row=4, column=1)
+        self.bouton_connexion.place(x=388, y=250)
+
+        # self.bouton_annuler.grid(row=5, column=1)
+        self.bouton_annuler.place(x=388, y=280)
 
         self.label_message = ttk.Label(self, text='',foreground='red')
-        self.label_message.grid(row=6, column=0)
+        # self.label_message.grid(row=6, column=1)
+        self.label_message.place(x=280, y=310)
 
     def placeholder(self, input):
         input.delete(0, 'end')
