@@ -17,7 +17,10 @@ class Controleur_Serveur:
             utils.SELECT_LOCATEUR_CLIENT:self.get_client,
             utils.SELECT_PERSONNE:self.get_personne,
             utils.SELECT_USAGER:self.get_employee,
-            utils.SELECT_PERSONNE_COURRIEL:self.get_personne_courriel
+            utils.SELECT_PERSONNE_COURRIEL:self.get_personne_courriel,
+            utils.SELECT_UTILISATEUR:self.get_utilisateur,
+            utils.SELECT_LOCATEUR:self.get_locateur
+            
         }
 
     # Le nom de la fonction voulue est envoyée
@@ -88,8 +91,14 @@ class Controleur_Serveur:
         courriel = form[utils.COURRIEL]
         return Dao().get_personne_courriel(courriel)
     
-    
-    
+    def get_utilisateur(self, form):
+        identifiant = form[utils.IDENTIFIANT]
+        return Dao().get_utilisateur(identifiant)
+
+    def get_locateur(self, form):
+        id = form[utils.ID_LOCATEUR]
+        return Dao().get_locateur(id)
+
     
 
     

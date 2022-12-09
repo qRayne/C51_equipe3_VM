@@ -18,6 +18,7 @@ class Controleur_Client:
     @property
     def credentials(self):
         return self.__credentials 
+      
     
     # def set_vue(self, vue):
     #     self.vue = vue
@@ -134,7 +135,19 @@ class Controleur_Client:
         }    
         return self.appel_serveur(infos)
     
+    def get_utilisateur(self, identifiant):
+        infos = {
+            utils.FONCTION:utils.SELECT_UTILISATEUR,
+            utils.IDENTIFIANT:identifiant
+        }    
+        return self.appel_serveur(infos)
     
+    def get_locateur(self, id):
+        infos = {
+        utils.FONCTION:utils.SELECT_LOCATEUR,
+        utils.ID_LOCATEUR:id
+        }    
+        return self.appel_serveur(infos)
     
     
 

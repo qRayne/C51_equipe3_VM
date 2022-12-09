@@ -14,16 +14,19 @@ class Vue_accueil(tk.Frame):
         super().__init__(parent)
         self.parent = parent
         self.controleur_client = controleur_client
+        self.user = self.controleur_client.get_utilisateur(self.controleur_client.credentials["user"])
         self.topProjet = None
-        self.locateur = 1  #a chercher 
+        
         self.remplir_vue()
         
     def open_file(self, file):
         os.system('python' + file)
     
     def remplir_vue(self):
-        self.name = self.controleur_client.get_employe(1)
-
+        self.name = self.controleur_client.get_personne(self.user[0][1])
+        self.locateur = self.controleur_client.get_locateur(self.controleur_client.credentials["locateur"])[0][1]
+        
+        
         self.x = 350
         self.y = 50
         
@@ -64,6 +67,13 @@ class Vue_accueil(tk.Frame):
         title_name = ttk.Label(self, text="compagnie : " + str(self.locateur))
         title_name.grid(row=1, column=1)
         
+        btn_9 = ttk.Button(self, text="quitter", command=self.quitter)
+        btn_9.grid(row=11, column=1)
+        
+        
+
+        
+
     def open_enregistrer(self):
         self.topProjet_enregsiter = Toplevel()
         self.topProjet_enregsiter.title("Enregistrer")
@@ -141,7 +151,8 @@ class Vue_accueil(tk.Frame):
         self.topProjet.title("Projet")
         
     def open_client(self):
-        liste_client = self.controleur_client.get_client(self.locateur) # a changer
+        
+        liste_client = self.controleur_client.get_client(self.controleur_client.credentials["locateur"]) # a changer
         
         self.top_client = Toplevel()
         self.top_client.title("Client")
@@ -164,7 +175,8 @@ class Vue_accueil(tk.Frame):
         self.text_liste = tk.Text(frame_employe, width= 100, height=50)
         
     def open_employe(self):
-        liste_emp = self.controleur_client.get_employe(self.locateur)  # a changer
+        
+        liste_emp = self.controleur_client.get_employe(self.controleur_client.credentials["locateur"])  # a changer
         
         self.top_employe = Toplevel()
         self.top_employe.title("employe")
@@ -215,13 +227,13 @@ class Vue_accueil(tk.Frame):
             
         if self.isCheckedClient():
             client = self.controleur_client.get_personne_courriel(self.courriel_var.get())
-            self.controleur_client.creer_client(self.locateur, client[0][0])  #a changer locateur
+            self.controleur_client.creer_client(self.controleur_client.credentials["locateur"], client[0][0])  #a changer locateur
             print("client crée")
     
         self.topProjet_enregsiter.destroy()
         
     def btn_saveusager(self):
-        self.controleur_client.enregistrer_usager(self.courriel_var.get(),"Bell",self.id_var.get(), self.mdp_var.get(), "user")
+        self.controleur_client.enregistrer_usager(self.courriel_var.get(), self.controleur_client.credentials["locateur"],self.id_var.get(), self.mdp_var.get(), "user")
         self.topProjet.destroy() 
             
     def isCheckedUsager(self):

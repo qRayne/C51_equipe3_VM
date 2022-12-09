@@ -1,4 +1,6 @@
 # vue
+
+
 VUE = 0
 VUE_ACCUEIL = 1
 # web
@@ -31,6 +33,7 @@ ADRESSE = 'adresse'
 CREER_LOCATEUR = 'creer_locateur'
 NOM_COMPAGNIE='nom_compagnie'
 TELEPHONE_COMPAGNIE='telephone_compagnie'
+ID_LOCATEUR = "id_locateur"
 
 # une autre fonction vue fenêtre pour faire l'enregistrement de l'adresse
 # qui sera référé ici en id
@@ -59,6 +62,12 @@ SELECT_PERSONNE_COURRIEL = "get_personne_courriel"
 
 #get_employe
 SELECT_USAGER = "get_employee"
+
+#get utilisateur
+SELECT_UTILISATEUR = "get_utilisateur"
+
+#get locateur 
+SELECT_LOCATEUR = "get_locateur"
 
 
 # creer adresse

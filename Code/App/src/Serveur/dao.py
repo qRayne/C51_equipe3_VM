@@ -568,8 +568,16 @@ class Dao():
         self.cur.execute(sql, (locateur,))
         return self.cur.fetchall() 
     
+    def get_utilisateur(self, identifiant): 
+        sql = ''' SELECT * FROM usager WHERE usager.identifiant = ? '''
+        self.cur.execute(sql, (identifiant,))
+        return self.cur.fetchall()
     
-    
+        
+    def get_locateur(self, id): 
+        sql = ''' SELECT * FROM locateur WHERE locateur.id_locateur = ? '''
+        self.cur.execute(sql, (id,))
+        return self.cur.fetchall()
     
  
     

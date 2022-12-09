@@ -57,7 +57,11 @@ class Vue(ttk.Frame):
             reponse = self.controleur_client.identifier_usager(self.var_pseudo.get(), self.var_mdp.get())
             if len(reponse):
                 self.afficher_succes(reponse)
+                self.controleur_client.credentials["user"] = self.var_pseudo.get()
+                user = self.controleur_client.get_utilisateur(self.controleur_client.credentials["user"])
+                self.controleur_client.credentials["locateur"] = user[0][2]
                 self.controleur_client.credentials["permissions"] = reponse[0][3]
+               
                 self.parent.show_frame(self, utils.VUE_ACCUEIL)
             else:
                 self.afficher_erreur(f'Nom ou mot de passe incorrects')
@@ -84,6 +88,3 @@ class Vue(ttk.Frame):
     def cacher_message(self):
         self.label_message['text'] = ''
 
-
-    # def get_permission(self):
-    #     return self.
