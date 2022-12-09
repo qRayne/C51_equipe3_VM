@@ -38,11 +38,13 @@ class VueLogin(ttk.Frame):
         self.input_mdp.bind("<Button-1>", lambda e: self.placeholder(self.input_mdp))
         
         self.bouton_connexion = ttk.Button(self, text='Connexion', command=self.clic_bouton_connexion)
-        self.bouton_connexion.bind('<Return>', lambda e: self.bouton_connexion.invoke())
+        self.parent.bind('<Return>', self.press_enter)
+        
+        # self.input_mdp.bind('<Return>', self.clic_bouton_connexion)
         self.bouton_connexion.grid(row=4, column=0)
 
-        self.bouton_annuler = ttk.Button(self, text='Annuler', command=self.btn_annuler)
-        self.bouton_annuler.bind('<Return>', lambda e: self.bouton_annuler.invoke())
+        self.bouton_annuler = ttk.Button(self, text='Annuler', command=self.clic_btn_annuler)
+        # self.bouton_annuler.bind('<Return>', lambda e: self.bouton_annuler.invoke())
         self.bouton_annuler.grid(row=5, column=0)
 
         self.label_message = ttk.Label(self, text='',foreground='red')
@@ -50,7 +52,10 @@ class VueLogin(ttk.Frame):
 
     def placeholder(self, input):
         input.delete(0, 'end')
-            
+
+    def press_enter(self, e):
+        self.clic_bouton_connexion()
+
     def clic_bouton_connexion(self):
         if self.controleur_client:
             reponse = self.controleur_client.identifier_usager(self.var_pseudo.get(), self.var_mdp.get())
@@ -66,7 +71,7 @@ class VueLogin(ttk.Frame):
                 self.afficher_erreur(f'Nom ou mot de passe incorrects')
                 return False
          
-    def btn_annuler(self):
+    def clic_btn_annuler(self):
         self.var_pseudo.set('')
         self.var_mdp.set('')
 
