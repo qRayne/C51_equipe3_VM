@@ -93,8 +93,6 @@ CREATE TABLE IF NOT EXISTS usager
 )
 '''
 
-#('personne',(SELECT id_personne from personne WHERE courriel=?),
-#    ('module',(SELECT id_module from module WHERE nom=?))'''
 
 DROP_USAGER = 'DROP TABLE IF EXISTS usager'
 INSERT_USAGER = '''INSERT INTO usager (personne, locateur, identifiant, mdp, permission) VALUES
@@ -301,10 +299,6 @@ CREATE TABLE IF NOT EXISTS locateur_client
 )
 '''
 
-# INSERT_USAGER = '''INSERT INTO usager (personne, locateur, identifiant, mdp, permission) VALUES
-# 	    ( ((SELECT id_personne from personne WHERE courriel = ?)),
-# 	      ((SELECT id_locateur from locateur WHERE nom_compagnie = ?)),? , ?, ?)'''
-
 DROP_LOCATEUR_CLIENT = 'DROP TABLE IF EXISTS locateur_client'
 INSERT_LOCATEUR_CLIENT = '''INSERT INTO locateur_client(locateur, client) VALUES
     ((SELECT id_locateur FROM locateur WHERE id_locateur = ?),
@@ -430,9 +424,7 @@ class Dao():
         DROP_PERSONNE
     ]
     
-    #singleton pas possible car:
     
-    # sqlite3.ProgrammingError: SQLite objects created in a thread can only be used in that same thread. The object was created in thread id 12960 and this is thread id 14996.  
     def __init__(self):
         self.chemin_bd = BD_GEST_MEDIA
         self.connexion()    
@@ -455,21 +447,6 @@ class Dao():
         for table in Dao.__creer:
             self.cur.execute(table)
 
-    # def insert_membre(self, compagnie, identifiant, mdp, permission, titre):
-    #     self.cur.execute(INSERT_MEMBRE, (compagnie, identifiant, mdp, permission, titre))
-    #     self.conn.commit()
-
-    # def insert_compagnie(self, nomcompagnie):
-    #     self.cur.execute(INSERT_COMPAGNIE, (nomcompagnie,))
-    #     self.conn.commit()
-
-    # def select_membre(self):
-    #     self.cur.execute(SELECT_MEMBRE)
-    #     return self.cur.fetchall()
-
-    # def select_compagnie(self):
-    #     self.cur.execute(SELECT_COMPAGNIE)
-    #     return self.cur.fetchall()
 
     def identifier_usager(self, identifiant, mdp):
         sql = '''
@@ -499,7 +476,6 @@ class Dao():
         sql = INSERT_PERSONNE
         # adresse à voir
         self.cur.execute(sql,(nom,prenom,courriel,telephone,adresse))
-        print("personne ajouté")
         self.conn.commit()
      
     def trouver_locateur(self, nom_compagnie):
@@ -580,87 +556,16 @@ class Dao():
         return self.cur.fetchall()
     
  
-    
 
-    # def creer_adresse(self,rue,numero,appartement,ville,province,pays,code_postal):
-    #     sql = INSERT_ADRESSE
-    #     self.cur.execute(sql,(rue,numero,appartement,ville,province,pays,code_postal))
-    #     print("adresse ajouté")
         
 
 def main():
     Dao().creer_bd()
     return 0
-#main
 
-#print('Dans le module Dao: ', __name__)
+
+
 if __name__ == '__main__':
     quit(main())
 
 
-
-# TOUS LES FOREIGNS KEYS SERONTS MISE ICI 
-
-# ALTER_PROJET_EQUIPEMENT = '''
-#     ALTER TABLE projet_equipement ADD FOREIGN KEY (projet) REFERENCES projet(id)
-#     ALTER TABLE projet_equipement ADD FOREIGN KEY (equipement) REFERENCES equipement(id)
-#     '''
-
-# ALTER_STATISTIQUE = '''
-#     ALTER TABLE statistique ADD FOREIGN KEY (module) REFERENCES module(id)
-#     '''
-
-# ALTER_LOCATEUR_EQUIPEMENT = '''
-#     ALTER TABLE locateur_equipement ADD FOREIGN KEY (locateur) REFERENCES locateur(id)
-#     ALTER TABLE locateur_equipement ADD FOREIGN KEY (equipement) REFERENCES equipement(id)
-#     ALTER TABLE locateur_equipement ADD FOREIGN KEY (rangement) REFERENCES rangement(id)
-#     '''
-
-# ALTER_PROJET = '''
-#     ALTER TABLE projet ADD FOREIGN KEY (locateur) REFERENCES locateur(id)
-#     '''
-
-# ALTER_PERSONNE_MODULE = '''
-#     ALTER TABLE personne_module ADD FOREIGN KEY (personne) REFERENCES personne(id)
-#     ALTER TABLE personne_module ADD FOREIGN KEY (module) REFERENCES module(id)
-#     '''
-
-# ALTER_PROJET_LOCALISATION = '''
-#     ALTER TABLE projet_localisation ADD FOREIGN KEY (projet) REFERENCES projet(id)
-#     ALTER TABLE projet_localisation ADD FOREIGN KEY (emplacement) REFERENCES adresse(id)
-#     ALTER TABLE projet_localisation ADD FOREIGN KEY (local) REFERENCES local(id)
-# '''
-
-# ALTER_PROJET_EMPLOYE = '''
-#     ALTER TABLE projet_employe ADD FOREIGN KEY (projet) REFERENCES projet(id)
-#     ALTER TABLE projet_employe ADD FOREIGN KEY (employe) REFERENCES personne(id)
-#     ALTER TABLE projet_employe ADD FOREIGN KEY (locateur) REFERENCES locateur(id)
-# '''
-
-# ALTER_LOCATEUR = '''
-#     ALTER TABLE locateur ADD FOREIGN KEY (admin) REFERENCES personne(id)
-#     ALTER TABLE locateur ADD FOREIGN KEY (adresse) REFERENCES adresse(id)
-# '''
-
-# ALTER_LOCATEUR_CLIENT = '''
-#     ALTER TABLE locateur_client ADD FOREIGN KEY (locateur) REFERENCES locateur(id)
-#     ALTER TABLE locateur_client ADD FOREIGN KEY (client) REFERENCES personne(id)
-# '''
-
-# ALTER_FACTURE = '''
-#     ALTER TABLE facture ADD FOREIGN KEY (client) REFERENCES personne(id)
-#     ALTER TABLE facture ADD FOREIGN KEY (projet) REFERENCES projet(id)
-# '''
-
-# ALTER_MESSAGE = '''
-#     ALTER TABLE message ADD FOREIGN KEY (expediteur) REFERENCES personne(id)
-#     ALTER TABLE message ADD FOREIGN KEY (destinataire) REFERENCES destinataire(id)
-# '''
-
-# ALTER_EMPLOYE_ROLE = '''
-#     ALTER TABLE employe_role ADD FOREIGN KEY (employe) REFERENCES personne(id) 
-#     ALTER TABLE employe_role ADD FOREIGN KEY (role) REFERENCES role(id) 
-# '''
-
-
-# mettre à jour cette partie après le ménage des tables

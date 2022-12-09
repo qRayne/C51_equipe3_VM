@@ -9,7 +9,7 @@ from controleur_client import Controleur_Client
 
 # TODO: facture, messagerie, developpeur, admin
 
-class Vue_accueil(tk.Frame):
+class VueAccueil(tk.Frame):
     def __init__(self, parent, controleur_client):
         super().__init__(parent)
         self.parent = parent
@@ -152,7 +152,7 @@ class Vue_accueil(tk.Frame):
         
     def open_client(self):
         
-        liste_client = self.controleur_client.get_client(self.controleur_client.credentials["locateur"]) # a changer
+        liste_client = self.controleur_client.get_client(self.controleur_client.credentials["locateur"])
         
         self.top_client = Toplevel()
         self.top_client.title("Client")
@@ -176,7 +176,7 @@ class Vue_accueil(tk.Frame):
         
     def open_employe(self):
         
-        liste_emp = self.controleur_client.get_employe(self.controleur_client.credentials["locateur"])  # a changer
+        liste_emp = self.controleur_client.get_employe(self.controleur_client.credentials["locateur"]) 
         
         self.top_employe = Toplevel()
         self.top_employe.title("employe")
@@ -217,34 +217,45 @@ class Vue_accueil(tk.Frame):
     def quitter(self):
         #self.parent.destroy()
         # ici il se log so on reset les deux permissions
-        self.parent.show_frame(self, utils.VUE)
+        self.parent.show_frame(self, utils.VUE_LOGIN)
         
     def btn_savepersonne(self):
-        self.controleur_client.creer_personne(self.nom_var.get(), self.prenom_var.get(), self.courriel_var.get(), self.tel_var.get(), self.adresse_var.get())
+        self.controleur_client.creer_personne(self.nom_var.get(), 
+                                              self.prenom_var.get(), 
+                                              self.courriel_var.get(), 
+                                              self.tel_var.get(), 
+                                              self.adresse_var.get())
         
         if self.isCheckedUsager():
+            
             self.open_usager()  
             
         if self.isCheckedClient():
             client = self.controleur_client.get_personne_courriel(self.courriel_var.get())
-            self.controleur_client.creer_client(self.controleur_client.credentials["locateur"], client[0][0])  #a changer locateur
-            print("client crée")
+            self.controleur_client.creer_client(self.controleur_client.credentials["locateur"], 
+                                                client[0][0])  
     
         self.topProjet_enregsiter.destroy()
         
     def btn_saveusager(self):
 
-        self.controleur_client.enregistrer_usager(self.courriel_var.get(), self.controleur_client.get_locateur(self.controleur_client.credentials["locateur"])[0][1] ,self.id_var.get(), self.mdp_var.get(), "user")
+        self.controleur_client.enregistrer_usager(self.courriel_var.get(), 
+                                                 self.controleur_client.get_locateur(self.controleur_client.credentials["locateur"])[0][1],
+                                                 self.id_var.get(), self.mdp_var.get(), "user")
         self.topProjet.destroy() 
             
     def isCheckedUsager(self):
         if "selected" in str(self.checkUsager.state()):
+            self.checkClient.grid_forget()
             return True
         else:
+            self.checkClient.grid(row=6, column=3)
             return False
         
     def isCheckedClient(self):
         if "selected" in str(self.checkClient.state()):
+            self.checkUsager.grid_forget()
             return True
         else:
+            self.checkUsager.grid(row=6, column=1)
             return False

@@ -6,10 +6,9 @@ path.append("..")
 
 import tkinter as tk
 from tkinter import ttk
-# from controleur_client import Controleur_Client
 from Utils import utils
 
-class Vue(ttk.Frame):
+class VueLogin(ttk.Frame):
     def __init__(self, parent, controleur_client):
         super().__init__(parent)
         self.parent = parent

@@ -62,7 +62,6 @@ class Controleur_Client:
             utils.ADRESSE:adresse
         }
         
-        print(infos)
         return self.appel_serveur(infos)
     
     def creer_locateur(self,nom_compagnie,telephone_compagnie,adresse=""):
@@ -158,7 +157,6 @@ def main():
     d = c.identifier_usager('boubou', '12345')
 
     
-    print(d)
     return 0
 
 if __name__ == '__main__':

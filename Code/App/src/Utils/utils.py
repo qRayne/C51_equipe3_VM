@@ -1,7 +1,7 @@
 # vue
 
 
-VUE = 0
+VUE_LOGIN = 0
 VUE_ACCUEIL = 1
 # web
 
