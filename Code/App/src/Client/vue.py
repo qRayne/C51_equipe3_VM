@@ -17,7 +17,6 @@ class Vue(ttk.Frame):
         
 
     def remplir_vue(self):
-        print("remplir vue")
         self.label_nom = ttk.Label(self, text='Gestion', font=("Times New Roman", 30))
         self.label_nom.grid(row=0, column=0)
 
@@ -58,10 +57,7 @@ class Vue(ttk.Frame):
             reponse = self.controleur_client.identifier_usager(self.var_pseudo.get(), self.var_mdp.get())
             if len(reponse):
                 self.afficher_succes(reponse)
-                if reponse[0][3] == 'admin':
-                    utils.PERMISSION_ADMIN = 1
-                else:
-                    utils.PERMISSION_USER = 1
+                self.controleur_client.credentials["permissions"] = reponse[0][3]
                 self.parent.show_frame(self, utils.VUE_ACCUEIL)
             else:
                 self.afficher_erreur(f'Nom ou mot de passe incorrects')

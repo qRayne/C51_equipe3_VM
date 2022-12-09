@@ -30,8 +30,8 @@ class Vue_accueil(tk.Frame):
         
         self.var_name = tk.StringVar()
         self.var_name = self.name[0][1]
-        
-        if utils.PERMISSION_ADMIN == 1:
+
+        if self.controleur_client.credentials["permissions"] == 'admin':
             btn_1 = ttk.Button(self, text="Creer Personne", command=self.open_enregistrer)        
             btn_1.grid(row=2, column=1)
             
@@ -233,8 +233,6 @@ class Vue_accueil(tk.Frame):
     def quitter(self):
         #self.parent.destroy()
         # ici il se log so on reset les deux permissions
-        utils.PERMISSION_ADMIN = 0
-        utils.PERMISSION_USER = 0
         self.parent.show_frame(self, utils.VUE)
         
     def btn_savepersonne(self):

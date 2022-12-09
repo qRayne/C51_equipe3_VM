@@ -16,7 +16,7 @@ class Controleur_Client:
                               "modules":[]}
     
     @property
-    def permission(self):
+    def credentials(self):
         return self.__credentials 
     
     # def set_vue(self, vue):
