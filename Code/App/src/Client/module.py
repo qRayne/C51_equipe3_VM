@@ -6,6 +6,7 @@ from traceback import print_exc
 import tkinter as tk
 from vue import Vue
 from vue_accueil import Vue_accueil
+from controleur_client import Controleur_Client
 
 from Utils import utils
 
@@ -15,19 +16,16 @@ class Module(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title('Gestion')
+        self.controleur_client = Controleur_Client()
         self.show_frame(None, utils.VUE)
+        
 
     def show_frame(self, instance_vue_courante, index_class_vue):
         if instance_vue_courante is not None:
             for widget in instance_vue_courante.winfo_children():
                 widget.destroy()
             instance_vue_courante.destroy()
-        # if index_class_vue == utils.VUE:
-        #     self.frame = Vue(self)
-        # elif index_class_vue == utils.VUE_ACCUEIL:
-        #     self.frame = Vue_accueil(self)
-        self.frame = VUES[index_class_vue](self)
-        
+        self.frame = VUES[index_class_vue](self, self.controleur_client)
         self.frame.grid(row = 0, column = 0, sticky = "nsew")
         self.frame.remplir_vue()
     

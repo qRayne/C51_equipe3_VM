@@ -4,18 +4,15 @@ path.append("..")
 
 import tkinter as tk
 from tkinter import ttk
-from controleur_client import Controleur_Client
-# from vue_accueil import Vue_accueil
+# from controleur_client import Controleur_Client
 from Utils import utils
 
 class Vue(ttk.Frame):
-    def __init__(self, parent):
+    def __init__(self, parent, controleur_client):
         super().__init__(parent)
         self.parent = parent
-        self.ctrl_client = Controleur_Client()
+        self.controleur_client = controleur_client
         
-    def set_controleur(self, controleur):
-        self.ctrl_client = controleur
 
     def remplir_vue(self):
         print("remplir vue")
@@ -55,8 +52,8 @@ class Vue(ttk.Frame):
         input.delete(0, 'end')
             
     def clic_bouton_connexion(self):
-        if self.ctrl_client:
-            reponse = self.ctrl_client.identifier_usager(self.var_pseudo.get(), self.var_mdp.get())
+        if self.controleur_client:
+            reponse = self.controleur_client.identifier_usager(self.var_pseudo.get(), self.var_mdp.get())
             if len(reponse):
                 self.afficher_succes(reponse)
                 self.parent.show_frame(self, utils.VUE_ACCUEIL)
