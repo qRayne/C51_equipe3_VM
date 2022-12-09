@@ -3,8 +3,9 @@ VUE = 0
 VUE_ACCUEIL = 1
 
 
-
-
+# permission 
+PERMISSION_ADMIN = 0
+PERMISSION_USER = 0
 
 # web
 
