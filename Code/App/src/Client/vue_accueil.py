@@ -211,10 +211,6 @@ class Vue_accueil(tk.Frame):
         
     def quitter(self):
         #self.parent.destroy()
-<<<<<<< HEAD
-        # ici il se log so on reset les deux permissions
-=======
->>>>>>> ed86e57 (fixage code vue mode arrangement)
         self.parent.show_frame(self, utils.VUE)
         
     def btn_savepersonne(self):
