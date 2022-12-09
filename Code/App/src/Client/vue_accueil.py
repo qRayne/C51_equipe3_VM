@@ -233,7 +233,8 @@ class Vue_accueil(tk.Frame):
         self.topProjet_enregsiter.destroy()
         
     def btn_saveusager(self):
-        self.controleur_client.enregistrer_usager(self.courriel_var.get(), self.controleur_client.credentials["locateur"],self.id_var.get(), self.mdp_var.get(), "user")
+
+        self.controleur_client.enregistrer_usager(self.courriel_var.get(), self.controleur_client.get_locateur(self.controleur_client.credentials["locateur"])[0][1] ,self.id_var.get(), self.mdp_var.get(), "user")
         self.topProjet.destroy() 
             
     def isCheckedUsager(self):

@@ -16,7 +16,7 @@ def initial(dao): #hard codes des valeurs de base dans le DAO
     if not dao.trouver_personne('boubou@gmail.com'):
        dao.creer_personne('boubou', 'babou', 'boubou@gmail.com', '123-1234-1234', '220 rue robert-cliche')
     
-    dao.enregistrer_usager('boubou@gmail.com', 'Bell', 'boubou', '12345', 'admin')
+    dao.enregistrer_usager('boubou@gmail.com', 'Bell', 'root', 'root', 'admin')
        
          
     if not dao.trouver_personne('boul.com'):
