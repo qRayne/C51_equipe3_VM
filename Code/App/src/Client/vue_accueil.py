@@ -30,41 +30,39 @@ class Vue_accueil(tk.Frame):
         self.var_name = tk.StringVar()
         self.var_name = self.name[0][1]
 
+        if self.controleur_client.credentials["permissions"] == 'admin':
+            btn_1 = ttk.Button(self, text="Creer Personne", command=self.open_enregistrer)        
+            btn_1.grid(row=2, column=1)
+            
+            btn_2 = ttk.Button(self, text="Materiel", command=self.open_materiel)
+            btn_2.grid(row=3, column=1)
+            
+            btn_3 = ttk.Button(self, text="Projet", command=self.open_projet)
+            btn_3.grid(row=4, column=1)
+                    
+            btn_4 = ttk.Button(self, text="Clients", command=self.open_client)
+            btn_4.grid(row=5, column=1)
+            
+            btn_5 = ttk.Button(self, text="Employe", command=self.open_employe)
+            btn_5.grid(row=6, column=1)
+                    
+            btn_6 = ttk.Button(self, text="Facture", command=self.open_facture)
+            btn_6.grid(row=7, column=1)
+                    
+            btn_7 = ttk.Button(self, text="Messagerie", command=self.open_messagerie)
+            btn_7.grid(row=8, column=1)
+                    
+            btn_8 = ttk.Button(self, text="Developpeur", command=self.open_developpeur)
+            btn_8.grid(row=9, column=1)
+                    
+            btn_9 = ttk.Button(self, text="Admin", command=self.open_admin)
+            btn_9.grid(row=10, column=1)
+    
         first_name = ttk.Label(self, text='name : ' + self.var_name)
         first_name.grid(row=0, column=1)
         
         title_name = ttk.Label(self, text="compagnie : " + str(self.locateur))
         title_name.grid(row=1, column=1)
-        
-        btn_1 = ttk.Button(self, text="Creer Personne", command=self.open_enregistrer)        
-        btn_1.grid(row=2, column=1)
-        
-        btn_2 = ttk.Button(self, text="Materiel", command=self.open_materiel)
-        btn_2.grid(row=3, column=1)
-        
-        btn_3 = ttk.Button(self, text="Projet", command=self.open_projet)
-        btn_3.grid(row=4, column=1)
-                
-        btn_4 = ttk.Button(self, text="Clients", command=self.open_client)
-        btn_4.grid(row=5, column=1)
-        
-        btn_5 = ttk.Button(self, text="Employe", command=self.open_employe)
-        btn_5.grid(row=6, column=1)
-                
-        btn_6 = ttk.Button(self, text="Facture", command=self.open_facture)
-        btn_6.grid(row=7, column=1)
-                
-        btn_7 = ttk.Button(self, text="Messagerie", command=self.open_messagerie)
-        btn_7.grid(row=8, column=1)
-                
-        btn_8 = ttk.Button(self, text="Developpeur", command=self.open_developpeur)
-        btn_8.grid(row=9, column=1)
-                
-        btn_9 = ttk.Button(self, text="Admin", command=self.open_admin)
-        btn_9.grid(row=10, column=1)
-        
-        btn_9 = ttk.Button(self, text="quitter", command=self.quitter)
-        btn_9.grid(row=11, column=1)
         
     def open_enregistrer(self):
         self.topProjet_enregsiter = Toplevel()
@@ -143,7 +141,6 @@ class Vue_accueil(tk.Frame):
         self.topProjet.title("Projet")
         
     def open_client(self):
-        
         liste_client = self.controleur_client.get_client(self.locateur) # a changer
         
         self.top_client = Toplevel()
@@ -167,7 +164,6 @@ class Vue_accueil(tk.Frame):
         self.text_liste = tk.Text(frame_employe, width= 100, height=50)
         
     def open_employe(self):
-        
         liste_emp = self.controleur_client.get_employe(self.locateur)  # a changer
         
         self.top_employe = Toplevel()
@@ -190,9 +186,6 @@ class Vue_accueil(tk.Frame):
                 labelGrid.pack()
         self.text_liste = tk.Text(frame_employe, width= 100, height=50)
         
-
-
-        
     def open_facture(self):
         self.topProjet = Toplevel()
         self.topProjet.title("facture")
@@ -211,6 +204,7 @@ class Vue_accueil(tk.Frame):
         
     def quitter(self):
         #self.parent.destroy()
+        # ici il se log so on reset les deux permissions
         self.parent.show_frame(self, utils.VUE)
         
     def btn_savepersonne(self):
@@ -223,8 +217,7 @@ class Vue_accueil(tk.Frame):
             client = self.controleur_client.get_personne_courriel(self.courriel_var.get())
             self.controleur_client.creer_client(self.locateur, client[0][0])  #a changer locateur
             print("client crée")
-        
-            
+    
         self.topProjet_enregsiter.destroy()
         
     def btn_saveusager(self):
