@@ -2,11 +2,13 @@ from controleur_serveur import Controleur_Serveur
 from serveur_web import Serveur_Web
 import os
 
+
 from sys import path
 path.append('../Utils')
 import utils
 
 def main():
+    
     controleur = Controleur_Serveur()
 
     Serveur_Web.set_controleur(controleur)

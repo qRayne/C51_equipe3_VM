@@ -9,7 +9,7 @@ from controleur_client import Controleur_Client
 
 # TODO: facture, messagerie, developpeur, admin
 
-class VueAccueil(tk.Frame):
+class VueAccueil(ttk.Frame):
     def __init__(self, parent, controleur_client):
         super().__init__(parent)
         self.parent = parent
@@ -17,15 +17,16 @@ class VueAccueil(tk.Frame):
         self.user = self.controleur_client.get_utilisateur(self.controleur_client.credentials["user"])
         self.topProjet = None
         
-        self.remplir_vue()
-        
     def open_file(self, file):
         os.system('python' + file)
     
     def remplir_vue(self):
+        self.columnconfigure(0, weight=1)
+        self.columnconfigure(2, weight=1)
+        self.rowconfigure(0, weight=1)
+        
         self.name = self.controleur_client.get_personne(self.user[0][1])
         self.locateur = self.controleur_client.get_locateur(self.controleur_client.credentials["locateur"])[0][1]
-        
         
         self.x = 350
         self.y = 50
@@ -33,54 +34,51 @@ class VueAccueil(tk.Frame):
         self.var_name = tk.StringVar()
         self.var_name = self.name[0][1]
         
-        # style = ttk.Style
-        # style.configure(background='#f0ead6')
-
+        self.parent.geometry('720x480')
+        self.parent.configure(background="#2596be")
+        
+        style = ttk.Style()
+        style.theme_use('alt')
+        style.configure('TButton', font=('Times New Roman', 10), background='#232323', foreground='white')
+        style.configure('TFrame', background='#2596be')
+        style.configure('TLabel', background='#2596be')
+        
         if self.controleur_client.credentials["permissions"] == 'admin':
             btn_1 = ttk.Button(self, text="Creer Personne", command=self.open_enregistrer)        
-            btn_1.grid(row=2, column=1)
-            # btn_1.place(x=2, column=1)
+            btn_1.place(x = 325, y=50)
             
             btn_2 = ttk.Button(self, text="Materiel", command=self.open_materiel)
-            btn_2.grid(row=3, column=1)
-            # btn_2.place(row=3, column=1)
+            btn_2.place(x = 325, y=80)
             
             btn_3 = ttk.Button(self, text="Projet", command=self.open_projet)
-            btn_3.grid(row=4, column=1)
-            # btn_3.place(row=4, column=1)
+            btn_3.place(x = 325, y=110)
                     
             btn_4 = ttk.Button(self, text="Clients", command=self.open_client)
-            btn_4.grid(row=5, column=1)
-            # btn_4.place(row=5, column=1)
+            btn_4.place(x = 325, y=140)
             
             btn_5 = ttk.Button(self, text="Employe", command=self.open_employe)
-            btn_5.grid(row=6, column=1)
-            # btn_5.place(row=6, column=1)
+            btn_5.place(x = 325, y=170)
                     
             btn_6 = ttk.Button(self, text="Facture", command=self.open_facture)
-            btn_6.grid(row=7, column=1)
-            # btn_6.place(row=7, column=1)
+            btn_6.place(x = 325, y=200)
                     
             btn_7 = ttk.Button(self, text="Messagerie", command=self.open_messagerie)
-            btn_7.grid(row=8, column=1)
-            # btn_7.place(row=8, column=1)
+            btn_7.place(x = 325, y=230)
                     
             btn_8 = ttk.Button(self, text="Developpeur", command=self.open_developpeur)
-            btn_8.grid(row=9, column=1)
-            # btn_8.place(row=9, column=1)
+            btn_8.place(x = 325, y=260)
                     
             btn_9 = ttk.Button(self, text="Admin", command=self.open_admin)
-            btn_9.grid(row=10, column=1)
-            # btn_9.place(row=10, column=1)
+            btn_9.place(x = 325, y=290)
     
-        first_name = ttk.Label(self, text='name : ' + self.var_name)
-        first_name.grid(row=0, column=1)
+        first_name = ttk.Label(self, text='NAME : ' + self.var_name)
+        first_name.place(x = 0, y=0)
         
-        title_name = ttk.Label(self, text="compagnie : " + str(self.locateur))
-        title_name.grid(row=1, column=1)
+        title_name = ttk.Label(self, text="COMPAGNIE : " + str(self.locateur))
+        title_name.place(x = 0, y=15)
         
         btn_9 = ttk.Button(self, text="Quitter", command=self.quitter)
-        btn_9.grid(row=11, column=1)
+        btn_9.place(x=0, y=35)
         
     def open_enregistrer(self):
         self.topProjet_enregsiter = Toplevel()
