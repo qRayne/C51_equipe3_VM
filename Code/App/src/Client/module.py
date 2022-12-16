@@ -18,7 +18,7 @@ class Module(tk.Tk):
         super().__init__()
         self.title('Gestion')
         self.controleur_client = Controleur_Client()
-        self.show_frame(None, utils.VUE)
+        self.show_frame(None, utils.VUE_LOGIN)
 
     def show_frame(self, instance_vue_courante, index_class_vue):
         if instance_vue_courante is not None:
